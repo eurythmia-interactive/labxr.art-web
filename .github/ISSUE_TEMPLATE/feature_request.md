@@ -18,9 +18,9 @@ assignees: ''
 
 ## Acceptance Criteria
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## Performance Constraints
 

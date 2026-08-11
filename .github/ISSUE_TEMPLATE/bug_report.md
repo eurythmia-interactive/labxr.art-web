@@ -30,6 +30,7 @@ assignees: ''
 <!-- Paste any console errors here -->
 
 ```
+
 ```
 
 ## Screenshot/Recording
@@ -38,9 +39,9 @@ assignees: ''
 
 ## Steps to Reproduce
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Additional Context
 

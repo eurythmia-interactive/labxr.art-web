@@ -5,14 +5,14 @@
 
 ## Detected Tools
 
-| Tool | Required | Detected | Status |
-|------|----------|----------|--------|
-| Node.js | 20+ | v26.7.0 | OK |
-| npm | bundled with Node | 11.19.0 | OK |
-| Git | any recent | 2.43.0 | OK |
-| Wrangler CLI | latest | Not installed | MISSING |
-| FFmpeg | any recent (required later) | Not installed | OPTIONAL |
-| curl | any recent | 8.5.0 | OK |
+| Tool         | Required                    | Detected      | Status   |
+| ------------ | --------------------------- | ------------- | -------- |
+| Node.js      | 20+                         | v26.7.0       | OK       |
+| npm          | bundled with Node           | 11.19.0       | OK       |
+| Git          | any recent                  | 2.43.0        | OK       |
+| Wrangler CLI | latest                      | Not installed | MISSING  |
+| FFmpeg       | any recent (required later) | Not installed | OPTIONAL |
+| curl         | any recent                  | 8.5.0         | OK       |
 
 ## Missing Tools — Installation Instructions (Pop!_OS 24.04)
 
@@ -29,6 +29,7 @@ nvm alias default 20
 ```
 
 Verify:
+
 ```bash
 node --version   # should show v20.x.x or higher
 npm --version    # should show 10.x.x or higher
@@ -56,5 +57,6 @@ ffmpeg -version
 Node.js 20+ is installed and verified. Required tools are available.
 
 Remaining optional installations:
+
 - Wrangler CLI (needed for Cloudflare tasks in Task 1.10-1.11)
 - FFmpeg (optional for Phase 1, required in later phases)

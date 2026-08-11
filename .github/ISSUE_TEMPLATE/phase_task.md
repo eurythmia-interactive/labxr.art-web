@@ -8,8 +8,8 @@ assignees: ''
 
 ## Phase Information
 
-- **Phase Number:** 
-- **Task ID:** 
+- **Phase Number:**
+- **Task ID:**
 
 ## Objective
 
@@ -19,21 +19,21 @@ assignees: ''
 
 <!-- What must be completed before this task? -->
 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
 
 ## Files Affected
 
 <!-- List files that will be created or modified -->
 
-- 
-- 
+-
+-
 
 ## Acceptance Criteria
 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
+- [ ]
 
 ## Definition of Done
 

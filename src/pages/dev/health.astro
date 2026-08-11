@@ -1,0 +1,80 @@
+---
+import HealthCheckIsland from '@components/islands/health-check-island';
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'http://localhost:4321';
+const environment = import.meta.env.PUBLIC_ENVIRONMENT || 'development';
+const cdnUrl = import.meta.env.PUBLIC_CDN_URL || 'https://cdn.labxr.art';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Health Check — LabXR Web</title>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen">
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">LabXR Web</h1>
+        <p class="text-gray-400 text-sm md:text-base">Development Health Check</p>
+      </header>
+
+      <section class="mb-8">
+        <h2 class="text-xl md:text-2xl font-semibold mb-4 text-blue-400">System Status</h2>
+        <div class="space-y-3">
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Project Name</p>
+            <p class="text-lg font-mono">LabXR Web</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Phase Status</p>
+            <p class="text-lg font-mono">Phase 1 Foundation</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Environment</p>
+            <p class="text-lg font-mono">{environment}</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Site URL</p>
+            <p class="text-lg font-mono break-all">{siteUrl}</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">CDN URL</p>
+            <p class="text-lg font-mono break-all">{cdnUrl}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="text-xl md:text-2xl font-semibold mb-4 text-green-400">Stack Verification</h2>
+        <div class="space-y-3">
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Astro Rendering</p>
+            <p class="text-lg text-green-400">✓ Astro is rendering correctly</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">Tailwind CSS</p>
+            <p class="text-lg text-green-400">✓ Tailwind is applied correctly</p>
+          </div>
+          <div class="bg-gray-800 p-4 rounded-lg">
+            <p class="text-sm text-gray-400">React Island</p>
+            <HealthCheckIsland client:visible />
+          </div>
+        </div>
+      </section>
+
+      <footer class="mt-12 pt-8 border-t border-gray-700">
+        <p class="text-sm text-gray-500">
+          <strong class="text-yellow-400">Note:</strong> This is a temporary diagnostic page. It is not
+          part of the final UI and will be removed in later phases.
+        </p>
+        <p class="text-xs text-gray-600 mt-2">
+          Page marked with <code class="bg-gray-800 px-2 py-1 rounded">noindex, nofollow</code> to prevent
+          search engine indexing.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
