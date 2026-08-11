@@ -2,7 +2,75 @@
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        bg: {
+          primary: 'var(--color-bg-primary)',
+          secondary: 'var(--color-bg-secondary)',
+          tertiary: 'var(--color-bg-tertiary)',
+        },
+        text: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+          tertiary: 'var(--color-text-tertiary)',
+        },
+        accent: {
+          primary: 'var(--color-accent-primary)',
+          secondary: 'var(--color-accent-secondary)',
+          tertiary: 'var(--color-accent-tertiary)',
+        },
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
+      },
+      fontSize: {
+        xs: 'var(--text-xs)',
+        sm: 'var(--text-sm)',
+        base: 'var(--text-base)',
+        lg: 'var(--text-lg)',
+        xl: 'var(--text-xl)',
+        '2xl': 'var(--text-2xl)',
+        '3xl': 'var(--text-3xl)',
+        '4xl': 'var(--text-4xl)',
+        '5xl': 'var(--text-5xl)',
+      },
+      spacing: {
+        xs: 'var(--space-xs)',
+        sm: 'var(--space-sm)',
+        md: 'var(--space-md)',
+        lg: 'var(--space-lg)',
+        xl: 'var(--space-xl)',
+        '2xl': 'var(--space-2xl)',
+        '3xl': 'var(--space-3xl)',
+      },
+      borderRadius: {
+        sm: 'var(--border-radius-sm)',
+        md: 'var(--border-radius-md)',
+        lg: 'var(--border-radius-lg)',
+        full: 'var(--border-radius-full)',
+      },
+      boxShadow: {
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        xl: 'var(--shadow-xl)',
+      },
+      transitionDuration: {
+        fast: 'var(--transition-fast)',
+        base: 'var(--transition-base)',
+        slow: 'var(--transition-slow)',
+      },
+      zIndex: {
+        dropdown: 'var(--z-index-dropdown)',
+        sticky: 'var(--z-index-sticky)',
+        fixed: 'var(--z-index-fixed)',
+        'modal-backdrop': 'var(--z-index-modal-backdrop)',
+        modal: 'var(--z-index-modal)',
+        popover: 'var(--z-index-popover)',
+        tooltip: 'var(--z-index-tooltip)',
+      },
+    },
   },
   plugins: [],
 };

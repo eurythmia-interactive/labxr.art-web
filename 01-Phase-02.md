@@ -1,877 +1,562 @@
-# Phase 2 — Design System and Global State
+Below is the **super detailed, spec-driven Phase 2 instruction pack** intended specifically for **OPENCODE AI**.
 
-## Phase Overview
-
-**Phase Name:** Phase 2 — Design System and Global State  
-**Duration:** Estimated 2-3 weeks  
-**Dependencies:** Phase 1 complete  
-**Next Phase:** Phase 3 — Hero Section and Manifesto
+This phase transitions the project from a barebones infrastructure into a fully realized **Design System, UI Primitive Library, and Global State Architecture**.
 
 ---
 
-## 1. Phase Objectives
+# OPENCODE AI — LABXR.ART PHASE 2 SPEC
 
-Build the foundational design system and global state management for LabXR.art.
+## Phase Name
 
-### Primary Goals
-
-1. **Design System** — Create a cohesive visual language with dark cinematic theme
-2. **Typography** — Establish type scale and font hierarchy
-3. **Component Library** — Initialize shadcn/ui with custom theme
-4. **Global State** — Implement state management strategy
-5. **Device Detection** — Create utilities for responsive behavior
-6. **Accessibility** — Ensure WCAG AA compliance foundation
-7. **Reduced Motion** — Implement motion preference system
-
-### Success Criteria
-
-- [ ] Design tokens defined (colors, spacing, typography)
-- [ ] Dark cinematic theme implemented
-- [ ] shadcn/ui components customized
-- [ ] Global state management working
-- [ ] Device detection utilities functional
-- [ ] Reduced motion system operational
-- [ ] All components accessible (WCAG AA)
-- [ ] Documentation complete
+**Phase 2 — Design System, UI Primitives, Global State, and Base Layout**
 
 ---
 
-## 2. Non-Goals
+# 1. OPENCODE AI ROLE
 
-- Do not build final UI sections (hero, portfolio, etc.)
-- Do not implement Three.js or WebGL
-- Do not add GSAP animations
-- Do not create marketing pages
-- Do not set up Cloudflare R2 (Phase 3+)
-- Do not implement contact form (Phase 5)
+You are acting as a **Senior UI/UX Engineer and Design Systems Architect**.
 
----
+Your responsibility is to translate the "Cinematic Tech" brand into a robust, accessible, and highly performant design system.
 
-## 3. Task Breakdown
+You are not building the final marketing pages yet.  
+You are not building Three.js/WebGL scenes yet.  
+You are not building the complex video players yet.  
+You are not writing GSAP scroll animations yet.
 
-### Task 2.0 — Phase 2 Specification and Tracking
+Your job in Phase 2 is to create:
 
-**Objective:** Create Phase 2 tracking system
-
-**Deliverables:**
-- `specs/phase-2/00-phase-overview.md`
-- `specs/phase-2/STATUS.md`
-
-**Definition of Done:**
-- All Phase 2 tasks listed
-- Status tracking initialized
-- No implementation yet
+1. A cinematic, dark-first Tailwind theme and CSS variable system.
+2. Optimized web typography (Display and Mono).
+3. A fully integrated and themed `shadcn/ui` component library.
+4. A cross-framework global state architecture using Nano Stores.
+5. Device and accessibility detection utilities.
+6. Reusable Astro layout primitives (Container, Section, Heading).
+7. The production-ready `BaseLayout.astro`.
+8. A visual `/dev/design-system` diagnostic route.
+9. A complete Phase 2 validation report.
 
 ---
 
-### Task 2.1 — Design Token System
+# 2. PRIMARY OBJECTIVE
 
-**Objective:** Define design tokens as CSS variables
+Establish the visual language and foundational UI architecture so that future phases (Hero, Portfolio, Services) can be assembled rapidly using pre-built, accessible, and perfectly styled blocks.
 
-**Deliverables:**
-- `src/styles/tokens.css` — CSS custom properties
-- `src/styles/global.css` — Global styles import
+At the end of Phase 2, the project must be able to:
 
-**Design Tokens:**
-
-```css
-:root {
-  /* Colors - Dark Cinematic Theme */
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #1a1a1a;
-  --color-bg-tertiary: #2a2a2a;
-  
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-tertiary: #606060;
-  
-  --color-accent-primary: #00d4ff;
-  --color-accent-secondary: #ff006e;
-  --color-accent-tertiary: #ffbe0b;
-  
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  
-  /* Typography */
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  
-  /* Borders */
-  --border-radius-sm: 0.25rem;
-  --border-radius-md: 0.5rem;
-  --border-radius-lg: 1rem;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
-  
-  /* Transitions */
-  --transition-fast: 150ms;
-  --transition-base: 300ms;
-  --transition-slow: 500ms;
-}
-```
-
-**Definition of Done:**
-- All tokens defined
-- Tokens imported in global.css
-- Tokens accessible in Tailwind config
+- Render a cohesive, dark cinematic UI.
+- Use custom typography without layout shift (CLS).
+- Render interactive React components (shadcn/ui) inside Astro pages.
+- Share state between isolated React islands and Astro components.
+- Detect mobile devices and reduced-motion preferences globally.
+- Wrap any future page content in standardized `<Container>` and `<Section>` components.
+- Pass all accessibility contrast and focus-state checks.
 
 ---
 
-### Task 2.2 — Tailwind Theme Extension
+# 3. NON-GOALS FOR PHASE 2
 
-**Objective:** Extend Tailwind config with design tokens
+OPENCODE AI must not do any of the following during Phase 2:
 
-**Deliverables:**
-- Updated `tailwind.config.mjs`
-
-**Configuration:**
-
-```javascript
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-  theme: {
-    extend: {
-      colors: {
-        bg: {
-          primary: 'var(--color-bg-primary)',
-          secondary: 'var(--color-bg-secondary)',
-          tertiary: 'var(--color-bg-tertiary)',
-        },
-        text: {
-          primary: 'var(--color-text-primary)',
-          secondary: 'var(--color-text-secondary)',
-          tertiary: 'var(--color-text-tertiary)',
-        },
-        accent: {
-          primary: 'var(--color-accent-primary)',
-          secondary: 'var(--color-accent-secondary)',
-          tertiary: 'var(--color-accent-tertiary)',
-        },
-      },
-      fontFamily: {
-        sans: ['var(--font-sans)'],
-        mono: ['var(--font-mono)'],
-      },
-      fontSize: {
-        'xs': 'var(--text-xs)',
-        'sm': 'var(--text-sm)',
-        'base': 'var(--text-base)',
-        'lg': 'var(--text-lg)',
-        'xl': 'var(--text-xl)',
-        '2xl': 'var(--text-2xl)',
-        '3xl': 'var(--text-3xl)',
-        '4xl': 'var(--text-4xl)',
-        '5xl': 'var(--text-5xl)',
-      },
-      spacing: {
-        'xs': 'var(--space-xs)',
-        'sm': 'var(--space-sm)',
-        'md': 'var(--space-md)',
-        'lg': 'var(--space-lg)',
-        'xl': 'var(--space-xl)',
-        '2xl': 'var(--space-2xl)',
-        '3xl': 'var(--space-3xl)',
-      },
-      borderRadius: {
-        'sm': 'var(--border-radius-sm)',
-        'md': 'var(--border-radius-md)',
-        'lg': 'var(--border-radius-lg)',
-      },
-      boxShadow: {
-        'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
-      },
-      transitionDuration: {
-        'fast': 'var(--transition-fast)',
-        'base': 'var(--transition-base)',
-        'slow': 'var(--transition-slow)',
-      },
-    },
-  },
-  plugins: [],
-};
-```
-
-**Definition of Done:**
-- Tailwind config extended
-- All tokens accessible via utility classes
-- Build passes without errors
+- Do not build the Hero section.
+- Do not build the Portfolio grid or modals.
+- Do not build the Services section.
+- Do not implement Three.js, WebGL, or Shaders.
+- Do not implement GSAP or complex scroll animations.
+- Do not implement the Cloudflare R2 video pipeline.
+- Do not build the final contact form logic (only the UI primitives).
+- Do not install MediaPipe, TensorFlow, or webcam dependencies.
+- Do not connect to real Cloudflare Workers yet.
 
 ---
 
-### Task 2.3 — Typography System
+# 4. REQUIRED HUMAN INPUTS
 
-**Objective:** Establish typography scale and font loading
+Before OPENCODE AI can fully complete Phase 2, the human developer may need to provide:
 
-**Deliverables:**
-- `src/components/shared/heading.astro` — Heading component
-- `src/components/shared/text.astro` — Text component
-- Font loading strategy (Google Fonts or self-hosted)
+1. **Brand Colors:** Exact Hex codes for the LabXR cinematic palette (or approval for OPENCODE to generate a high-contrast cinematic palette: e.g., Deep Obsidian, Silver, and a Neon Accent like Cyan or Amber).
+2. **Typography Files:** `.woff2` font files for the Display font (e.g., Inter, Geist, or a custom cinematic serif) and Mono font (e.g., JetBrains Mono, Geist Mono), OR approval to use Google Fonts/CDN.
+3. **Logo SVG:** The LabXR logo in SVG format for the navigation skeleton.
 
-**Typography Scale:**
-
-| Level | Size | Weight | Line Height | Usage |
-|-------|------|--------|-------------|-------|
-| h1 | 3rem (48px) | 700 | 1.2 | Page titles |
-| h2 | 2.25rem (36px) | 700 | 1.3 | Section titles |
-| h3 | 1.875rem (30px) | 600 | 1.4 | Subsection titles |
-| h4 | 1.5rem (24px) | 600 | 1.4 | Card titles |
-| h5 | 1.25rem (20px) | 600 | 1.5 | Small titles |
-| h6 | 1.125rem (18px) | 600 | 1.5 | Minor titles |
-| body-lg | 1.125rem (18px) | 400 | 1.6 | Lead text |
-| body | 1rem (16px) | 400 | 1.6 | Body text |
-| body-sm | 0.875rem (14px) | 400 | 1.5 | Small text |
-| caption | 0.75rem (12px) | 400 | 1.4 | Captions |
-
-**Definition of Done:**
-- Typography scale defined
-- Heading component created
-- Text component created
-- Font loading optimized (preload, font-display: swap)
+_If missing, OPENCODE must use high-quality open-source placeholders (e.g., Inter + JetBrains Mono via `astro-font` or local `@font-face`) and a default cinematic palette, documenting them for later replacement._
 
 ---
 
-### Task 2.4 — shadcn/ui Initialization
+# 5. GLOBAL OPENCODE RULES FOR PHASE 2
 
-**Objective:** Set up shadcn/ui with custom theme
+## 5.1 Design System Rules
 
-**Deliverables:**
-- shadcn/ui configuration
-- Base components installed (button, input, dialog, form)
-- Custom theme applied
+- **Dark-First:** LabXR is inherently a dark-themed brand. Do not build a light mode toggle unless explicitly requested. Optimize for dark mode contrast (WCAG AA).
+- **CSS Variables:** All colors, radii, and shadows must be defined as CSS variables in `src/styles/global.css` and mapped to Tailwind config.
+- **No Hardcoded Colors:** Never use `bg-gray-900` or `text-blue-500` in components. Always use semantic tokens like `bg-background`, `text-foreground`, `text-accent`.
 
-**Installation:**
+## 5.2 shadcn/ui & React Rules
 
-```bash
-npx shadcn@latest init
-```
+- **Astro Integration:** shadcn/ui is built for React. In Astro, these components must live in `src/components/ui/` and be imported into Astro files using `client:load` or `client:visible`.
+- **Styling:** Use `tailwind-merge` and `class-variance-authority` (cva) for component variants.
+- **Accessibility:** shadcn components are Radix-based and accessible by default. Do not strip ARIA attributes or keyboard navigation logic when theming.
 
-**Configuration:**
+## 5.3 Global State Rules (Nano Stores)
 
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.mjs",
-    "css": "src/styles/global.css",
-    "baseColor": "neutral",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@components",
-    "utils": "@lib/utils",
-    "ui": "@components/ui",
-    "lib": "@lib",
-    "hooks": "@lib/hooks"
-  }
-}
-```
+- **Cross-Framework:** Use **Nano Stores** (`nanostores` + `@nanostores/react`) for global state. It is lightweight, framework-agnostic, and perfect for Astro.
+- **No Zustand/Jotai:** Do not install Zustand or Jotai. Nano Stores is the standard for Astro.
+- **Isolation:** React Context may ONLY be used inside a single React Island tree. It cannot cross Astro boundaries.
 
-**Components to Install:**
+## 5.4 Typography & Performance Rules
 
-```bash
-npx shadcn@latest add button
-npx shadcn@latest add input
-npx shadcn@latest add dialog
-npx shadcn@latest add form
-npx shadcn@latest add label
-npx shadcn@latest add card
-```
-
-**Custom Theme:**
-
-Update `src/components/ui/*.tsx` to use design tokens:
-
-```tsx
-// Example: button.tsx
-className={cn(
-  "bg-accent-primary text-text-primary hover:bg-accent-primary/90",
-  className
-)}
-```
-
-**Definition of Done:**
-- shadcn/ui initialized
-- Base components installed
-- Custom theme applied
-- Components use design tokens
-- Build passes
+- **Font Loading:** Use `@font-face` with `font-display: swap` in `global.css`. Host fonts locally in `public/fonts/` to avoid third-party DNS lookups and GDPR issues.
+- **Preloading:** Preload the primary display font in the `<head>` of `BaseLayout.astro`.
 
 ---
 
-### Task 2.5 — Global State Management
-
-**Objective:** Implement state management strategy
-
-**Deliverables:**
-- `src/lib/store.ts` — State store
-- `src/lib/hooks/use-store.ts` — Store hooks
-- Documentation
-
-**Strategy:** Nano Stores (lightweight, framework-agnostic)
-
-**Installation:**
-
-```bash
-npm install nanostores @nanostores/react
-```
-
-**Store Structure:**
-
-```typescript
-// src/lib/store.ts
-import { atom, computed } from 'nanostores';
-
-// Device state
-export const $deviceType = atom<'mobile' | 'tablet' | 'desktop'>('desktop');
-export const $isMobile = computed($deviceType, (type) => type === 'mobile');
-
-// Motion preferences
-export const $reducedMotion = atom<boolean>(false);
-
-// UI state
-export const $isMenuOpen = atom<boolean>(false);
-export const $activeModal = atom<string | null>(null);
-
-// Theme state (future)
-export const $theme = atom<'dark' | 'light'>('dark');
-```
-
-**Hooks:**
-
-```typescript
-// src/lib/hooks/use-store.ts
-import { useStore } from '@nanostores/react';
-
-export { useStore };
-```
-
-**Definition of Done:**
-- Nano Stores installed
-- Base stores created
-- Hooks implemented
-- Documentation written
-
----
-
-### Task 2.6 — Device Detection System
-
-**Objective:** Create device detection utilities
-
-**Deliverables:**
-- `src/lib/device.ts` — Device detection utilities
-- `src/components/islands/device-detector.tsx` — Client-side detector
-
-**Implementation:**
-
-```typescript
-// src/lib/device.ts
-export type DeviceType = 'mobile' | 'tablet' | 'desktop';
-
-export function getDeviceType(): DeviceType {
-  if (typeof window === 'undefined') return 'desktop';
-  
-  const width = window.innerWidth;
-  if (width < 768) return 'mobile';
-  if (width < 1024) return 'tablet';
-  return 'desktop';
-}
-
-export function isTouchDevice(): boolean {
-  if (typeof window === 'undefined') return false;
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-```
-
-**Client-Side Detector:**
-
-```tsx
-// src/components/islands/device-detector.tsx
-import { useEffect } from 'react';
-import { $deviceType } from '@lib/store';
-import { getDeviceType } from '@lib/device';
-
-export function DeviceDetector() {
-  useEffect(() => {
-    const updateDevice = () => {
-      $deviceType.set(getDeviceType());
-    };
-    
-    updateDevice();
-    window.addEventListener('resize', updateDevice);
-    return () => window.removeEventListener('resize', updateDevice);
-  }, []);
-  
-  return null;
-}
-```
-
-**Definition of Done:**
-- Device detection utilities created
-- Client-side detector implemented
-- Store updates on resize
-- Mobile-first approach validated
-
----
-
-### Task 2.7 — Reduced Motion System
-
-**Objective:** Implement motion preference system
-
-**Deliverables:**
-- `src/lib/motion.ts` — Motion utilities
-- `src/components/islands/motion-detector.tsx` — Preference detector
-- Animation wrapper component
-
-**Implementation:**
-
-```typescript
-// src/lib/motion.ts
-export function getReducedMotionPreference(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-export function getAnimationDuration(base: number): number {
-  const reduced = getReducedMotionPreference();
-  return reduced ? 0 : base;
-}
-```
-
-**Detector:**
-
-```tsx
-// src/components/islands/motion-detector.tsx
-import { useEffect } from 'react';
-import { $reducedMotion } from '@lib/store';
-import { getReducedMotionPreference } from '@lib/motion';
-
-export function MotionDetector() {
-  useEffect(() => {
-    const updateMotion = () => {
-      $reducedMotion.set(getReducedMotionPreference());
-    };
-    
-    updateMotion();
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    mediaQuery.addEventListener('change', updateMotion);
-    return () => mediaQuery.removeEventListener('change', updateMotion);
-  }, []);
-  
-  return null;
-}
-```
-
-**Animation Wrapper:**
-
-```tsx
-// src/components/shared/animated.tsx
-import { useStore } from '@nanostores/react';
-import { $reducedMotion } from '@lib/store';
-
-interface AnimatedProps {
-  children: React.ReactNode;
-  duration?: number;
-  className?: string;
-}
-
-export function Animated({ children, duration = 300, className }: AnimatedProps) {
-  const reducedMotion = useStore($reducedMotion);
-  const actualDuration = reducedMotion ? 0 : duration;
-  
-  return (
-    <div
-      className={className}
-      style={{ transition: `all ${actualDuration}ms ease-in-out` }}
-    >
-      {children}
-    </div>
-  );
-}
-```
-
-**Definition of Done:**
-- Motion preference detection working
-- Store updates on preference change
-- Animation wrapper respects preferences
-- Tested with OS-level reduced motion
-
----
-
-### Task 2.8 — Reusable Layout Components
-
-**Objective:** Create layout primitives
-
-**Deliverables:**
-- `src/components/shared/container.astro` — Container component
-- `src/components/shared/section.astro` — Section wrapper
-- `src/components/shared/grid.astro` — Grid system
-
-**Container:**
-
-```astro
----
-// src/components/shared/container.astro
-interface Props {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  className?: string;
-}
-
-const { size = 'md', className = '' } = Astro.props;
-
-const sizes = {
-  sm: 'max-w-screen-sm',
-  md: 'max-w-screen-md',
-  lg: 'max-w-screen-lg',
-  xl: 'max-w-screen-xl',
-  full: 'max-w-full',
-};
----
-
-<div class={`mx-auto px-4 ${sizes[size]} ${className}`}>
-  <slot />
-</div>
-```
-
-**Section:**
-
-```astro
----
-// src/components/shared/section.astro
-interface Props {
-  id?: string;
-  className?: string;
-  padding?: 'sm' | 'md' | 'lg' | 'xl';
-}
-
-const { id, className = '', padding = 'lg' } = Astro.props;
-
-const paddings = {
-  sm: 'py-8',
-  md: 'py-12',
-  lg: 'py-16',
-  xl: 'py-24',
-};
----
-
-<section id={id} class={`${paddings[padding]} ${className}`}>
-  <slot />
-</section>
-```
-
-**Definition of Done:**
-- Container component created
-- Section wrapper created
-- Grid system created
-- All components responsive
-- Documentation written
-
----
-
-### Task 2.9 — Accessibility Foundation
-
-**Objective:** Ensure WCAG AA compliance
-
-**Deliverables:**
-- Skip navigation component
-- Focus management utilities
-- ARIA helper functions
-- Accessibility documentation
-
-**Skip Navigation:**
-
-```astro
----
-// src/components/shared/skip-nav.astro
----
-
-<a
-  href="#main-content"
-  class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-accent-primary focus:text-text-primary focus:px-4 focus:py-2 focus:rounded"
->
-  Skip to main content
-</a>
-```
-
-**Focus Management:**
-
-```typescript
-// src/lib/focus.ts
-export function trapFocus(element: HTMLElement) {
-  const focusableElements = element.querySelectorAll(
-    'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
-  );
-  const firstFocusable = focusableElements[0] as HTMLElement;
-  const lastFocusable = focusableElements[focusableElements.length - 1] as HTMLElement;
-  
-  element.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-      if (e.shiftKey) {
-        if (document.activeElement === firstFocusable) {
-          e.preventDefault();
-          lastFocusable.focus();
-        }
-      } else {
-        if (document.activeElement === lastFocusable) {
-          e.preventDefault();
-          firstFocusable.focus();
-        }
-      }
-    }
-  });
-}
-```
-
-**Definition of Done:**
-- Skip navigation implemented
-- Focus trap utility created
-- ARIA helpers documented
-- Accessibility checklist created
-
----
-
-### Task 2.10 — Design System Documentation
-
-**Objective:** Document the design system
-
-**Deliverables:**
-- `docs/design-system.md` — Complete design system guide
-- Component documentation
-- Usage examples
-
-**Documentation Structure:**
-
-1. **Design Tokens**
-   - Colors
-   - Typography
-   - Spacing
-   - Shadows
-   - Transitions
-
-2. **Components**
-   - Shared components
-   - UI components (shadcn)
-   - Islands (interactive)
-
-3. **Patterns**
-   - Layout patterns
-   - Responsive patterns
-   - Motion patterns
-   - Accessibility patterns
-
-4. **Guidelines**
-   - Color usage
-   - Typography usage
-   - Spacing usage
-   - Motion usage
-
-**Definition of Done:**
-- Design system documented
-- All components documented
-- Usage examples provided
-- Guidelines clear
-
----
-
-### Task 2.11 — Phase 2 Validation
-
-**Objective:** Validate Phase 2 completion
-
-**Deliverables:**
-- `docs/phase-2-report.md` — Phase 2 validation report
-- Updated `specs/phase-2/STATUS.md`
-
-**Validation Checklist:**
-
-- [ ] Design tokens defined and accessible
-- [ ] Tailwind theme extended
-- [ ] Typography system working
-- [ ] shadcn/ui components customized
-- [ ] Global state management functional
-- [ ] Device detection working
-- [ ] Reduced motion system operational
-- [ ] Layout components created
-- [ ] Accessibility foundation in place
-- [ ] Documentation complete
-- [ ] Build passes without errors
-- [ ] No console errors
-- [ ] Mobile responsive
-- [ ] WCAG AA compliant
-
-**Definition of Done:**
-- All validation checks pass
-- Report generated
-- Status updated
-- Ready for Phase 3
-
----
-
-## 4. Dependencies
-
-### Required Packages
-
-```bash
-# State management
-npm install nanostores @nanostores/react
-
-# shadcn/ui (will be installed via CLI)
-npx shadcn@latest init
-npx shadcn@latest add button input dialog form label card
-```
-
-### Optional Packages
-
-```bash
-# Additional utilities (if needed)
-npm install clsx tailwind-merge  # for cn() utility
+# 6. PHASE 2 FOLDER STRUCTURE TARGET
+
+OPENCODE AI must update the repository to include the following new files/folders:
+
+```text
+labxr-web/
+├── public/
+│   └── fonts/                  # Local .woff2 font files
+├── src/
+│   ├── components/
+│   │   ├── islands/            # (Keep health-check, add state-test)
+│   │   ├── sections/           # (Empty for now)
+│   │   ├── shared/             # Container.astro, Section.astro, Heading.astro
+│   │   └── ui/                 # shadcn components (button, dialog, input, etc.)
+│   ├── layouts/
+│   │   └── BaseLayout.astro    # The master layout
+│   ├── lib/
+│   │   ├── stores/             # Nano stores (device, motion, ui)
+│   │   └── utils.ts            # cn() utility for tailwind-merge
+│   ├── pages/
+│   │   └── dev/
+│   │       └── design-system.astro # Visual testing route
+│   └── styles/
+│       └── global.css          # CSS variables, @font-face, base resets
+├── components.json             # shadcn/ui configuration
+└── tailwind.config.mjs         # Extended theme
 ```
 
 ---
 
-## 5. File Structure
+# 7. PHASE 2 TASK BREAKDOWN
 
+OPENCODE AI must execute the following tasks in order.
+
+---
+
+# TASK 2.0 — CREATE PHASE 2 SPEC TRACKING FILES
+
+## Objective
+
+Create specification tracking for Phase 2.
+
+## Instructions
+
+Create `specs/phase-2/00-phase-overview.md` and `specs/phase-2/STATUS.md`. List all Phase 2 tasks.
+
+---
+
+# TASK 2.1 — TYPOGRAPHY & FONT LOADING
+
+## Objective
+
+Implement high-performance, zero-CLS web typography.
+
+## Instructions
+
+1. Create `public/fonts/` directory.
+2. Add open-source `.woff2` files (e.g., Inter for UI, JetBrains Mono for tech specs). _If human provides custom fonts, use those._
+3. In `src/styles/global.css`, write `@font-face` declarations for Regular, Medium, Bold (Display) and Regular (Mono). Use `font-display: swap`.
+4. Update `tailwind.config.mjs` to map these fonts to `font-sans` and `font-mono`.
+5. Create base typography resets in `global.css` (e.g., `body { font-family: theme('font.sans'); }`).
+
+## Definition of Done
+
+- Fonts load without external network requests.
+- Tailwind classes `font-sans` and `font-mono` apply the correct fonts.
+- No Cumulative Layout Shift (CLS) occurs on load.
+
+---
+
+# TASK 2.2 — TAILWIND THEME & CSS VARIABLES
+
+## Objective
+
+Define the "Cinematic Dark" visual language.
+
+## Instructions
+
+1. In `src/styles/global.css`, define a `:root` block with CSS variables for the dark theme:
+   - `--background`: Deep obsidian/black (e.g., `#09090b` or `#050505`).
+   - `--foreground`: Off-white/silver for readability (e.g., `#fafafa` or `#e4e4e7`).
+   - `--primary`: A striking cinematic accent (e.g., Neon Cyan `#06b6d4` or Amber `#f59e0b`).
+   - `--muted`, `--border`, `--card`, `--destructive`.
+2. Update `tailwind.config.mjs` to map these CSS variables to Tailwind utility classes (e.g., `backgroundColor: { background: 'hsl(var(--background))' }`).
+3. Add custom border-radius and shadow tokens.
+
+## Definition of Done
+
+- `global.css` contains the complete CSS variable palette.
+- Tailwind config correctly references the CSS variables.
+- Using `bg-background` and `text-primary` in an Astro file works.
+
+---
+
+# TASK 2.3 — shadcn/ui INITIALIZATION & ASTRO INTEGRATION
+
+## Objective
+
+Install and configure shadcn/ui for Astro + React 19.
+
+## Instructions
+
+1. Install core dependencies: `tailwind-merge`, `clsx`, `class-variance-authority`, `lucide-react`.
+2. Create `src/lib/utils.ts` with the standard `cn()` helper function.
+3. Initialize `shadcn/ui` (via CLI or manual setup) creating `components.json`.
+   - **Crucial:** Set the `components` alias to `@/components/ui`.
+   - Set the `utils` alias to `@/lib/utils`.
+4. Ensure `tsconfig.json` and Astro config resolve these paths correctly.
+
+## Definition of Done
+
+- `components.json` exists and is configured for Astro.
+- `cn()` utility works.
+- No TypeScript errors regarding shadcn paths.
+
+---
+
+# TASK 2.4 — CORE UI PRIMITIVES INSTALLATION & THEMING
+
+## Objective
+
+Install and theme the foundational shadcn components.
+
+## Instructions
+
+1. Add the following shadcn components: `button`, `input`, `textarea`, `dialog`, `tooltip`, `separator`.
+2. **Theming:** Modify the generated files in `src/components/ui/` to ensure they strictly use the LabXR CSS variables (e.g., `bg-primary`, `text-primary-foreground`).
+3. Ensure the `Button` component has variants: `default` (accent), `outline` (border), `ghost` (transparent), and `link`.
+4. Ensure the `Dialog` component uses a dark, blurred backdrop (`backdrop-blur-md bg-black/80`).
+
+## Definition of Done
+
+- Components exist in `src/components/ui/`.
+- Components render correctly when imported into an Astro file using `client:load`.
+- Colors match the cinematic dark theme.
+
+---
+
+# TASK 2.5 — GLOBAL STATE ARCHITECTURE (NANO STORES)
+
+## Objective
+
+Setup cross-framework state management.
+
+## Instructions
+
+1. Install `nanostores` and `@nanostores/react`.
+2. Create `src/lib/stores/device.ts`:
+   - Export a store for `isMobile` (boolean).
+3. Create `src/lib/stores/motion.ts`:
+   - Export a store for `prefersReducedMotion` (boolean).
+4. Create `src/lib/stores/ui.ts`:
+   - Export a store for `isMobileMenuOpen` (boolean).
+5. Create a React hook `src/lib/hooks/use-device.ts` that reads the store and updates it on window resize (client-side only).
+
+## Definition of Done
+
+- Nano stores are defined.
+- React hooks can read and write to the stores.
+- Astro components can read the stores (using `import { useStore } from '@nanostores/react'` inside a React wrapper, or native Nano Store subscriptions in `<script>` tags).
+
+---
+
+# TASK 2.6 — SHARED LAYOUT PRIMITIVES
+
+## Objective
+
+Create the structural building blocks for all future pages.
+
+## Instructions
+
+Create the following `.astro` components in `src/components/shared/`:
+
+1. `Container.astro`: Restricts max-width (e.g., `max-w-7xl`), centers content (`mx-auto`), and adds horizontal padding (`px-4 md:px-8`).
+2. `Section.astro`: Adds consistent vertical rhythm (`py-16 md:py-24`), accepts a `variant` prop (default, muted, accent).
+3. `Heading.astro`: Handles `h1` through `h4` with strict typographic scale and tracking (letter-spacing).
+4. `Prose.astro`: Wraps text content with optimized line-heights, paragraph spacing, and link styling.
+
+## Definition of Done
+
+- Components exist and accept slots.
+- Components enforce mobile-first padding and spacing.
+- No hardcoded colors (uses theme variables).
+
+---
+
+# TASK 2.7 — BASE LAYOUT & SEO SKELETON
+
+## Objective
+
+Build the master layout that wraps all future pages.
+
+## Instructions
+
+1. Create `src/layouts/BaseLayout.astro`.
+2. Props: `title`, `description`, `ogImage`, `noindex` (boolean).
+3. `<head>`:
+   - Inject meta tags (Title, Description, OG, Twitter).
+   - Inject `<link rel="preload">` for the primary font.
+   - Inject global CSS (`import '@/styles/global.css'`).
+   - Add placeholder for Analytics script.
+4. `<body>`:
+   - Apply `bg-background text-foreground antialiased`.
+   - Include a `<slot />` for page content.
+5. Update `src/pages/index.astro` to use `BaseLayout` and render a simple `<Container>` + `<Heading>` to prove it works.
+
+## Definition of Done
+
+- `BaseLayout.astro` handles SEO tags dynamically.
+- Fonts preload correctly.
+- `index.astro` renders inside the layout without errors.
+
+---
+
+# TASK 2.8 — DESIGN SYSTEM DIAGNOSTIC ROUTE
+
+## Objective
+
+Create a visual sandbox to test all Phase 2 work.
+
+## Instructions
+
+1. Create `src/pages/dev/design-system.astro`.
+2. Wrap in `BaseLayout` (set `noindex={true}`).
+3. Render sections demonstrating:
+   - Typography scale (H1-H6, Mono text).
+   - Color palette swatches (Background, Foreground, Primary, Muted).
+   - shadcn Buttons (all variants and states).
+   - shadcn Inputs and Textareas.
+   - A test Dialog (triggered by a button).
+   - A test Tooltip.
+4. Include a React Island that displays the current `isMobile` and `prefersReducedMotion` state from Nano Stores to prove state hydration.
+
+## Definition of Done
+
+- Route loads at `/dev/design-system`.
+- All UI elements render and are interactive.
+- Dialog opens/closes.
+- Nano store state displays correctly on the client.
+- Mobile responsive layout works.
+
+---
+
+# TASK 2.9 — PHASE 2 VALIDATION & REPORT
+
+## Objective
+
+Document completion and cleanup.
+
+## Instructions
+
+1. Run `npm run check` and `npm run format`. Fix any issues.
+2. Update `specs/phase-2/STATUS.md`.
+3. Generate `docs/phase-2-report.md` detailing:
+   - Typography choices and loading strategy.
+   - Color palette hex codes and CSS variable mapping.
+   - shadcn components installed.
+   - Nano store architecture.
+   - Bundle size impact of shadcn + Nano Stores.
+4. Commit changes with conventional commits.
+
+---
+
+# 8. OPENCODE EXECUTION PROMPTS
+
+Use the following prompts sequentially with OPENCODE AI.
+
+---
+
+## Prompt 1 — Initialize Phase 2 Spec Tracking
+
+```text
+Read AGENTS.md and the Phase 2 instruction set.
+Create specs/phase-2/00-phase-overview.md and specs/phase-2/STATUS.md.
+List all Phase 2 tasks with status NOT_STARTED.
+Do not write application code.
 ```
-src/
-├── components/
-│   ├── islands/
-│   │   ├── device-detector.tsx
-│   │   └── motion-detector.tsx
-│   ├── sections/
-│   │   └── (empty for now)
-│   ├── shared/
-│   │   ├── animated.tsx
-│   │   ├── container.astro
-│   │   ├── grid.astro
-│   │   ├── heading.astro
-│   │   ├── section.astro
-│   │   ├── skip-nav.astro
-│   │   └── text.astro
-│   └── ui/
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── dialog.tsx
-│       ├── form.tsx
-│       ├── input.tsx
-│       └── label.tsx
-├── lib/
-│   ├── device.ts
-│   ├── focus.ts
-│   ├── hooks/
-│   │   └── use-store.ts
-│   ├── motion.ts
-│   ├── store.ts
-│   └── utils.ts
-└── styles/
-    ├── global.css
-    └── tokens.css
+
+## Prompt 2 — Typography & Fonts
+
+```text
+Execute Phase 2 Task 2.1.
+Setup local web typography.
+Create public/fonts/ and add placeholders for Inter (sans) and JetBrains Mono (mono) .woff2 files (or use astro-font if preferred for Google Fonts).
+Write @font-face declarations in src/styles/global.css with font-display: swap.
+Map them to Tailwind's font-sans and font-mono in tailwind.config.mjs.
+Ensure no CLS occurs.
+```
+
+## Prompt 3 — Tailwind Theme & CSS Variables
+
+```text
+Execute Phase 2 Task 2.2.
+Define the LabXR "Cinematic Dark" theme.
+In src/styles/global.css, create CSS variables for background (deep black), foreground (silver/off-white), primary (cinematic accent), muted, border, and card.
+Update tailwind.config.mjs to map these CSS variables to Tailwind utility classes (e.g., bg-background, text-primary).
+Do not use hardcoded hex values in components later.
+```
+
+## Prompt 4 — shadcn/ui Initialization
+
+```text
+Execute Phase 2 Task 2.3.
+Install tailwind-merge, clsx, class-variance-authority, and lucide-react.
+Create src/lib/utils.ts with the cn() helper.
+Initialize shadcn/ui by creating components.json.
+Ensure components.json points to @/components/ui for components and @/lib/utils for utilities.
+Verify TypeScript paths resolve correctly.
+```
+
+## Prompt 5 — Core UI Primitives
+
+```text
+Execute Phase 2 Task 2.4.
+Add shadcn components: button, input, textarea, dialog, tooltip, separator.
+Theme them to strictly use the LabXR CSS variables defined in global.css.
+Ensure the Dialog uses a dark, blurred backdrop.
+Ensure the Button has default, outline, ghost, and link variants.
+Test that they can be imported into an Astro file using client:load.
+```
+
+## Prompt 6 — Global State (Nano Stores)
+
+```text
+Execute Phase 2 Task 2.5.
+Install nanostores and @nanostores/react.
+Create src/lib/stores/device.ts (isMobile), src/lib/stores/motion.ts (prefersReducedMotion), and src/lib/stores/ui.ts (isMobileMenuOpen).
+Create a React hook src/lib/hooks/use-device.ts that updates the isMobile store on window resize (client-side only).
+Ensure no SSR hydration mismatches occur when reading these stores.
+```
+
+## Prompt 7 — Shared Layout Primitives
+
+```text
+Execute Phase 2 Task 2.6.
+Create Astro components in src/components/shared/:
+- Container.astro (max-w-7xl, mx-auto, responsive padding)
+- Section.astro (vertical rhythm, variant props)
+- Heading.astro (h1-h4 typographic scale)
+- Prose.astro (text formatting)
+Ensure they use Tailwind theme classes and accept slots.
+```
+
+## Prompt 8 — Base Layout & SEO
+
+```text
+Execute Phase 2 Task 2.7.
+Create src/layouts/BaseLayout.astro.
+Accept props for title, description, ogImage, noindex.
+Inject dynamic meta tags in the <head>.
+Preload the primary font.
+Import global.css.
+Apply bg-background and text-foreground to the <body>.
+Update src/pages/index.astro to use this layout and render a Container with a Heading.
+```
+
+## Prompt 9 — Design System Diagnostic Route
+
+```text
+Execute Phase 2 Task 2.8.
+Create src/pages/dev/design-system.astro (noindex).
+Build a visual sandbox demonstrating:
+- Typography scale
+- Color palette swatches
+- All shadcn Button variants
+- shadcn Input/Textarea
+- A working Dialog and Tooltip
+- A React Island that reads and displays the Nano Stores (isMobile, prefersReducedMotion) to prove cross-framework state works.
+Make it responsive and dark-themed.
+```
+
+## Prompt 10 — Phase 2 Validation & Report
+
+```text
+Execute Phase 2 Task 2.9.
+Run npm run check and npm run format. Fix any errors.
+Update specs/phase-2/STATUS.md.
+Generate docs/phase-2-report.md detailing the typography, color palette hex codes, shadcn setup, Nano store architecture, and bundle size impact.
+Prepare the final conventional commits for Phase 2.
 ```
 
 ---
 
-## 6. Testing Strategy
+# 9. PHASE 2 DEFINITION OF DONE
 
-### Manual Testing
+Phase 2 is complete only when all of the following are true:
 
-- [ ] Design tokens accessible in all components
-- [ ] Dark theme renders correctly
-- [ ] Typography scale consistent
-- [ ] shadcn components customized
-- [ ] Device detection works on resize
-- [ ] Reduced motion respects OS preference
-- [ ] Layout components responsive
-- [ ] Skip navigation functional
-- [ ] Focus trap working in modals
-- [ ] No console errors
+## Visual & Theming
 
-### Automated Testing
+- [ ] `global.css` contains the complete CSS variable palette.
+- [ ] Tailwind config maps CSS variables to utility classes.
+- [ ] Custom fonts load locally without external network requests.
+- [ ] No Cumulative Layout Shift (CLS) on font load.
 
-- Build passes (`npm run build`)
-- Type check passes (`npm run check`)
-- Lint passes (`npm run lint`)
-- Format check passes (`npm run format:check`)
+## UI Primitives
 
----
+- [ ] `components.json` is configured for Astro.
+- [ ] `cn()` utility works.
+- [ ] shadcn Button, Input, Dialog, and Tooltip are installed and themed.
+- [ ] Components render correctly in Astro via `client:load`.
 
-## 7. Performance Budgets
+## State & Architecture
 
-| Metric | Target |
-|--------|--------|
-| Initial CSS bundle | < 50KB |
-| Initial JS bundle | < 100KB |
-| First Contentful Paint | < 1.5s |
-| Largest Contentful Paint | < 2.5s |
-| Cumulative Layout Shift | < 0.1 |
+- [ ] Nano Stores are installed and configured.
+- [ ] `device`, `motion`, and `ui` stores exist.
+- [ ] React hooks can read/update stores without hydration errors.
+- [ ] Shared primitives (`Container`, `Section`, `Heading`) exist and enforce spacing.
 
----
+## Layout & Routing
 
-## 8. Risks and Mitigations
+- [ ] `BaseLayout.astro` handles dynamic SEO tags and font preloading.
+- [ ] `/dev/design-system` route loads and displays all elements.
+- [ ] Nano store state displays correctly on the client in the diagnostic route.
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| shadcn/ui conflicts with Astro | Build errors | Test integration early |
-| Nano Stores complexity | Over-engineering | Keep stores minimal |
-| Font loading performance | Slow FCP | Use font-display: swap, preload |
-| Reduced motion not working | Accessibility issue | Test with OS preferences |
-| Design token inconsistencies | Visual bugs | Document tokens clearly |
+## Quality & Hygiene
+
+- [ ] `npm run check` passes with 0 errors.
+- [ ] `npm run build` completes successfully.
+- [ ] No hardcoded hex colors exist in component files (only Tailwind semantic tokens).
+- [ ] Phase 2 report is generated.
 
 ---
 
-## 9. Phase 2 Definition of Done
+# 10. PHASE 2 VALIDATION CHECKLIST FOR HUMAN REVIEW
 
-Phase 2 is complete when:
+Before moving to Phase 3 (Video Infrastructure & Media), the human should manually verify:
 
-- [ ] All 11 tasks completed
-- [ ] Design system fully implemented
-- [ ] Global state management working
-- [ ] All components accessible
-- [ ] Documentation complete
-- [ ] Build passes without errors
-- [ ] No console errors
-- [ ] Mobile responsive
-- [ ] Phase 2 report generated
-- [ ] Ready for Phase 3
-
----
-
-## 10. Next Phase Preview
-
-**Phase 3 — Hero Section and Manifesto**
-
-Phase 3 will focus on:
-
-- Hero section with interactive background
-- Manifesto section
-- Navigation header
-- Footer
-- Basic animations (CSS transitions)
-- Video poster optimization
-- Cloudflare R2 setup for media assets
+```text
+[ ] /dev/design-system loads locally and in preview build.
+[ ] Typography looks crisp and loads instantly.
+[ ] Dark theme contrast is comfortable (not pure #000000 on pure #FFFFFF).
+[ ] shadcn Buttons look cinematic and have correct hover states.
+[ ] Dialog opens, traps focus, and closes on Escape.
+[ ] Nano Store correctly identifies when I resize the browser to mobile width.
+[ ] Nano Store correctly identifies my OS "Reduce Motion" setting.
+[ ] BaseLayout injects the correct Title and OG tags on index.astro.
+[ ] No console errors regarding hydration mismatches.
+[ ] Ready for Phase 3: Video Engine, R2 Pipeline, and Lazy Loading.
+```
 
 ---
 
-**Phase 2 created:** 2026-08-11  
-**Estimated duration:** 2-3 weeks  
-**Ready to start:** After Phase 1 review
+# 11. NEXT PHASE PREVIEW
+
+After Phase 2 is complete, Phase 3 will focus on:
+
+- **Cloudflare R2 Integration:** Setting up the actual bucket and CORS.
+- **Video Compression Pipeline:** FFmpeg scripts for web-optimized MP4/WebM.
+- **Custom Astro Video Player:** IntersectionObserver lazy-loading, iOS fallbacks, and memory management.
+- **Media State:** Syncing video playback state with Nano Stores.
+
+Do not start Phase 3 until Phase 2 passes the validation checklist.

@@ -1,0 +1,39 @@
+---
+interface Props {
+  size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
+  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
+  color?: 'primary' | 'secondary' | 'tertiary';
+  className?: string;
+}
+
+const { size = 'base', weight = 'normal', color = 'secondary', className = '' } = Astro.props;
+
+const sizeClasses = {
+  xs: 'text-xs',
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+};
+
+const weightClasses = {
+  normal: 'font-normal',
+  medium: 'font-medium',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
+};
+
+const colorClasses = {
+  primary: 'text-text-primary',
+  secondary: 'text-text-secondary',
+  tertiary: 'text-text-tertiary',
+};
+
+const sizeClass = sizeClasses[size];
+const weightClass = weightClasses[weight];
+const colorClass = colorClasses[color];
+---
+
+<p class={`leading-relaxed ${sizeClass} ${weightClass} ${colorClass} ${className}`}>
+  <slot />
+</p>

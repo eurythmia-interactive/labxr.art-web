@@ -45,8 +45,8 @@ None. No tasks are blocked.
 | Tool         | Version           | Status                                         |
 | ------------ | ----------------- | ---------------------------------------------- |
 | OS           | Pop!_OS 24.04 LTS | OK                                             |
-| Node.js      | v22.23.2           | OK (synced with Cloudflare)                             |
-| npm          | 10.9.8           | OK                                             |
+| Node.js      | v22.23.2          | OK (synced with Cloudflare)                    |
+| npm          | 10.9.8            | OK                                             |
 | Git          | 2.43.0            | OK                                             |
 | curl         | 8.5.0             | OK                                             |
 | Wrangler CLI | Not installed     | OPTIONAL (needed for Phase 1 Cloudflare tasks) |
@@ -58,20 +58,20 @@ None. No tasks are blocked.
 
 ## 3. Repository Report
 
-| Item                   | Status                                                         |
-| ---------------------- | -------------------------------------------------------------- |
-| Repository name        | labxr.art-web                                                      |
-| Branch                 | main                                                           |
-| Commits         | 3 commits: `9cbfa22` (init), `55368de` (phase 1 complete), `5283a98` (node 22) |
-| `.gitignore`           | Correct (node_modules, dist, .astro, .env, etc.)               |
-| `.editorconfig`        | Present (UTF-8, LF, 2-space indent)                            |
-| `.nvmrc`               | Present (Node 22)                                              |
-| README.md              | Present                                                        |
-| GitHub issue templates | 3 templates (bug, feature, phase task)                         |
-| GitHub PR template     | Present                                                        |
-| Labels documentation   | Present                                                        |
-| Secrets committed      | None                                                           |
-| Remote                 | https://github.com/eurythmia-interactive/labxr.art-web.git     |
+| Item                   | Status                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------ |
+| Repository name        | labxr.art-web                                                                  |
+| Branch                 | main                                                                           |
+| Commits                | 3 commits: `9cbfa22` (init), `55368de` (phase 1 complete), `5283a98` (node 22) |
+| `.gitignore`           | Correct (node_modules, dist, .astro, .env, etc.)                               |
+| `.editorconfig`        | Present (UTF-8, LF, 2-space indent)                                            |
+| `.nvmrc`               | Present (Node 22)                                                              |
+| README.md              | Present                                                                        |
+| GitHub issue templates | 3 templates (bug, feature, phase task)                                         |
+| GitHub PR template     | Present                                                                        |
+| Labels documentation   | Present                                                                        |
+| Secrets committed      | None                                                                           |
+| Remote                 | https://github.com/eurythmia-interactive/labxr.art-web.git                     |
 
 ---
 
@@ -199,32 +199,32 @@ None. All required folders and documentation created as specified.
 
 ## 7. Cloudflare Report
 
-| Item                        | Status                                |
-| --------------------------- | ------------------------------------- |
-| Pages plan documented       | ✓ `infra/cloudflare/pages-plan.md`    |
-| R2 plan documented          | ✓ `infra/cloudflare/r2-plan.md`       |
-| DNS plan documented         | ✓ `infra/cloudflare/dns-plan.md`      |
-| CORS policy documented      | ✓ `infra/cloudflare/cors-policy.md`   |
-| Workers plan documented     | ✓ `infra/cloudflare/workers-plan.md`  |
-| Security headers configured | ✓ `public/_headers`                   |
-| Redirects configured        | Removed (temporary domain)            |
-| Deployment checklist        | ✓ `docs/deployment-checklist.md`      |
-| Secrets safety              | ✓ No secrets in repository            |
-| Cloudflare setup guide      | ✓ `docs/cloudflare-setup.md`          |
+| Item                        | Status                               |
+| --------------------------- | ------------------------------------ |
+| Pages plan documented       | ✓ `infra/cloudflare/pages-plan.md`   |
+| R2 plan documented          | ✓ `infra/cloudflare/r2-plan.md`      |
+| DNS plan documented         | ✓ `infra/cloudflare/dns-plan.md`     |
+| CORS policy documented      | ✓ `infra/cloudflare/cors-policy.md`  |
+| Workers plan documented     | ✓ `infra/cloudflare/workers-plan.md` |
+| Security headers configured | ✓ `public/_headers`                  |
+| Redirects configured        | Removed (temporary domain)           |
+| Deployment checklist        | ✓ `docs/deployment-checklist.md`     |
+| Secrets safety              | ✓ No secrets in repository           |
+| Cloudflare setup guide      | ✓ `docs/cloudflare-setup.md`         |
 
 ### Deployment Status
 
-| Item                  | Status                                |
-| --------------------- | ------------------------------------- |
-| Pages project         | ✓ `labxr-art-web` deployed            |
-| Production URL        | https://labxr-art-web.pages.dev       |
-| Health check URL      | https://labxr-art-web.pages.dev/dev/health |
-| Build time            | 5.32s                                 |
-| Node version          | 22.22.0 (Cloudflare) / 22.23.2 (local)|
-| Build warnings        | None (EBADENGINE resolved)            |
-| Redirect errors       | None (file removed)                   |
-| Header rules          | 3 parsed successfully                 |
-| Assets uploaded       | 8 files                               |
+| Item             | Status                                     |
+| ---------------- | ------------------------------------------ |
+| Pages project    | ✓ `labxr-art-web` deployed                 |
+| Production URL   | https://labxr-art-web.pages.dev            |
+| Health check URL | https://labxr-art-web.pages.dev/dev/health |
+| Build time       | 5.32s                                      |
+| Node version     | 22.22.0 (Cloudflare) / 22.23.2 (local)     |
+| Build warnings   | None (EBADENGINE resolved)                 |
+| Redirect errors  | None (file removed)                        |
+| Header rules     | 3 parsed successfully                      |
+| Assets uploaded  | 8 files                                    |
 
 ### Human Confirmation Required
 
@@ -320,12 +320,12 @@ dist/
 
 ### Risks
 
-| Risk                              | Impact                                     | Mitigation                              | Status      |
-| --------------------------------- | ------------------------------------------ | --------------------------------------- | ----------- |
-| Wrangler not installed            | Cannot create Cloudflare resources via CLI | Install before Phase 2 Cloudflare tasks | OPEN        |
-| Node version mismatch             | Build warnings, potential issues           | Updated to Node 22                      | RESOLVED    |
-| ESLint deferred                   | No code quality linting                    | Add in Phase 2 if needed                | OPEN        |
-| Temporary domain                  | No custom domain yet                       | Defer to Phase 5/6                      | ACCEPTED    |
+| Risk                   | Impact                                     | Mitigation                              | Status   |
+| ---------------------- | ------------------------------------------ | --------------------------------------- | -------- |
+| Wrangler not installed | Cannot create Cloudflare resources via CLI | Install before Phase 2 Cloudflare tasks | OPEN     |
+| Node version mismatch  | Build warnings, potential issues           | Updated to Node 22                      | RESOLVED |
+| ESLint deferred        | No code quality linting                    | Add in Phase 2 if needed                | OPEN     |
+| Temporary domain       | No custom domain yet                       | Defer to Phase 5/6                      | ACCEPTED |
 
 ### Follow-Ups for Phase 2
 
@@ -339,13 +339,13 @@ dist/
 
 ### Missing Human Inputs
 
-| Input                            | Status                     |
-| -------------------------------- | -------------------------- |
-| GitHub account access            | ✓ CONFIRMED                |
-| Cloudflare account access        | ✓ CONFIRMED                |
-| Repository visibility preference | CONFIRMED (private)        |
-| Package manager preference       | CONFIRMED (npm)            |
-| Domain setup timing              | DEFERRED (Phase 5/6)       |
+| Input                            | Status               |
+| -------------------------------- | -------------------- |
+| GitHub account access            | ✓ CONFIRMED          |
+| Cloudflare account access        | ✓ CONFIRMED          |
+| Repository visibility preference | CONFIRMED (private)  |
+| Package manager preference       | CONFIRMED (npm)      |
+| Domain setup timing              | DEFERRED (Phase 5/6) |
 
 ---
 
