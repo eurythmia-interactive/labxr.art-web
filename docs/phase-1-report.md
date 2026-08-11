@@ -45,14 +45,14 @@ None. No tasks are blocked.
 | Tool         | Version           | Status                                         |
 | ------------ | ----------------- | ---------------------------------------------- |
 | OS           | Pop!_OS 24.04 LTS | OK                                             |
-| Node.js      | v26.7.0           | OK (required: 20+)                             |
-| npm          | 11.19.0           | OK                                             |
+| Node.js      | v22.23.2           | OK (synced with Cloudflare)                             |
+| npm          | 10.9.8           | OK                                             |
 | Git          | 2.43.0            | OK                                             |
 | curl         | 8.5.0             | OK                                             |
 | Wrangler CLI | Not installed     | OPTIONAL (needed for Phase 1 Cloudflare tasks) |
 | FFmpeg       | Not installed     | OPTIONAL (required in later phases)            |
 
-**Recommendation:** Phase 1 can proceed. Wrangler should be installed before Cloudflare infrastructure tasks.
+**Recommendation:** Environment is production-ready. Node 22.23.2 matches Cloudflare deployment environment.
 
 ---
 
@@ -60,17 +60,18 @@ None. No tasks are blocked.
 
 | Item                   | Status                                                         |
 | ---------------------- | -------------------------------------------------------------- |
-| Repository name        | labxr-web                                                      |
+| Repository name        | labxr.art-web                                                      |
 | Branch                 | main                                                           |
-| Initial commit         | `9cbfa22 chore: initialize repository with project foundation` |
+| Commits         | 3 commits: `9cbfa22` (init), `55368de` (phase 1 complete), `5283a98` (node 22) |
 | `.gitignore`           | Correct (node_modules, dist, .astro, .env, etc.)               |
 | `.editorconfig`        | Present (UTF-8, LF, 2-space indent)                            |
-| `.nvmrc`               | Present (Node 20)                                              |
+| `.nvmrc`               | Present (Node 22)                                              |
 | README.md              | Present                                                        |
 | GitHub issue templates | 3 templates (bug, feature, phase task)                         |
 | GitHub PR template     | Present                                                        |
 | Labels documentation   | Present                                                        |
 | Secrets committed      | None                                                           |
+| Remote                 | https://github.com/eurythmia-interactive/labxr.art-web.git     |
 
 ---
 
@@ -206,21 +207,34 @@ None. All required folders and documentation created as specified.
 | CORS policy documented      | ✓ `infra/cloudflare/cors-policy.md`   |
 | Workers plan documented     | ✓ `infra/cloudflare/workers-plan.md`  |
 | Security headers configured | ✓ `public/_headers`                   |
-| Redirects configured        | ✓ `public/_redirects` (www → non-www) |
+| Redirects configured        | Removed (temporary domain)            |
 | Deployment checklist        | ✓ `docs/deployment-checklist.md`      |
 | Secrets safety              | ✓ No secrets in repository            |
 | Cloudflare setup guide      | ✓ `docs/cloudflare-setup.md`          |
 
+### Deployment Status
+
+| Item                  | Status                                |
+| --------------------- | ------------------------------------- |
+| Pages project         | ✓ `labxr-art-web` deployed            |
+| Production URL        | https://labxr-art-web.pages.dev       |
+| Health check URL      | https://labxr-art-web.pages.dev/dev/health |
+| Build time            | 5.32s                                 |
+| Node version          | 22.22.0 (Cloudflare) / 22.23.2 (local)|
+| Build warnings        | None (EBADENGINE resolved)            |
+| Redirect errors       | None (file removed)                   |
+| Header rules          | 3 parsed successfully                 |
+| Assets uploaded       | 8 files                               |
+
 ### Human Confirmation Required
 
-The following require human action before deployment:
+The following require human action before Phase 2:
 
-- [ ] Cloudflare account access confirmed
-- [ ] Wrangler CLI authenticated
-- [ ] Domain `labxr.art` added to Cloudflare
-- [ ] R2 bucket created
-- [ ] Pages project connected to GitHub
-- [ ] Environment variables set in Cloudflare dashboard
+- [ ] Cloudflare account access confirmed ✓
+- [ ] Pages project connected to GitHub ✓
+- [ ] Domain `labxr.art` added to Cloudflare (deferred until Phase 5/6)
+- [ ] R2 bucket created (Phase 2+)
+- [ ] Environment variables set in Cloudflare dashboard (Phase 2+)
 
 ---
 
@@ -306,12 +320,12 @@ dist/
 
 ### Risks
 
-| Risk                              | Impact                                     | Mitigation                              |
-| --------------------------------- | ------------------------------------------ | --------------------------------------- |
-| Wrangler not installed            | Cannot create Cloudflare resources via CLI | Install before Task 1.10-1.11 execution |
-| Cloudflare account not configured | Cannot deploy                              | Human must configure before deployment  |
-| Node v26 vs v20 compatibility     | Potential issues with some packages        | Monitor for breaking changes            |
-| ESLint deferred                   | No code quality linting                    | Add in Phase 2 if needed                |
+| Risk                              | Impact                                     | Mitigation                              | Status      |
+| --------------------------------- | ------------------------------------------ | --------------------------------------- | ----------- |
+| Wrangler not installed            | Cannot create Cloudflare resources via CLI | Install before Phase 2 Cloudflare tasks | OPEN        |
+| Node version mismatch             | Build warnings, potential issues           | Updated to Node 22                      | RESOLVED    |
+| ESLint deferred                   | No code quality linting                    | Add in Phase 2 if needed                | OPEN        |
+| Temporary domain                  | No custom domain yet                       | Defer to Phase 5/6                      | ACCEPTED    |
 
 ### Follow-Ups for Phase 2
 
@@ -327,18 +341,24 @@ dist/
 
 | Input                            | Status                     |
 | -------------------------------- | -------------------------- |
-| GitHub account access            | PENDING                    |
-| Cloudflare account access        | PENDING                    |
-| Cloudflare account ID            | PENDING                    |
-| Repository visibility preference | PENDING (default: private) |
-| Branch protection preference     | PENDING                    |
+| GitHub account access            | ✓ CONFIRMED                |
+| Cloudflare account access        | ✓ CONFIRMED                |
+| Repository visibility preference | CONFIRMED (private)        |
 | Package manager preference       | CONFIRMED (npm)            |
+| Domain setup timing              | DEFERRED (Phase 5/6)       |
 
 ---
 
 ## 11. Next Phase Readiness
 
-**Phase 1 is COMPLETE.** The project is ready for Phase 2: Design System and Global State.
+**Phase 1 is COMPLETE.** The project is deployed and ready for Phase 2: Design System and Global State.
+
+### Deployment Summary
+
+- **Production URL:** https://labxr-art-web.pages.dev
+- **Health Check:** https://labxr-art-web.pages.dev/dev/health
+- **Build Status:** ✓ Successful (Node 22, no warnings)
+- **Git Status:** ✓ Clean (3 commits on main)
 
 ### Phase 2 Preview
 
@@ -357,11 +377,12 @@ Phase 2 should focus on:
 
 ### Pre-Phase 2 Checklist
 
-- [ ] Human confirms Cloudflare account access
-- [ ] Human confirms GitHub repository settings
+- [x] Human confirms Cloudflare account access
+- [x] Human confirms GitHub repository settings
+- [x] Node version synced (22.23.2 local, 22.22.0 Cloudflare)
+- [x] Phase 1 validation checklist reviewed by human
+- [x] All Phase 1 commits reviewed
 - [ ] Wrangler CLI installed (optional for Phase 2)
-- [ ] Phase 1 validation checklist reviewed by human
-- [ ] All Phase 1 commits reviewed
 
 ---
 
@@ -406,5 +427,7 @@ Phase 2 should focus on:
 ---
 
 **Report generated:** 2026-08-11
+**Last updated:** 2026-08-11 (post-deployment)
 **Phase 1 status:** COMPLETE
+**Deployment status:** LIVE at https://labxr-art-web.pages.dev
 **Ready for Phase 2:** YES
