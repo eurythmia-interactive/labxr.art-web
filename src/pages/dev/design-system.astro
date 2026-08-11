@@ -1,0 +1,208 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/shared/Container.astro';
+import Section from '@/components/shared/Section.astro';
+import Heading from '@/components/shared/Heading.astro';
+import Text from '@/components/shared/Text.astro';
+import { Separator } from '@/components/ui/separator';
+import { StateDisplay } from '@/components/islands/state-display';
+import { DialogTest } from '@/components/islands/dialog-test';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+---
+
+<BaseLayout title="Design System — LabXR" noindex>
+  <main id="main-content">
+    <Container size="lg">
+      <Section padding="xl">
+        <Heading level={1}>Design System</Heading>
+        <Text size="lg" className="mt-2">
+          LabXR.art visual language reference. This page is a diagnostic sandbox — not part of the
+          final UI.
+        </Text>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Typography -->
+      <Section padding="lg">
+        <Heading level={2}>Typography</Heading>
+        <div class="mt-6 space-y-4">
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 1</Text>
+            <Heading level={1}>The quick brown fox</Heading>
+          </div>
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 2</Text>
+            <Heading level={2}>The quick brown fox</Heading>
+          </div>
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 3</Text>
+            <Heading level={3}>The quick brown fox</Heading>
+          </div>
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 4</Text>
+            <Heading level={4}>The quick brown fox</Heading>
+          </div>
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 5</Text>
+            <Heading level={5}>The quick brown fox</Heading>
+          </div>
+          <div>
+            <Text size="xs" className="text-muted-foreground mb-1">Heading 6</Text>
+            <Heading level={6}>The quick brown fox</Heading>
+          </div>
+        </div>
+        <div class="mt-8">
+          <Text size="xs" className="text-muted-foreground mb-2">Monospace (JetBrains Mono)</Text>
+          <p class="font-mono text-sm text-foreground bg-muted rounded-md p-4">
+            const labxr = {'{'} creative: true, location: 'CDMX', stack: 'Astro + React + Three.js' {
+              '}'
+            };
+          </p>
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Color Palette -->
+      <Section padding="lg">
+        <Heading level={2}>Color Palette</Heading>
+        <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-background border border-border"></div>
+            <Text size="xs" className="font-mono">background</Text>
+            <Text size="xs" className="text-muted-foreground">#0a0a0a</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-foreground"></div>
+            <Text size="xs" className="font-mono">foreground</Text>
+            <Text size="xs" className="text-muted-foreground">#ffffff</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-card"></div>
+            <Text size="xs" className="font-mono">card</Text>
+            <Text size="xs" className="text-muted-foreground">#1a1a1a</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-muted"></div>
+            <Text size="xs" className="font-mono">muted</Text>
+            <Text size="xs" className="text-muted-foreground">#2a2a2a</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-primary"></div>
+            <Text size="xs" className="font-mono">primary</Text>
+            <Text size="xs" className="text-muted-foreground">#00d4ff</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-border"></div>
+            <Text size="xs" className="font-mono">border</Text>
+            <Text size="xs" className="text-muted-foreground">#2a2a2a</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-destructive"></div>
+            <Text size="xs" className="font-mono">destructive</Text>
+            <Text size="xs" className="text-muted-foreground">#ef4444</Text>
+          </div>
+          <div class="space-y-2">
+            <div class="h-20 rounded-lg bg-accent-primary"></div>
+            <Text size="xs" className="font-mono">accent-primary</Text>
+            <Text size="xs" className="text-muted-foreground">#00d4ff</Text>
+          </div>
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Buttons -->
+      <Section padding="lg">
+        <Heading level={2}>Buttons</Heading>
+        <div class="mt-6 flex flex-wrap gap-4 items-center">
+          <Button variant="default">Default</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="link">Link</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="default" size="sm">Small</Button>
+          <Button variant="default" size="lg">Large</Button>
+          <Button variant="default" disabled>Disabled</Button>
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Form Inputs -->
+      <Section padding="lg">
+        <Heading level={2}>Form Inputs</Heading>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl">
+          <div class="space-y-2">
+            <Text size="sm" className="font-medium">Input</Text>
+            <Input type="email" placeholder="your@email.com" />
+          </div>
+          <div class="space-y-2">
+            <Text size="sm" className="font-medium">Input (disabled)</Text>
+            <Input type="text" placeholder="Disabled" disabled />
+          </div>
+          <div class="space-y-2 md:col-span-2">
+            <Text size="sm" className="font-medium">Textarea</Text>
+            <Textarea placeholder="Write your message here..." />
+          </div>
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Card -->
+      <Section padding="lg">
+        <Heading level={2}>Card</Heading>
+        <div class="mt-6 max-w-md">
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>
+                This is a card component using the LabXR dark cinematic theme with shadcn/ui
+                primitives.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Text size="sm">
+                Cards use <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs"
+                  >bg-card</code
+                > and
+                <code class="rounded bg-muted px-1.5 py-0.5 font-mono text-xs ml-1"
+                  >border-border</code
+                > tokens.
+              </Text>
+            </CardContent>
+          </Card>
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Dialog -->
+      <Section padding="lg">
+        <Heading level={2}>Dialog</Heading>
+        <div class="mt-6">
+          <DialogTest client:load />
+        </div>
+      </Section>
+
+      <Separator className="my-2" />
+
+      <!-- Nano Store State -->
+      <Section padding="lg">
+        <Heading level={2}>Global State (Nano Stores)</Heading>
+        <div class="mt-6 max-w-md">
+          <StateDisplay client:load />
+        </div>
+      </Section>
+
+      <!-- Footer spacer -->
+      <div class="h-16"></div>
+    </Container>
+  </main>
+</BaseLayout>

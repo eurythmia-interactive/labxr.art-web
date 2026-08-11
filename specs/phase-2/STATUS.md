@@ -1,19 +1,23 @@
 # Phase 2 — Task Status
 
-| Task ID | Task Name                          | Status      | Blockers | Notes                                 | Last Updated |
-| ------- | ---------------------------------- | ----------- | -------- | ------------------------------------- | ------------ |
-| 2.0     | Phase 2 Specification and Tracking | DONE        | —        | Spec files created                    | 2026-08-11   |
-| 2.1     | Design Token System                | DONE        | —        | Tokens defined, Tailwind mapped       | 2026-08-11   |
-| 2.2     | Tailwind Theme Extension           | DONE        | —        | Tailwind config extended with tokens  | 2026-08-11   |
-| 2.3     | Typography System                  | DONE        | —        | Fonts loaded, components created      | 2026-08-11   |
-| 2.4     | shadcn/ui Initialization           | DONE        | —        | Components installed, utils created   | 2026-08-11   |
-| 2.5     | Global State Management            | DONE        | —        | Nano Stores installed, stores created | 2026-08-11   |
-| 2.6     | Device Detection System            | DONE        | —        | DeviceDetector component created      | 2026-08-11   |
-| 2.7     | Reduced Motion System              | DONE        | —        | MotionDetector component created      | 2026-08-11   |
-| 2.8     | Reusable Layout Components         | DONE        | —        | Container, Section, Grid created      | 2026-08-11   |
-| 2.9     | Accessibility Foundation           | DONE        | —        | SkipNav and focus utilities created   | 2026-08-11   |
-| 2.10    | Design System Documentation        | DONE        | —        | Comprehensive docs created            | 2026-08-11   |
-| 2.11 | Phase 2 Validation | DONE | — | All checks passed, report generated | 2026-08-11 |
+| Task ID | Task Name                          | Status | Blockers | Notes                                                                 | Last Updated |
+| ------- | ---------------------------------- | ------ | -------- | --------------------------------------------------------------------- | ------------ |
+| 2.0     | Phase 2 Specification and Tracking | DONE   | —        | Spec files created                                                    | 2026-08-11   |
+| 2.1     | Design Token System                | DONE   | —        | Tokens defined, Tailwind mapped                                       | 2026-08-11   |
+| 2.2     | Tailwind Theme Extension           | DONE   | —        | Tailwind config extended with tokens                                  | 2026-08-11   |
+| 2.3     | Typography System                  | DONE   | —        | Fonts loaded, components created                                      | 2026-08-11   |
+| 2.4     | shadcn/ui Initialization           | DONE   | —        | Components installed, utils created                                   | 2026-08-11   |
+| 2.5     | Global State Management            | DONE   | —        | Nano Stores installed, stores created                                 | 2026-08-11   |
+| 2.6     | Device Detection System            | DONE   | —        | DeviceDetector component created                                      | 2026-08-11   |
+| 2.7     | Reduced Motion System              | DONE   | —        | MotionDetector component created                                      | 2026-08-11   |
+| 2.8     | Reusable Layout Components         | DONE   | —        | Container, Section, Grid created                                      | 2026-08-11   |
+| 2.9     | Accessibility Foundation           | DONE   | —        | SkipNav and focus utilities created                                   | 2026-08-11   |
+| 2.10    | Design System Documentation        | DONE   | —        | Comprehensive docs created                                            | 2026-08-11   |
+| 2.11    | Phase 2 Validation                 | DONE   | —        | All checks passed, report generated                                   | 2026-08-11   |
+| 2.12    | CSS Variable Bridge Layer          | DONE   | —        | shadcn-compatible variables added to global.css + tailwind.config.mjs | 2026-08-11   |
+| 2.13    | Install Missing shadcn Components  | DONE   | —        | dialog, tooltip, textarea, separator installed                        | 2026-08-11   |
+| 2.14    | Create BaseLayout.astro            | DONE   | —        | SEO meta, font preload, SkipNav, noindex support                      | 2026-08-11   |
+| 2.15    | Create /dev/design-system Route    | DONE   | —        | Visual sandbox with all components + Nano Store state                 | 2026-08-11   |
 
 ---
 

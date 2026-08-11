@@ -4,6 +4,42 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent-shadcn)',
+          foreground: 'var(--accent-shadcn-foreground)',
+          primary: 'var(--color-accent-primary)',
+          secondary: 'var(--color-accent-secondary)',
+          tertiary: 'var(--color-accent-tertiary)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
         bg: {
           primary: 'var(--color-bg-primary)',
           secondary: 'var(--color-bg-secondary)',
@@ -14,11 +50,12 @@ export default {
           secondary: 'var(--color-text-secondary)',
           tertiary: 'var(--color-text-tertiary)',
         },
-        accent: {
-          primary: 'var(--color-accent-primary)',
-          secondary: 'var(--color-accent-secondary)',
-          tertiary: 'var(--color-accent-tertiary)',
-        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+        full: 'var(--border-radius-full)',
       },
       fontFamily: {
         sans: ['var(--font-sans)'],
@@ -43,12 +80,6 @@ export default {
         xl: 'var(--space-xl)',
         '2xl': 'var(--space-2xl)',
         '3xl': 'var(--space-3xl)',
-      },
-      borderRadius: {
-        sm: 'var(--border-radius-sm)',
-        md: 'var(--border-radius-md)',
-        lg: 'var(--border-radius-lg)',
-        full: 'var(--border-radius-full)',
       },
       boxShadow: {
         sm: 'var(--shadow-sm)',

@@ -3,6 +3,31 @@
 /* Import design tokens */
 @import './tokens.css';
 
+/* shadcn/ui Compatibility Layer */
+/* Maps shadcn-standard variable names to LabXR design tokens */
+:root {
+  --background: var(--color-bg-primary);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-bg-secondary);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-bg-secondary);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--color-accent-primary);
+  --primary-foreground: var(--color-bg-primary);
+  --secondary: var(--color-bg-secondary);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-bg-tertiary);
+  --muted-foreground: var(--color-text-secondary);
+  --accent-shadcn: var(--color-bg-tertiary);
+  --accent-shadcn-foreground: var(--color-text-primary);
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: var(--color-bg-tertiary);
+  --input: var(--color-bg-tertiary);
+  --ring: var(--color-accent-primary);
+  --radius: 0.5rem;
+}
+
 /* Font Face Declarations */
 @font-face {
   font-family: 'Inter';

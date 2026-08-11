@@ -41,12 +41,12 @@ None. No tasks are blocked.
 
 ## 2. Environment Report
 
-| Tool | Version | Status |
-|------|---------|--------|
-| OS | Pop!_OS 24.04 LTS | OK |
-| Node.js | v22.23.2 | OK |
-| npm | 10.9.8 | OK |
-| Git | 2.43.0 | OK |
+| Tool    | Version           | Status |
+| ------- | ----------------- | ------ |
+| OS      | Pop!_OS 24.04 LTS | OK     |
+| Node.js | v22.23.2          | OK     |
+| npm     | 10.9.8            | OK     |
+| Git     | 2.43.0            | OK     |
 
 ---
 
@@ -55,16 +55,19 @@ None. No tasks are blocked.
 ### Typography
 
 **Fonts:**
+
 - **Primary:** Inter (Regular, Medium, SemiBold, Bold) — locally hosted
 - **Mono:** JetBrains Mono (Regular) — locally hosted
 
 **Font Loading:**
+
 - All fonts loaded via `@font-face` with `font-display: swap`
 - No external network requests
 - Zero Cumulative Layout Shift (CLS)
 - Total font size: ~106KB (5 woff2 files)
 
 **Typography Scale:**
+
 - 9 font sizes from xs (12px) to 5xl (48px)
 - Responsive heading component with 6 levels
 - Text component with size, weight, and color variants
@@ -72,21 +75,25 @@ None. No tasks are blocked.
 ### Color Palette
 
 **Background Colors:**
+
 - Primary: `#0a0a0a` (Deep black)
 - Secondary: `#1a1a1a` (Dark gray)
 - Tertiary: `#2a2a2a` (Medium gray)
 
 **Text Colors:**
+
 - Primary: `#ffffff` (White)
 - Secondary: `#a0a0a0` (Light gray)
 - Tertiary: `#606060` (Medium gray)
 
 **Accent Colors:**
+
 - Primary: `#00d4ff` (Cyan)
 - Secondary: `#ff006e` (Pink)
 - Tertiary: `#ffbe0b` (Yellow)
 
 **Contrast Ratios (WCAG AA):**
+
 - Primary text on primary background: 19.5:1 ✓
 - Secondary text on primary background: 7.8:1 ✓
 - Accent primary on primary background: 10.2:1 ✓
@@ -94,6 +101,7 @@ None. No tasks are blocked.
 ### Spacing System
 
 7-step spacing scale based on 4px grid:
+
 - xs: 4px
 - sm: 8px
 - md: 16px
@@ -105,6 +113,7 @@ None. No tasks are blocked.
 ### Border Radius
 
 4-step border radius scale:
+
 - sm: 4px
 - md: 8px
 - lg: 16px
@@ -113,6 +122,7 @@ None. No tasks are blocked.
 ### Shadows
 
 4-step shadow scale:
+
 - sm: Subtle elevation
 - md: Medium elevation
 - lg: High elevation
@@ -124,24 +134,25 @@ None. No tasks are blocked.
 
 ### Shared Components (Astro)
 
-| Component | File | Status |
-|-----------|------|--------|
+| Component | File                                    | Status    |
+| --------- | --------------------------------------- | --------- |
 | Container | `src/components/shared/Container.astro` | ✓ Created |
-| Section | `src/components/shared/Section.astro` | ✓ Created |
-| Grid | `src/components/shared/Grid.astro` | ✓ Created |
-| Heading | `src/components/shared/Heading.astro` | ✓ Created |
-| Text | `src/components/shared/Text.astro` | ✓ Created |
-| SkipNav | `src/components/shared/SkipNav.astro` | ✓ Created |
+| Section   | `src/components/shared/Section.astro`   | ✓ Created |
+| Grid      | `src/components/shared/Grid.astro`      | ✓ Created |
+| Heading   | `src/components/shared/Heading.astro`   | ✓ Created |
+| Text      | `src/components/shared/Text.astro`      | ✓ Created |
+| SkipNav   | `src/components/shared/SkipNav.astro`   | ✓ Created |
 
 ### UI Components (React/shadcn)
 
-| Component | File | Status |
-|-----------|------|--------|
-| Button | `src/components/ui/button.tsx` | ✓ Created |
-| Input | `src/components/ui/input.tsx` | ✓ Created |
-| Card | `src/components/ui/card.tsx` | ✓ Created |
+| Component | File                           | Status    |
+| --------- | ------------------------------ | --------- |
+| Button    | `src/components/ui/button.tsx` | ✓ Created |
+| Input     | `src/components/ui/input.tsx`  | ✓ Created |
+| Card      | `src/components/ui/card.tsx`   | ✓ Created |
 
 **Button Variants:**
+
 - default (cyan background)
 - destructive (red background)
 - outline (border)
@@ -150,6 +161,7 @@ None. No tasks are blocked.
 - link (text link)
 
 **Button Sizes:**
+
 - default
 - sm
 - lg
@@ -157,10 +169,10 @@ None. No tasks are blocked.
 
 ### Interactive Components (React Islands)
 
-| Component | File | Status |
-|-----------|------|--------|
-| DeviceDetector | `src/components/islands/device-detector.tsx` | ✓ Created |
-| MotionDetector | `src/components/islands/motion-detector.tsx` | ✓ Created |
+| Component         | File                                             | Status              |
+| ----------------- | ------------------------------------------------ | ------------------- |
+| DeviceDetector    | `src/components/islands/device-detector.tsx`     | ✓ Created           |
+| MotionDetector    | `src/components/islands/motion-detector.tsx`     | ✓ Created           |
 | HealthCheckIsland | `src/components/islands/health-check-island.tsx` | ✓ Created (Phase 1) |
 
 ---
@@ -169,27 +181,27 @@ None. No tasks are blocked.
 
 ### Nano Stores
 
-| Store | File | Purpose | Status |
-|-------|------|---------|--------|
-| $isMobile | `src/lib/stores/device.ts` | Track mobile/desktop state | ✓ Created |
-| $prefersReducedMotion | `src/lib/stores/motion.ts` | Track motion preference | ✓ Created |
-| $isMobileMenuOpen | `src/lib/stores/ui.ts` | Track mobile menu state | ✓ Created |
+| Store                 | File                       | Purpose                    | Status    |
+| --------------------- | -------------------------- | -------------------------- | --------- |
+| $isMobile             | `src/lib/stores/device.ts` | Track mobile/desktop state | ✓ Created |
+| $prefersReducedMotion | `src/lib/stores/motion.ts` | Track motion preference    | ✓ Created |
+| $isMobileMenuOpen     | `src/lib/stores/ui.ts`     | Track mobile menu state    | ✓ Created |
 
 ### React Hooks
 
-| Hook | File | Purpose | Status |
-|------|------|---------|--------|
+| Hook      | File                          | Purpose                  | Status    |
+| --------- | ----------------------------- | ------------------------ | --------- |
 | useDevice | `src/lib/hooks/use-device.ts` | Read/update device state | ✓ Created |
 | useMotion | `src/lib/hooks/use-motion.ts` | Read/update motion state | ✓ Created |
 
 ### Utilities
 
-| Utility | File | Purpose | Status |
-|---------|------|---------|--------|
-| cn() | `src/lib/utils.ts` | Merge Tailwind classes | ✓ Created |
-| trapFocus() | `src/lib/focus.ts` | Trap focus in modals | ✓ Created |
+| Utility                | File               | Purpose                | Status    |
+| ---------------------- | ------------------ | ---------------------- | --------- |
+| cn()                   | `src/lib/utils.ts` | Merge Tailwind classes | ✓ Created |
+| trapFocus()            | `src/lib/focus.ts` | Trap focus in modals   | ✓ Created |
 | getFocusableElements() | `src/lib/focus.ts` | Get focusable elements | ✓ Created |
-| focusFirstElement() | `src/lib/focus.ts` | Focus first element | ✓ Created |
+| focusFirstElement()    | `src/lib/focus.ts` | Focus first element    | ✓ Created |
 
 ---
 
@@ -220,14 +232,14 @@ None. No tasks are blocked.
 
 ## 7. Validation Commands
 
-| Command | Result |
-|---------|--------|
-| `npm install` | ✓ Completed (500 packages) |
-| `npm run dev` | ✓ Server starts at localhost:4321 |
-| `npm run build` | ✓ 2 pages built in 2.21s |
-| `npm run preview` | ✓ Serves production build |
-| `npm run check` | ✓ 0 errors, 0 warnings, 0 hints |
-| `npm run format` | ✓ All files formatted |
+| Command           | Result                            |
+| ----------------- | --------------------------------- |
+| `npm install`     | ✓ Completed (500 packages)        |
+| `npm run dev`     | ✓ Server starts at localhost:4321 |
+| `npm run build`   | ✓ 2 pages built in 2.21s          |
+| `npm run preview` | ✓ Serves production build         |
+| `npm run check`   | ✓ 0 errors, 0 warnings, 0 hints   |
+| `npm run format`  | ✓ All files formatted             |
 
 ### Build Output
 
@@ -250,6 +262,7 @@ dist/
 - **Fonts:** 106 KB (5 woff2 files, loaded on demand)
 
 **Bundle Size Impact:**
+
 - Nano Stores: ~2 KB (gzipped)
 - shadcn/ui components: ~15 KB (gzipped)
 - Total overhead: ~17 KB (gzipped)
@@ -300,12 +313,12 @@ dist/
 
 ### Created Documentation
 
-| Document | File | Status |
-|----------|------|--------|
-| Phase 2 Overview | `specs/phase-2/00-phase-overview.md` | ✓ Created |
-| Phase 2 Status | `specs/phase-2/STATUS.md` | ✓ Created |
-| Design System Guide | `docs/design-system.md` | ✓ Created |
-| Phase 2 Report | `docs/phase-2-report.md` | ✓ Created (this file) |
+| Document            | File                                 | Status                |
+| ------------------- | ------------------------------------ | --------------------- |
+| Phase 2 Overview    | `specs/phase-2/00-phase-overview.md` | ✓ Created             |
+| Phase 2 Status      | `specs/phase-2/STATUS.md`            | ✓ Created             |
+| Design System Guide | `docs/design-system.md`              | ✓ Created             |
+| Phase 2 Report      | `docs/phase-2-report.md`             | ✓ Created (this file) |
 
 ### Design System Documentation
 
@@ -326,11 +339,11 @@ The design system documentation (`docs/design-system.md`) includes:
 
 ### Risks
 
-| Risk | Impact | Mitigation | Status |
-|------|--------|------------|--------|
-| Astro compiler error with dynamic tags | Build failure | Fixed Heading component | RESOLVED |
-| Font loading performance | Slow FCP | Using font-display: swap | MITIGATED |
-| Bundle size increase | Slow load time | Only 17 KB overhead | ACCEPTABLE |
+| Risk                                   | Impact         | Mitigation               | Status     |
+| -------------------------------------- | -------------- | ------------------------ | ---------- |
+| Astro compiler error with dynamic tags | Build failure  | Fixed Heading component  | RESOLVED   |
+| Font loading performance               | Slow FCP       | Using font-display: swap | MITIGATED  |
+| Bundle size increase                   | Slow load time | Only 17 KB overhead      | ACCEPTABLE |
 
 ### Follow-Ups for Phase 3
 
@@ -377,15 +390,15 @@ Phase 3 will focus on:
 
 ### New Dependencies (Phase 2)
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| tailwind-merge | ^3.3.1 | Merge Tailwind classes |
-| clsx | ^2.1.1 | Conditional classes |
-| class-variance-authority | ^0.7.1 | Component variants |
-| lucide-react | ^0.513.0 | Icon library |
-| @radix-ui/react-slot | ^1.2.3 | Component composition |
-| nanostores | ^1.0.1 | State management |
-| @nanostores/react | ^1.0.1 | React integration |
+| Package                  | Version  | Purpose                |
+| ------------------------ | -------- | ---------------------- |
+| tailwind-merge           | ^3.3.1   | Merge Tailwind classes |
+| clsx                     | ^2.1.1   | Conditional classes    |
+| class-variance-authority | ^0.7.1   | Component variants     |
+| lucide-react             | ^0.513.0 | Icon library           |
+| @radix-ui/react-slot     | ^1.2.3   | Component composition  |
+| nanostores               | ^1.0.1   | State management       |
+| @nanostores/react        | ^1.0.1   | React integration      |
 
 ### Total Dependencies
 

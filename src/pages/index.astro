@@ -1,20 +1,24 @@
 ---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/shared/Container.astro';
+import Heading from '@/components/shared/Heading.astro';
+import Text from '@/components/shared/Text.astro';
 import { TEST_ALIAS } from '@lib/alias-test';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>LabXR Web</title>
-  </head>
-  <body>
-    <main>
-      <h1>LabXR Web</h1>
-      <p>Phase 1 Foundation — In Progress</p>
-      <p>{TEST_ALIAS}</p>
-    </main>
-  </body>
-</html>
+<BaseLayout
+  title="LabXR Web"
+  description="Creative technology lab in CDMX bridging Code and Cinema"
+>
+  <main id="main-content">
+    <Container size="lg">
+      <div class="py-16 md:py-24">
+        <Heading level={1}>LabXR Web</Heading>
+        <Text size="lg" className="mt-4"> Phase 1 Foundation — Complete </Text>
+        <Text size="sm" className="mt-2 text-muted-foreground">
+          Alias test: {TEST_ALIAS}
+        </Text>
+      </div>
+    </Container>
+  </main>
+</BaseLayout>
