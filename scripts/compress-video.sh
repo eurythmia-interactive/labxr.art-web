@@ -25,6 +25,9 @@ mkdir -p "$OUTPUT_DIR"
 echo "Generating MP4 (H.264)..."
 ffmpeg -i "$INPUT" \
     -c:v libx264 \
+    -profile:v high \
+    -level 4.0 \
+    -pix_fmt yuv420p \
     -crf 20 \
     -preset medium \
     -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease" \
