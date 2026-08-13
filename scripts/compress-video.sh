@@ -21,52 +21,61 @@ echo "Output directory: $OUTPUT_DIR"
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
 
-# 1. MP4 (H.264) - Primary format
-echo "Generating MP4 (H.264)..."
+# Generate MP4 (H.264) - Legacy-compatible encoding
+# Uses Main profile Level 3.1 for maximum device compatibility
+echo "Generating MP4 (H.264 - legacy compatible)..."
 ffmpeg -i "$INPUT" \
-    -c:v libx264 \
-    -profile:v high \
-    -level 4.0 \
-    -pix_fmt yuv420p \
-    -crf 20 \
-    -preset medium \
-    -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease" \
-    -c:a aac \
-    -b:a 128k \
-    -movflags +faststart \
-    -y \
-    "$OUTPUT_DIR/${BASENAME}.mp4"
+  -c:v libx264 \
+  -profile:v main \
+  -level 3.1 \
+  -pix_fmt yuv420p \
+  -b:v 2500k \
+  -maxrate 3000k \
+  -bufsize 5000k \
+  -preset medium \
+  -vf "scale='min(1280,iw)':'min(720,ih)':force_original_aspect_ratio=decrease" \
+  -c:a aac \
+  -ac 2 \
+  -ar 44100 \
+  -b:a 128k \
+  -movflags +faststart \
+  -y \
+  "$OUTPUT_DIR/${BASENAME}.mp4"
 
-# 2. WebM (VP9) - Alternative format
+# Generate WebM (VP9) - Alternative format for Android/Desktop
 echo "Generating WebM (VP9)..."
 ffmpeg -i "$INPUT" \
-    -c:v libvpx-vp9 \
-    -crf 30 \
-    -b:v 0 \
-    -preset good \
-    -vf "scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease" \
-    -c:a libopus \
-    -b:a 128k \
-    -y \
-    "$OUTPUT_DIR/${BASENAME}.webm"
+  -c:v libvpx-vp9 \
+  -crf 31 \
+  -b:v 2000k \
+  -maxrate 2500k \
+  -bufsize 4000k \
+  -pix_fmt yuv420p \
+  -vf "scale='min(1280,iw)':'min(720,ih)':force_original_aspect_ratio=decrease" \
+  -c:a libopus \
+  -ac 2 \
+  -ar 48000 \
+  -b:a 128k \
+  -y \
+  "$OUTPUT_DIR/${BASENAME}.webm"
 
-# 3. Poster frame (WebP) - Shown before video loads
-echo "Generating poster frame..."
+# Generate poster image (WebP)
+echo "Generating poster image..."
 ffmpeg -i "$INPUT" \
-    -vf "select=eq(n\,0),scale='min(1920,iw)':'min(1080,ih)':force_original_aspect_ratio=decrease" \
-    -frames:v 1 \
-    -quality 80 \
-    -y \
-    "$OUTPUT_DIR/${BASENAME}-poster.webp"
+  -vf "select=eq(n\,0),scale='min(1280,iw)':'min(720,ih)':force_original_aspect_ratio=decrease" \
+  -frames:v 1 \
+  -quality 80 \
+  -y \
+  "$OUTPUT_DIR/${BASENAME}-poster.webp"
 
-# 4. Thumbnail (WebP) - Small preview
+# Generate thumbnail (WebP)
 echo "Generating thumbnail..."
 ffmpeg -i "$INPUT" \
-    -vf "select=eq(n\,0),scale=640:360:force_original_aspect_ratio=decrease" \
-    -frames:v 1 \
-    -quality 80 \
-    -y \
-    "$OUTPUT_DIR/${BASENAME}-thumb.webp"
+  -vf "select=eq(n\,0),scale=640:-1:force_original_aspect_ratio=decrease" \
+  -frames:v 1 \
+  -quality 75 \
+  -y \
+  "$OUTPUT_DIR/${BASENAME}-thumb.webp"
 
 echo "✓ Compression complete!"
 echo "Generated files:"

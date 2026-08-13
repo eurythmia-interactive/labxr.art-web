@@ -254,11 +254,22 @@ export function VideoPlayerIsland({
         muted={isMuted}
         loop={config.loop}
         playsInline
+        webkit-playsinline=""
+        x5-playsinline=""
+        x5-video-player-type="h5"
         controls={config.controls && !isMobile}
         preload="metadata"
         crossOrigin="anonymous"
         aria-label={config.alt}
-      />
+      >
+        <source
+          src={config.src.mp4}
+          type='video/mp4; codecs="avc1.4D401F, mp4a.40.2"'
+        />
+        {config.src.webm && (
+          <source src={config.src.webm} type="video/webm" />
+        )}
+      </video>
 
       {/* Loading indicator */}
       {isLoading && (
