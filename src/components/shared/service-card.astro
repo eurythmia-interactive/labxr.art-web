@@ -1,0 +1,38 @@
+---
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui/card';
+import { LucideIcon } from '@/components/islands/lucide-icon';
+
+interface Props {
+  title: string;
+  description: string;
+  iconName: string;
+  slug: string;
+}
+
+const { title, description, iconName, slug } = Astro.props;
+---
+
+<a
+  href={`/services/${slug}`}
+  class="group block transition-all duration-300 hover:scale-[1.02]"
+>
+  <Card className="h-full border-border bg-secondary transition-colors duration-300 group-hover:border-primary">
+    <CardHeader>
+      <div class="mb-2 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+        <LucideIcon client:load name={iconName} className="h-6 w-6" />
+      </div>
+      <CardTitle className="text-xl">{title}</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <CardDescription className="text-sm text-foreground/60">
+        {description}
+      </CardDescription>
+    </CardContent>
+  </Card>
+</a>

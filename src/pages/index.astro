@@ -1,24 +1,39 @@
 ---
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Container from '@/components/shared/Container.astro';
-import Heading from '@/components/shared/Heading.astro';
-import Text from '@/components/shared/Text.astro';
-import { TEST_ALIAS } from '@lib/alias-test';
+import Hero from '@/components/sections/hero.astro';
+import Manifesto from '@/components/sections/manifesto.astro';
+import Services from '@/components/sections/services.astro';
+import Portfolio from '@/components/sections/portfolio.astro';
+import Team from '@/components/sections/team.astro';
+import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
+
+const caseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
+
+const serializedCaseStudies = caseStudies.map((study) => ({
+  id: study.id,
+  data: {
+    title: study.data.title,
+    client: study.data.client,
+    description: study.data.description,
+    videoUrl: study.data.videoUrl,
+    posterUrl: study.data.posterUrl,
+    techStack: study.data.techStack,
+  },
+}));
 ---
 
 <BaseLayout
-  title="LabXR Web"
-  description="Creative technology lab in CDMX bridging Code and Cinema"
+  title="LabXR.art — Code & Cinema"
+  description="Creative technology lab in CDMX bridging Code and Cinema. White-label interactive installations and WebGL experiences."
 >
   <main id="main-content">
-    <Container size="lg">
-      <div class="py-16 md:py-24">
-        <Heading level={1}>LabXR Web</Heading>
-        <Text size="lg" className="mt-4"> Phase 1 Foundation — Complete </Text>
-        <Text size="sm" className="mt-2 text-muted-foreground">
-          Alias test: {TEST_ALIAS}
-        </Text>
-      </div>
-    </Container>
+    <Hero />
+    <Manifesto />
+    <Services />
+    <Portfolio />
+    <Team />
   </main>
+
+  <CaseStudyViewer client:idle caseStudies={serializedCaseStudies} />
 </BaseLayout>

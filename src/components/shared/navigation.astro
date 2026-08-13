@@ -1,0 +1,50 @@
+---
+import { MobileMenu } from '@/components/islands/mobile-menu';
+import { cn } from '@/lib/utils';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/#work', label: 'Work' },
+  { href: '/#services', label: 'Services' },
+  { href: '/#manifesto', label: 'Manifesto' },
+  { href: '/#contact', label: 'Contact' },
+];
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<header class={cn('fixed left-0 right-0 top-0 z-50', className)}>
+  <nav
+    class="container mx-auto flex h-16 items-center justify-between px-4 md:h-20"
+    aria-label="Main navigation"
+  >
+    {/* Logo */}
+    <a
+      href="/"
+      class="text-xl font-bold tracking-tight text-foreground transition-colors hover:text-primary md:text-2xl"
+    >
+      LabXR<span class="text-primary">.art</span>
+    </a>
+
+    {/* Desktop navigation */}
+    <ul class="hidden items-center gap-8 md:flex">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* Mobile menu (React island) */}
+    <MobileMenu client:load />
+  </nav>
+</header>

@@ -1,0 +1,27 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Section from '@/components/shared/Section.astro';
+import Container from '@/components/shared/Container.astro';
+import Heading from '@/components/shared/Heading.astro';
+import ServiceCard from '@/components/shared/service-card.astro';
+
+const services: CollectionEntry<'services'>[] = await getCollection('services');
+---
+
+<Section id="services" padding="xl">
+  <Container size="xl">
+    <Heading level={2} className="mb-12 text-center">
+      Nuestras Capacidades
+    </Heading>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      {services.map((service) => (
+        <ServiceCard
+          title={service.data.title}
+          description={service.data.description}
+          iconName={service.data.icon}
+          slug={service.data.slug}
+        />
+      ))}
+    </div>
+  </Container>
+</Section>

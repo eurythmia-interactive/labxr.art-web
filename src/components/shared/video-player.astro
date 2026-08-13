@@ -1,0 +1,20 @@
+---
+import { VideoPlayerIsland } from '@/components/islands/video-player-island';
+import type { VideoConfig } from '@/lib/video/types';
+
+interface Props {
+  config: VideoConfig;
+  aspectRatio?: '16:9' | '4:3' | '1:1' | '21:9';
+  className?: string;
+}
+
+const { config, aspectRatio = '16:9', className = '' } = Astro.props;
+---
+
+<div class={className}>
+  <VideoPlayerIsland
+    client:visible
+    config={config}
+    aspectRatio={aspectRatio}
+  />
+</div>

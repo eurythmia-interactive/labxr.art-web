@@ -1,0 +1,16 @@
+{
+  "CORSRules": [
+    {
+      "AllowedOrigin": [
+        "http://localhost:4321",
+        "https://labxr-art-web.pages.dev",
+        "https://*.pages.dev",
+        "https://labxr.art",
+        "https://*.labxr.art"
+      ],
+      "AllowedMethod": ["GET", "HEAD"],
+      "AllowedHeader": ["*"],
+      "MaxAgeSeconds": 3600
+    }
+  ]
+}

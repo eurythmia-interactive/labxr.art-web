@@ -1,0 +1,129 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/shared/Container.astro';
+import Section from '@/components/shared/Section.astro';
+import Heading from '@/components/shared/Heading.astro';
+import Text from '@/components/shared/Text.astro';
+import VideoPlayer from '@/components/shared/video-player.astro';
+import type { VideoConfig } from '@/lib/video/types';
+
+const testVideo1: VideoConfig = {
+  src: {
+    mp4: '/videos/test-video.mp4',
+    webm: '/videos/test-video.webm',
+  },
+  poster: '/videos/test-video-poster.webp',
+  thumbnail: '/videos/test-video-thumb.webp',
+  alt: 'Test video 1 - Autoplay muted',
+  autoplay: true,
+  muted: true,
+  loop: true,
+};
+
+const testVideo2: VideoConfig = {
+  src: {
+    mp4: '/videos/test-video.mp4',
+    webm: '/videos/test-video.webm',
+  },
+  poster: '/videos/test-video-poster.webp',
+  thumbnail: '/videos/test-video-thumb.webp',
+  alt: 'Test video 2 - Manual play',
+  autoplay: false,
+  muted: false,
+  loop: false,
+  controls: true,
+};
+
+const testVideo3: VideoConfig = {
+  src: {
+    mp4: '/videos/test-video.mp4',
+    webm: '/videos/test-video.webm',
+  },
+  poster: '/videos/test-video-poster.webp',
+  thumbnail: '/videos/test-video-thumb.webp',
+  alt: 'Test video 3 - Square aspect ratio',
+  autoplay: true,
+  muted: true,
+  loop: true,
+};
+---
+
+<BaseLayout title="Video Player Diagnostic | LabXR.art" noindex>
+  <main id="main-content">
+    <Section>
+      <Container>
+        <Heading level={1} className="mb-4">
+          Video Player Diagnostic
+        </Heading>
+        <Text className="mt-4">
+          Testing lazy-loading, iOS compatibility, and memory management.
+        </Text>
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <Heading level={2} className="mb-4">
+          Test 1: Autoplay Muted (16:9)
+        </Heading>
+        <Text className="mb-4" size="sm">
+          Desktop: Autoplays muted. Mobile: Shows play button.
+        </Text>
+        <VideoPlayer config={testVideo1} aspectRatio="16:9" />
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <Heading level={2} className="mb-4">
+          Test 2: Manual Play with Controls (16:9)
+        </Heading>
+        <Text className="mb-4" size="sm">
+          Native browser controls visible. No autoplay.
+        </Text>
+        <VideoPlayer config={testVideo2} aspectRatio="16:9" />
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <Heading level={2} className="mb-4">
+          Test 3: Square Aspect Ratio (1:1)
+        </Heading>
+        <Text className="mb-4" size="sm">
+          Testing aspect ratio enforcement.
+        </Text>
+        <VideoPlayer config={testVideo3} aspectRatio="1:1" className="max-w-md mx-auto" />
+      </Container>
+    </Section>
+
+    <Section>
+      <Container>
+        <Heading level={2} className="mb-4">
+          Diagnostic Info
+        </Heading>
+        <div class="mt-4 rounded-lg border border-border bg-secondary p-4 font-mono text-sm">
+          <p>Device: <span id="device-info">Loading...</span></p>
+          <p>Motion: <span id="motion-info">Loading...</span></p>
+          <p>Intersection: <span id="intersection-info">Loading...</span></p>
+        </div>
+      </Container>
+    </Section>
+  </main>
+
+  <script>
+    import { $isMobile } from '@/lib/stores/device';
+    import { $prefersReducedMotion } from '@/lib/stores/motion';
+
+    const deviceEl = document.getElementById('device-info');
+    const motionEl = document.getElementById('motion-info');
+
+    if (deviceEl) {
+      deviceEl.textContent = $isMobile.get() ? 'Mobile' : 'Desktop';
+    }
+
+    if (motionEl) {
+      motionEl.textContent = $prefersReducedMotion.get() ? 'Reduced' : 'Normal';
+    }
+  </script>
+</BaseLayout>

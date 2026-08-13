@@ -1,0 +1,59 @@
+---
+import Container from '@/components/shared/Container.astro';
+import VideoPlayer from '@/components/shared/video-player.astro';
+import { Button } from '@/components/ui/button';
+import type { VideoConfig } from '@/lib/video/types';
+
+const heroVideo: VideoConfig = {
+  src: {
+    mp4: '/videos/test-video.mp4',
+    webm: '/videos/test-video.webm',
+  },
+  poster: '/videos/test-video-poster.webp',
+  thumbnail: '/videos/test-video-thumb.webp',
+  alt: 'Hero background video',
+  autoplay: true,
+  muted: true,
+  loop: true,
+};
+---
+
+<section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+  {/* Video background */}
+  <div class="absolute inset-0">
+    <VideoPlayer
+      config={heroVideo}
+      aspectRatio="16:9"
+      className="h-full w-full [&>div]:h-full [&>div]:w-full [&>div]:rounded-none"
+    />
+  </div>
+
+  {/* Gradient overlay for text readability */}
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+
+  {/* Content */}
+  <Container className="relative z-10 text-center">
+    <h1 class="text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
+      Code &amp; Cinema
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl">
+      Creative technology lab in CDMX. White-label interactive installations
+      and WebGL experiences for top-tier agencies.
+    </p>
+    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <Button asChild size="lg">
+        <a href="#work">View Our Work</a>
+      </Button>
+      <Button asChild variant="outline" size="lg">
+        <a href="#contact">Get in Touch</a>
+      </Button>
+    </div>
+  </Container>
+
+  {/* Scroll indicator */}
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <div class="h-12 w-6 rounded-full border-2 border-white/30">
+      <div class="mx-auto mt-2 h-2 w-1 rounded-full bg-white/60" />
+    </div>
+  </div>
+</section>

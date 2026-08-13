@@ -1,0 +1,64 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Section from '@/components/shared/Section.astro';
+import Container from '@/components/shared/Container.astro';
+import Heading from '@/components/shared/Heading.astro';
+import { LucideIcon } from '@/components/islands/lucide-icon';
+
+const team: CollectionEntry<'team'>[] = await getCollection('team');
+
+function getSocialIcon(url: string): string {
+  if (url.includes('github')) return 'Github';
+  if (url.includes('linkedin')) return 'Linkedin';
+  if (url.includes('twitter')) return 'Twitter';
+  return 'Link';
+}
+---
+
+<Section id="team" padding="xl">
+  <Container size="xl">
+    <Heading level={2} className="mb-12 text-center">
+      Nuestro Equipo
+    </Heading>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+      {team.map((member) => (
+        <div class="group overflow-hidden rounded-lg border border-border bg-secondary transition-all duration-300 hover:border-primary">
+          <div class="aspect-square overflow-hidden bg-black">
+            <img
+              src={member.data.avatar}
+              alt={member.data.name}
+              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="mb-1 text-xl font-semibold text-foreground">
+              {member.data.name}
+            </h3>
+            <p class="mb-3 text-sm text-primary">{member.data.role}</p>
+            <p class="mb-4 text-sm text-foreground/60">{member.data.bio}</p>
+            <div class="flex gap-3">
+              {Object.entries(member.data.socials)
+                .filter(([_, url]) => url)
+                .map(([_, url]) => (
+                  <a
+                    href={url as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary/20"
+                    aria-label={`Visit ${member.data.name}'s profile`}
+                  >
+                    <LucideIcon
+                      client:load
+                      name={getSocialIcon(url as string)}
+                      className="h-4 w-4"
+                    />
+                  </a>
+                ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>
