@@ -5,8 +5,8 @@
 **What:** B2B portfolio site for creative technology lab in CDMX, Mexico. Bridges "Code and Cinema" for agencies in LatAm.
 
 **Tech Stack:**
-- Astro 5.8.7 (static site generator with islands architecture)
-- React 19.2.8 (interactive components)
+- Astro 5.17.3 (static site generator with islands architecture)
+- React 18.3.1 (interactive components)
 - Tailwind CSS 3.4.19 (with custom design tokens)
 - shadcn/ui (component library)
 - Nano Stores (cross-framework state management)
@@ -64,10 +64,23 @@
 - 4.8: ✅ DONE (homepage assembly)
 - 4.9: ✅ DONE (validation and report)
 
+**Post-Phase 4 Fixes:**
+- ✅ React 19.2.8 → 18.3.1 downgrade (fixed moduleType errors)
+- ✅ Mobile video playback fixes (Android, iOS, all devices)
+- ✅ Added mobile-specific video attributes (playsInline, webkit-playsinline, x5-playsinline)
+- ✅ Enhanced touch event handling with onTouchStart
+- ✅ Increased play button size to 80x80px for better touch targets
+- ✅ Added "Tap to play" text for clear user instruction
+- ✅ Implemented loading indicator during video buffering
+- ✅ Added error state with retry button for failed playback
+- ✅ Improved device detection with iOS and Android flags
+- ✅ Enhanced case study viewer modal video handling
+
 **Deployment:**
 - GitHub: https://github.com/eurythmia-interactive/labxr.art-web
-- Last commit: Phase 4 complete
+- Last commit: 8d93f6a - fix: resolve mobile video playback on Android, iOS, and all devices
 - All code pushed to main branch
+- Cloudflare Pages auto-deploys on push
 
 ---
 
@@ -94,6 +107,15 @@ Media storage for videos and images. Bucket `labxr-assets` created in WNAM regio
 
 ### 5. Placeholder Strategy
 Using placeholder videos and logos until real assets are provided. Video player will work with any MP4 URL.
+
+### 6. Mobile Video Compatibility
+Videos are optimized for cross-device playback with specific handling for:
+- **Android Chrome**: Touch event handling, x5-playsinline attribute, 80x80px play button
+- **iOS Safari**: playsInline, webkit-playsinline attributes, tap-to-play overlay
+- **All Mobile**: Loading indicators, error states with retry, "Tap to play" text
+- **Desktop**: Autoplay muted, hover controls, native video controls
+
+Video player implements lazy loading with IntersectionObserver, memory management (pauses when off-screen), and proper error handling.
 
 ---
 
@@ -122,16 +144,34 @@ Using placeholder videos and logos until real assets are provided. Video player 
 src/
 ├── components/
 │   ├── islands/      # React interactive components
-│   ├── sections/     # Astro page sections (empty for now)
+│   │   ├── video-player-island.tsx
+│   │   ├── case-study-viewer.tsx
+│   │   ├── mobile-menu.tsx
+│   │   └── lucide-icon.tsx
+│   ├── sections/     # Astro page sections
+│   │   ├── hero.astro
+│   │   ├── manifesto.astro
+│   │   ├── services.astro
+│   │   ├── portfolio.astro
+│   │   └── team.astro
 │   ├── shared/       # Reusable Astro components
+│   │   ├── video-player.astro
+│   │   ├── navigation.astro
+│   │   ├── footer.astro
+│   │   └── service-card.astro
 │   └── ui/           # shadcn/ui components
+├── content/          # Astro Content Collections
+│   ├── case-studies/ # Markdown files for projects
+│   ├── services/     # Markdown files for services
+│   └── team/         # Markdown files for team members
 ├── layouts/          # BaseLayout.astro
 ├── lib/              # Utilities, stores, hooks
-│   ├── stores/       # Nano Stores (device, motion, ui)
-│   ├── hooks/        # React hooks (use-device, use-motion)
+│   ├── stores/       # Nano Stores (device, motion, ui, portfolio)
+│   ├── hooks/        # React hooks (use-device, use-motion, use-intersection-observer)
+│   ├── video/        # Video types and constants
 │   └── utils.ts      # cn() utility for Tailwind
 ├── pages/            # Astro pages
-│   ├── index.astro   # Homepage (hero section)
+│   ├── index.astro   # Homepage (hero, manifesto, services, portfolio, team)
 │   └── dev/          # Diagnostic routes
 │       ├── health.astro
 │       ├── design-system.astro
@@ -167,6 +207,10 @@ Phase 4 is complete. Awaiting Phase 5 specification and task instructions from u
 - **No CLS** - Enforce aspect ratios, use poster images for videos
 - **Lazy-load videos** - Use IntersectionObserver, never preload
 - **iOS Safari** - Show play button overlay, don't autoplay on mobile
+- **Android Compatibility** - Add webkit-playsinline, x5-playsinline, x5-video-player-type attributes
+- **Touch Targets** - Mobile play buttons must be at least 80x80px with "Tap to play" text
+- **Video Encoding** - Use H.264 codec, max 1080p, AAC audio, +faststart flag
+- **Error Handling** - Always provide retry button when video playback fails
 - **Reduced motion** - Respect `prefers-reduced-motion` preference
 - **No secrets in Git** - Use `.env.example` for placeholders
 - **TypeScript strict mode** - No `any` types
@@ -183,6 +227,12 @@ Phase 4 is complete. Awaiting Phase 5 specification and task instructions from u
 ### Pending Human Actions
 - [ ] Provide real video assets (when ready)
 - [ ] Provide logo SVG (when ready)
+- [ ] Provide real team member photos (when ready)
+
+### Completed Actions
+- [x] Enable R2 in Cloudflare Dashboard (free tier) - 2026-08-13
+- [x] Install FFmpeg (requires sudo: `sudo apt install ffmpeg`) - 2026-08-13
+- [x] Fix mobile video playback on Android/iOS - 2026-08-13
 
 ---
 
@@ -191,15 +241,18 @@ Phase 4 is complete. Awaiting Phase 5 specification and task instructions from u
 ### How to Resume
 
 1. Read this file (`CONTEXT.md`)
-2. Read `docs/phase-3-report.md` for Phase 3 completion details
-3. Start Phase 4 specification (create `specs/phase-4/` directory)
+2. Read `docs/phase-4-report.md` for Phase 4 completion details
+3. Read `docs/mobile-video-fix.md` for mobile video compatibility details
+4. Wait for Phase 5 specification from user
 
 ### Key Files to Know
-- `AGENTS.md` - Project rules and constraints
-- `02-Phase-03.md` - Phase 3 specification (complete)
-- `docs/phase-3-report.md` - Phase 3 completion report
+- `AGENTS.md` - Project rules and constraints (includes mobile video rules)
+- `03-Phase-04.md` - Phase 4 specification (complete)
+- `docs/phase-4-report.md` - Phase 4 completion report
+- `docs/mobile-video-fix.md` - Mobile video compatibility fixes
+- `docs/mobile-video-testing.md` - Mobile testing guide
 - `docs/media-pipeline.md` - Video pipeline documentation
-- `specs/phase-3/STATUS.md` - Phase 3 task tracking (all DONE)
+- `specs/phase-4/STATUS.md` - Phase 4 task tracking (all DONE)
 
 ### Commands to Know
 ```bash
@@ -214,6 +267,21 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-13 (Session 3):**
+- Fixed mobile video playback issues on Android, iOS, and all devices
+- Added mobile-specific video attributes (playsInline, webkit-playsinline, x5-playsinline, x5-video-player-type)
+- Implemented proper touch event handling with onTouchStart
+- Increased play button size to 80x80px for better touch targets
+- Added "Tap to play" text for clear user instruction
+- Added loading indicator during video buffering
+- Added error state with retry button for failed playback
+- Improved device detection with iOS and Android flags
+- Enhanced case study viewer modal video handling
+- Created comprehensive mobile testing guide
+- Updated AGENTS.md with mobile video rules
+- All TypeScript checks pass, build successful
+- Committed and pushed to GitHub (commit 8d93f6a)
 
 **2026-08-13 (Session 2):**
 - Completed Phase 4 (all 10 tasks)
