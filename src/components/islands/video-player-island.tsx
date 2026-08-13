@@ -48,10 +48,13 @@ export function VideoPlayerIsland({
     }
 
     if (shouldAutoplay && isIntersecting) {
-      video.play().catch(() => {
-        // Autoplay blocked, show controls
-        setShowControls(true);
-      });
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn('Autoplay blocked:', error);
+          setShowControls(true);
+        });
+      }
     } else if (!isIntersecting && isPlaying) {
       video.pause();
     }
@@ -91,7 +94,18 @@ export function VideoPlayerIsland({
     if (isPlaying) {
       video.pause();
     } else {
-      video.play().catch(() => {});
+      // Ensure video src is set before playing
+      if (!video.src || video.src === '') {
+        video.src = config.src.mp4;
+        video.load();
+        setIsLoaded(true);
+      }
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.error('Video playback failed:', error);
+        });
+      }
     }
   };
 
@@ -132,12 +146,9 @@ export function VideoPlayerIsland({
         loop={config.loop}
         playsInline={config.playsInline ?? true}
         controls={config.controls}
-        preload="none"
+        preload="metadata"
         aria-label={config.alt}
-      >
-        <source src={config.src.webm} type="video/webm" />
-        <source src={config.src.mp4} type="video/mp4" />
-      </video>
+      />
 
       {/* Mobile play button overlay */}
       {isMobile && !isPlaying && (
