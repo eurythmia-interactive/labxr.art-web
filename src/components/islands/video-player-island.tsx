@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDevice } from '@/lib/hooks/use-device';
 import { useMotion } from '@/lib/hooks/use-motion';
 import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
-import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { VideoConfig } from '@/lib/video/types';
 
@@ -27,6 +27,8 @@ export function VideoPlayerIsland({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(config.muted ?? true);
   const [showControls, setShowControls] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const { isMobile } = useDevice();
   const { prefersReducedMotion } = useMotion();
@@ -64,15 +66,31 @@ export function VideoPlayerIsland({
     const video = videoRef.current;
     if (!video) return;
 
-    const handlePlay = () => setIsPlaying(true);
+    const handlePlay = () => {
+      setIsPlaying(true);
+      setIsLoading(false);
+    };
     const handlePause = () => setIsPlaying(false);
+    const handleWaiting = () => setIsLoading(true);
+    const handleCanPlay = () => setIsLoading(false);
+    const handleError = (e: Event) => {
+      console.error('Video error:', e);
+      setHasError(true);
+      setIsLoading(false);
+    };
 
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
+    video.addEventListener('waiting', handleWaiting);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('error', handleError);
 
     return () => {
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
+      video.removeEventListener('waiting', handleWaiting);
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('error', handleError);
     };
   }, []);
 
@@ -87,7 +105,10 @@ export function VideoPlayerIsland({
     };
   }, []);
 
-  const handlePlayPause = () => {
+  const handlePlayPause = async (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const video = videoRef.current;
     if (!video) return;
 
@@ -100,16 +121,25 @@ export function VideoPlayerIsland({
         video.load();
         setIsLoaded(true);
       }
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.error('Video playback failed:', error);
-        });
+      
+      setIsLoading(true);
+      try {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+        }
+      } catch (error) {
+        console.error('Video playback failed:', error);
+        setHasError(true);
+        setIsLoading(false);
       }
     }
   };
 
-  const handleMuteToggle = () => {
+  const handleMuteToggle = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
     const video = videoRef.current;
     if (!video) return;
 
@@ -121,8 +151,8 @@ export function VideoPlayerIsland({
     <div
       ref={containerRef}
       className={cn('relative overflow-hidden rounded-lg bg-black', aspectRatioClasses[aspectRatio])}
-      onMouseEnter={() => setShowControls(true)}
-      onMouseLeave={() => setShowControls(false)}
+      onMouseEnter={() => !isMobile && setShowControls(true)}
+      onMouseLeave={() => !isMobile && setShowControls(false)}
     >
       {/* Poster image - always visible until video loads */}
       {!isLoaded && (
@@ -144,27 +174,65 @@ export function VideoPlayerIsland({
         poster={config.poster}
         muted={isMuted}
         loop={config.loop}
-        playsInline={config.playsInline ?? true}
-        controls={config.controls}
+        playsInline
+        webkit-playsinline=""
+        x5-playsinline=""
+        x5-video-player-type="h5"
+        controls={config.controls && !isMobile}
         preload="metadata"
         aria-label={config.alt}
       />
 
-      {/* Mobile play button overlay */}
-      {isMobile && !isPlaying && (
+      {/* Loading indicator */}
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+          <Loader2 className="h-12 w-12 animate-spin text-white" />
+        </div>
+      )}
+
+      {/* Error state */}
+      {hasError && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 p-4 text-center">
+          <p className="text-sm text-white">Video unavailable</p>
+          <button
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setHasError(false);
+              setIsLoading(true);
+              const video = videoRef.current;
+              if (video) {
+                video.src = config.src.mp4;
+                video.load();
+                video.play().catch(console.error);
+              }
+            }}
+            className="mt-2 rounded bg-white/20 px-4 py-2 text-sm text-white hover:bg-white/30"
+          >
+            Retry
+          </button>
+        </div>
+      )}
+
+      {/* Mobile play button overlay - always visible on mobile when not playing */}
+      {isMobile && !isPlaying && !isLoading && !hasError && (
         <button
           onClick={handlePlayPause}
-          className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
+          onTouchStart={handlePlayPause}
+          className="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors active:bg-black/50"
           aria-label="Play video"
         >
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm">
-            <Play className="h-8 w-8 fill-black text-black" />
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm transition-transform active:scale-95">
+            <Play className="h-10 w-10 fill-black text-black" />
           </div>
+          <p className="absolute bottom-4 left-0 right-0 text-center text-sm text-white/80">
+            Tap to play
+          </p>
         </button>
       )}
 
       {/* Desktop controls overlay */}
-      {!isMobile && showControls && (
+      {!isMobile && showControls && !isLoading && !hasError && (
         <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity">
           <button
             onClick={handlePlayPause}

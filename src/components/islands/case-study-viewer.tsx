@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { $activeCaseStudyId, closeCaseStudy } from '@/lib/stores/portfolio';
 import {
@@ -28,8 +29,17 @@ interface CaseStudyViewerProps {
 
 export function CaseStudyViewer({ caseStudies }: CaseStudyViewerProps) {
   const activeId = useStore($activeCaseStudyId);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const activeStudy = caseStudies.find((study) => study.id === activeId);
+
+  useEffect(() => {
+    if (activeId) {
+      setIsDialogOpen(true);
+    } else {
+      setIsDialogOpen(false);
+    }
+  }, [activeId]);
 
   if (!activeStudy) {
     return null;
@@ -51,7 +61,7 @@ export function CaseStudyViewer({ caseStudies }: CaseStudyViewerProps) {
   };
 
   return (
-    <Dialog open={!!activeId} onOpenChange={(open) => !open && closeCaseStudy()}>
+    <Dialog open={isDialogOpen} onOpenChange={(open) => !open && closeCaseStudy()}>
       <DialogContent className="max-w-4xl border-border bg-secondary">
         <DialogHeader>
           <DialogTitle className="text-2xl">{activeStudy.data.title}</DialogTitle>

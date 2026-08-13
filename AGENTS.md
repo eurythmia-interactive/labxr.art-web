@@ -43,7 +43,11 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX. It brid
 
 - **Lazy Loading:** Videos must never load immediately. Use `IntersectionObserver` to load the `src` only when entering the viewport.
 - **iOS Safari Restrictions:** NEVER rely on `autoplay` for mobile. Always provide a poster image and a tap-to-play fallback. Use `playsinline` and `muted` attributes for desktop backgrounds.
+- **Android Compatibility:** Add `webkit-playsinline`, `x5-playsinline`, and `x5-video-player-type="h5"` attributes for maximum Android browser compatibility.
+- **Touch Targets:** Mobile play buttons must be at least 80x80px with clear "Tap to play" text.
 - **Memory Management:** When a video leaves the viewport or a modal closes, pause the video and remove the `src` attribute to free up browser memory.
+- **Error Handling:** Always provide a retry button when video playback fails. Show loading indicators during buffering.
+- **Video Encoding:** Use H.264 codec, max 1080p resolution, AAC audio, and `+faststart` flag for mobile compatibility.
 
 ## 7. WebGL & Three.js Rules
 

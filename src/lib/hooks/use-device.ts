@@ -18,5 +18,11 @@ export function useDevice() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  return { isMobile };
+  // Detect iOS devices
+  const isIOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+  // Detect Android devices
+  const isAndroid = typeof window !== 'undefined' && /Android/.test(navigator.userAgent);
+
+  return { isMobile, isIOS, isAndroid };
 }
