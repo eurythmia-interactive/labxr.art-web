@@ -70,7 +70,7 @@ export function CaseStudyViewer({ caseStudies }: CaseStudyViewerProps) {
           </DialogDescription>
         </DialogHeader>
         <div className="mt-4">
-          <VideoPlayerIsland config={videoConfig} aspectRatio="16:9" />
+          <VideoPlayerIsland config={videoConfig} aspectRatio="16:9" forceLoad={true} />
         </div>
         <div className="mt-6">
           <p className="text-sm text-foreground/80">{activeStudy.data.description}</p>
