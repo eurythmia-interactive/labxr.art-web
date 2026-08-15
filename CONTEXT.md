@@ -50,39 +50,31 @@
 
 ✅ **Phase 4** — Data Architecture, Core Sections, Portfolio Integration — COMPLETE
 
-🔄 **Awaiting Phase 5 specification from user**
+✅ **Phase 5** — Polish, Interaction, WebGL, Conversion & Performance Recovery — COMPLETE
 
-**Phase 4 Task Status:**
-- 4.0: ✅ DONE (spec tracking)
-- 4.1: ✅ DONE (content collections with Zod schemas)
-- 4.2: ✅ DONE (portfolio Nano Store)
-- 4.3: ✅ DONE (manifesto section)
-- 4.4: ✅ DONE (services section & cards)
-- 4.5: ✅ DONE (portfolio grid)
-- 4.6: ✅ DONE (case study viewer modal)
-- 4.7: ✅ DONE (team section)
-- 4.8: ✅ DONE (homepage assembly)
-- 4.9: ✅ DONE (validation and report)
+🔄 **Awaiting Phase 6 specification from user**
 
-**Post-Phase 4 Fixes:**
-- ✅ React 19.2.8 → 18.3.1 downgrade (fixed moduleType errors)
-- ✅ Mobile video playback fixes (Android, iOS, all devices)
-- ✅ Added mobile-specific video attributes (playsInline, webkit-playsinline, x5-playsinline)
-- ✅ Enhanced touch event handling with onTouchStart
-- ✅ Increased play button size to 80x80px for better touch targets
-- ✅ Added "Tap to play" text for clear user instruction
-- ✅ Implemented loading indicator during video buffering
-- ✅ Added error state with retry button for failed playback
-- ✅ Improved device detection with iOS and Android flags
-- ✅ Enhanced case study viewer modal video handling
-- ✅ Legacy-safe video encoding (H.264 Main profile Level 3.1, 720p, 2500kbps cap)
-- ✅ Explicit codec strings for Android/iOS compatibility
-- ✅ Stereo audio forcing for older Android devices
-- ✅ Created comprehensive mobile video guide (docs/mobile-video-complete-guide.md)
+**Phase 5 Task Status:**
+- 5.0: ✅ DONE (spec tracking)
+- 5.1: ✅ DONE (lucide icon bundle: 928KB → 6.82KB, 99.3% reduction)
+- 5.2: ✅ DONE (GSAP ScrollTrigger cinematic section reveals)
+- 5.3: ✅ DONE (Three.js hero particle overlay, desktop only)
+- 5.4: ✅ DONE (contact form + Cloudflare Worker + Turnstile + WhatsApp CTA)
+- 5.5: ✅ DONE (service card video hover previews)
+- 5.6: ✅ DONE (Plausible analytics integration, cookieless)
+- 5.7: ✅ DONE (performance audit, Lighthouse 90+)
+- 5.8: ✅ DONE (custom domain documentation)
+- 5.9: ✅ DONE (phase 5 validation & report)
+
+**Post-Phase 5 Fixes:**
+- ✅ Fixed CSP policy blocking Plausible analytics and inline scripts (added `'unsafe-inline'` and `https://plausible.io`)
+- ✅ Fixed corrupted JetBrains Mono font (was HTML, replaced with valid woff2)
+- ✅ Fixed video playback on desktop (removed conflicting `<source>` elements and `crossOrigin="anonymous"`)
+- ✅ Removed unused font preload (eliminated "preloaded but not used" warning)
 
 **Deployment:**
 - GitHub: https://github.com/eurythmia-interactive/labxr.art-web
-- Last commit: 2a56c1f - fix: implement legacy-safe video encoding for maximum mobile compatibility
+- Last commit: 2b02646 - docs: add comprehensive development workflow guide
 - All code pushed to main branch
 - Cloudflare Pages auto-deploys on push
 
@@ -99,6 +91,8 @@ Cross-framework state management for:
 - `$prefersReducedMotion` - Motion preferences
 - `$isMobileMenuOpen` - UI state
 - `$activeCaseStudyId` - Portfolio modal state
+- `$formStatus` - Contact form status ('idle' | 'submitting' | 'success' | 'error')
+- `$formError` - Contact form error message
 
 ### 3. CSS Variable Bridge Layer
 shadcn components use standard tokens (`--background`, `--foreground`, etc.) mapped to custom LabXR tokens. This allows shadcn CLI to work while maintaining custom design system.
@@ -156,8 +150,10 @@ Video player implements lazy loading with IntersectionObserver, memory managemen
 ### Interactive Islands
 **Device/Motion:** DeviceDetector, MotionDetector, StateDisplay, DialogTest
 **Navigation:** MobileMenu
-**Media:** VideoPlayerIsland, CaseStudyViewer
-**Icons:** LucideIcon
+**Media:** VideoPlayerIsland, CaseStudyViewer, HeroWebGL
+**Icons:** LucideIcon (with icon-registry for tree-shaking)
+**Animations:** ScrollReveal
+**Forms:** ContactForm
 
 ### File Structure
 ```
@@ -167,36 +163,52 @@ src/
 │   │   ├── video-player-island.tsx
 │   │   ├── case-study-viewer.tsx
 │   │   ├── mobile-menu.tsx
-│   │   └── lucide-icon.tsx
+│   │   ├── lucide-icon.tsx
+│   │   ├── icon-registry.ts       # Tree-shaken icon registry (6.82KB)
+│   │   ├── hero-webgl.tsx         # Three.js particle overlay
+│   │   ├── scroll-reveal.tsx      # GSAP ScrollTrigger wrapper
+│   │   └── contact-form.tsx       # Contact form with Zod validation
 │   ├── sections/     # Astro page sections
 │   │   ├── hero.astro
 │   │   ├── manifesto.astro
 │   │   ├── services.astro
 │   │   ├── portfolio.astro
-│   │   └── team.astro
+│   │   ├── team.astro
+│   │   └── contact.astro
 │   ├── shared/       # Reusable Astro components
 │   │   ├── video-player.astro
 │   │   ├── navigation.astro
 │   │   ├── footer.astro
-│   │   └── service-card.astro
+│   │   ├── service-card.astro     # With video hover preview
+│   │   └── whatsapp-button.astro  # Floating CTA
 │   └── ui/           # shadcn/ui components
 ├── content/          # Astro Content Collections
 │   ├── case-studies/ # Markdown files for projects
-│   ├── services/     # Markdown files for services
+│   ├── services/     # Markdown files for services (with previewVideoUrl)
 │   └── team/         # Markdown files for team members
-├── layouts/          # BaseLayout.astro
+├── layouts/          # BaseLayout.astro (with Plausible analytics)
 ├── lib/              # Utilities, stores, hooks
-│   ├── stores/       # Nano Stores (device, motion, ui, portfolio)
+│   ├── stores/       # Nano Stores (device, motion, ui, portfolio, form)
 │   ├── hooks/        # React hooks (use-device, use-motion, use-intersection-observer)
 │   ├── video/        # Video types and constants
+│   ├── gsap/         # GSAP plugin registration
+│   ├── three/        # WebGL detection utilities
+│   ├── analytics.ts  # Plausible event tracking
 │   └── utils.ts      # cn() utility for Tailwind
+├── assets/
+│   └── shaders/      # GLSL shaders (particles.vert, particles.frag)
 ├── pages/            # Astro pages
-│   ├── index.astro   # Homepage (hero, manifesto, services, portfolio, team)
+│   ├── index.astro   # Homepage (hero, manifesto, services, portfolio, team, contact)
 │   └── dev/          # Diagnostic routes
 │       ├── health.astro
 │       ├── design-system.astro
-│       └── video-player.astro
+│       ├── video-player.astro
+│       └── webgl.astro
 └── styles/           # global.css, tokens.css
+
+functions/
+└── api/
+    └── contact.ts    # Cloudflare Pages Function (form handler)
 ```
 
 ---
@@ -207,16 +219,22 @@ src/
 
 **Operational Rule:** Do not proceed with any tasks unless explicitly instructed by the user.
 
-Phase 4 is complete. Awaiting Phase 5 specification and task instructions from user.
+Phase 5 is complete. Awaiting Phase 6 specification and task instructions from user.
 
-### Deferred (Phase 5+)
-- GSAP ScrollTrigger animations
-- Three.js / WebGL particle systems
-- Contact form with Cloudflare Worker + Turnstile
-- Service card video hover previews
-- Lucide icon bundle optimization
-- Custom domain setup
-- Analytics integration
+### Phase 6 Preview (from Phase 5 report)
+
+Phase 6 will focus on **Content Production & SEO**:
+- Replace placeholder videos with real project showreels
+- Add real team member photos and company logo
+- Write real case study content
+- Add JSON-LD structured data
+- Generate sitemap.xml
+- Create Open Graph images
+- Set up Lighthouse CI for performance monitoring
+- A/B testing for CTAs and form fields
+- Client Portal (V2) with Cloudflare Access
+- Blog/Insights section for organic SEO
+- English translation for global agency outreach
 
 ---
 
@@ -261,19 +279,18 @@ Phase 4 is complete. Awaiting Phase 5 specification and task instructions from u
 ### How to Resume
 
 1. Read this file (`CONTEXT.md`)
-2. Read `docs/phase-4-report.md` for Phase 4 completion details
-3. Read `docs/mobile-video-fix.md` for mobile video compatibility details
-4. Wait for Phase 5 specification from user
+2. Read `docs/phase-5-report.md` for Phase 5 completion details
+3. Read `docs/DEVELOPMENT-WORKFLOW.md` for git and development procedures
+4. Wait for Phase 6 specification from user
 
 ### Key Files to Know
-- `AGENTS.md` - Project rules and constraints (includes mobile video rules)
-- `03-Phase-04.md` - Phase 4 specification (complete)
-- `docs/phase-4-report.md` - Phase 4 completion report
-- `docs/mobile-video-complete-guide.md` - Comprehensive mobile video guide (codecs, encoding, browser quirks)
-- `docs/mobile-video-fix.md` - Mobile video compatibility fixes
-- `docs/mobile-video-testing.md` - Mobile testing guide
-- `docs/media-pipeline.md` - Video pipeline documentation
-- `specs/phase-4/STATUS.md` - Phase 4 task tracking (all DONE)
+- `AGENTS.md` - Project rules and constraints
+- `05-Phase-05.md` - Phase 5 specification (complete)
+- `docs/phase-5-report.md` - Phase 5 completion report
+- `docs/DEVELOPMENT-WORKFLOW.md` - Development workflow guide (git, commands, testing)
+- `docs/analytics-setup.md` - Plausible analytics configuration
+- `docs/custom-domain-setup.md` - DNS and domain setup guide
+- `specs/phase-5/STATUS.md` - Phase 5 task tracking (all DONE)
 
 ### Commands to Know
 ```bash
@@ -288,6 +305,26 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-15 (Session 6):**
+- Completed Phase 5 (all 10 tasks)
+- Task 5.1: Reduced lucide icon bundle from 928KB to 6.82KB (99.3% reduction) via explicit icon registry
+- Task 5.2: Added GSAP ScrollTrigger cinematic section reveals to all sections
+- Task 5.3: Added Three.js reactive particle overlay to hero section (desktop only, 1500 particles)
+- Task 5.4: Built contact form with Cloudflare Worker, Turnstile support, rate limiting, WhatsApp CTA
+- Task 5.5: Added video hover previews to service cards (desktop only)
+- Task 5.6: Integrated Plausible analytics with 8 custom conversion events
+- Task 5.7: Performance audit completed, Lighthouse 90+ scores achieved
+- Task 5.8: Created custom domain setup documentation
+- Task 5.9: Generated Phase 5 completion report
+- Post-Phase 5 fixes:
+  - Fixed CSP policy blocking Plausible analytics and inline scripts
+  - Fixed corrupted JetBrains Mono font file (was HTML, replaced with valid woff2)
+  - Fixed video playback on desktop (removed conflicting `<source>` elements)
+  - Removed unused font preload
+- Created comprehensive development workflow guide (docs/DEVELOPMENT-WORKFLOW.md)
+- All TypeScript checks pass, build successful
+- Committed and pushed to GitHub (commit 2b02646)
 
 **2026-08-13 (Session 5):**
 - Implemented legacy-safe video encoding for maximum mobile compatibility
@@ -357,5 +394,5 @@ ffmpeg -version      # Check FFmpeg version
 - Committed and pushed all work to GitHub
 
 **Next session will:**
-- Wait for user to provide Phase 5 specification and instructions
+- Wait for user to provide Phase 6 specification and instructions
 - Execute tasks only when explicitly instructed
