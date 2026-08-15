@@ -1,21 +1,19 @@
-import { type LucideProps } from 'lucide-react';
-import * as LucideIcons from 'lucide-react';
-import { type ForwardRefExoticComponent, type RefAttributes, type SVGProps } from 'react';
+import { iconRegistry } from './icon-registry';
 
 interface LucideIconProps {
   name: string;
   className?: string;
 }
 
-type IconComponent = ForwardRefExoticComponent<
-  Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
->;
-
 export function LucideIcon({ name, className }: LucideIconProps) {
-  const IconComponent = LucideIcons[name as keyof typeof LucideIcons] as IconComponent | undefined;
+  const IconComponent = iconRegistry[name];
 
   if (!IconComponent) {
-    return null;
+    if (import.meta.env.DEV) {
+      console.warn(`[LucideIcon] Icon "${name}" not found in registry`);
+    }
+    const FallbackIcon = iconRegistry.Circle;
+    return <FallbackIcon className={className} />;
   }
 
   return <IconComponent className={className} />;
