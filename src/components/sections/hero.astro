@@ -33,20 +33,22 @@ const heroVideo: VideoConfig = {
 
   {/* Content */}
   <Container className="relative z-10 text-center">
-    <h1 class="text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
-      Code &amp; Cinema
-    </h1>
-    <p class="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl">
-      Creative technology lab in CDMX. White-label interactive installations
-      and WebGL experiences for top-tier agencies.
-    </p>
-    <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-      <Button asChild size="lg">
-        <a href="#work">View Our Work</a>
-      </Button>
-      <Button asChild variant="outline" size="lg">
-        <a href="#contact">Get in Touch</a>
-      </Button>
+    <div id="hero-content">
+      <h1 class="text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
+        Code &amp; Cinema
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-white/80 md:text-xl">
+        Creative technology lab in CDMX. White-label interactive installations
+        and WebGL experiences for top-tier agencies.
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <Button asChild size="lg">
+          <a href="#work">View Our Work</a>
+        </Button>
+        <Button asChild variant="outline" size="lg">
+          <a href="#contact">Get in Touch</a>
+        </Button>
+      </div>
     </div>
   </Container>
 
@@ -57,3 +59,22 @@ const heroVideo: VideoConfig = {
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from '@/lib/gsap/register-plugins';
+  import { $prefersReducedMotion } from '@/lib/stores/motion';
+
+  if (!$prefersReducedMotion.get()) {
+    const heroContent = document.getElementById('hero-content');
+    if (heroContent) {
+      gsap.set(heroContent, { opacity: 0, y: 40 });
+      gsap.to(heroContent, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: 'power2.out',
+      });
+    }
+  }
+</script>

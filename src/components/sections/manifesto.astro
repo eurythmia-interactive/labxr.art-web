@@ -3,39 +3,43 @@ import Section from '@/components/shared/Section.astro';
 import Container from '@/components/shared/Container.astro';
 import Heading from '@/components/shared/Heading.astro';
 import Text from '@/components/shared/Text.astro';
+import { ScrollReveal } from '@/components/islands/scroll-reveal';
 ---
 
 <Section id="manifesto" padding="xl">
   <Container size="xl">
     <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
-      <div>
-        <Heading level={2} className="mb-6">
-          Code <span class="text-primary">&amp;</span> Cinema
-        </Heading>
-        <Text size="lg" className="mb-4">
-          En LabXR.art, creemos que la tecnología y el arte no son opuestos — son complementos.
-          Cada instalación que creamos es una conversación entre código y cine, entre algoritmos
-          y emoción, entre lo digital y lo humano.
-        </Text>
-        <Text size="base" className="mb-4">
-          Desde nuestra base en CDMX, trabajamos con las agencias más innovadoras de Latinoamérica
-          para crear experiencias interactivas que transforman espacios físicos en mundos digitales
-          inmersivos.
-        </Text>
-        <Text size="base" color="tertiary">
-          No hacemos tecnología por la tecnología. Creamos experiencias que cuentan historias,
-          que generan conexión, y que dejan una impresión duradera en cada persona que las vive.
-        </Text>
-      </div>
+      <ScrollReveal direction="up" delay={0} duration={0.8}>
+        <div class="scroll-reveal-item">
+          <Heading level={2} className="mb-6">
+            Code <span class="text-primary">&amp;</span> Cinema
+          </Heading>
+          <Text size="lg" className="mb-4">
+            En LabXR.art, creemos que la tecnología y el arte no son opuestos — son complementos.
+            Cada instalación que creamos es una conversación entre código y cine, entre algoritmos
+            y emoción, entre lo digital y lo humano.
+          </Text>
+          <Text size="base" className="mb-4">
+            Desde nuestra base en CDMX, trabajamos con las agencias más innovadoras de Latinoamérica
+            para crear experiencias interactivas que transforman espacios físicos en mundos digitales
+            inmersivos.
+          </Text>
+          <Text size="base" color="tertiary">
+            No hacemos tecnología por la tecnología. Creamos experiencias que cuentan historias,
+            que generan conexión, y que dejan una impresión duradera en cada persona que las vive.
+          </Text>
+        </div>
+      </ScrollReveal>
 
-      <div class="relative">
-        <div class="rounded-lg border border-border bg-secondary p-6 font-mono text-sm">
-          <div class="mb-4 flex items-center gap-2">
-            <div class="h-3 w-3 rounded-full bg-red-500/60"></div>
-            <div class="h-3 w-3 rounded-full bg-yellow-500/60"></div>
-            <div class="h-3 w-3 rounded-full bg-green-500/60"></div>
-          </div>
-          <pre class="overflow-x-auto text-foreground/80"><code>{`// LabXR.core
+      <ScrollReveal direction="up" delay={0.2} duration={0.8}>
+        <div class="scroll-reveal-item relative">
+          <div class="rounded-lg border border-border bg-secondary p-6 font-mono text-sm">
+            <div class="mb-4 flex items-center gap-2">
+              <div class="h-3 w-3 rounded-full bg-red-500/60"></div>
+              <div class="h-3 w-3 rounded-full bg-yellow-500/60"></div>
+              <div class="h-3 w-3 rounded-full bg-green-500/60"></div>
+            </div>
+            <pre class="overflow-x-auto text-foreground/80"><code>{`// LabXR.core
 const experience = {
   vision: "Code & Cinema",
   location: "CDMX, Mexico",
@@ -52,9 +56,10 @@ const experience = {
     });
   }
 };`}</code></pre>
+          </div>
+          <div class="absolute -bottom-4 -right-4 h-full w-full rounded-lg border border-primary/20 bg-primary/5"></div>
         </div>
-        <div class="absolute -bottom-4 -right-4 h-full w-full rounded-lg border border-primary/20 bg-primary/5"></div>
-      </div>
+      </ScrollReveal>
     </div>
   </Container>
 </Section>
