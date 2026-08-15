@@ -1,0 +1,39 @@
+---
+import { LucideIcon } from '@/components/islands/lucide-icon';
+
+const whatsappNumber = '5215512345678';
+const whatsappMessage = encodeURIComponent(
+  'Hola LabXR, me interesa conocer más sobre sus servicios.'
+);
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+---
+
+<a
+  href={whatsappUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl md:h-16 md:w-16"
+  aria-label="Contact us on WhatsApp"
+  id="whatsapp-button"
+>
+  <LucideIcon client:load name="MessageCircle" className="h-7 w-7 md:h-8 md:w-8" />
+</a>
+
+<script>
+  const whatsappButton = document.getElementById('whatsapp-button');
+  
+  const handleScroll = () => {
+    if (window.scrollY > 600) {
+      whatsappButton?.classList.remove('opacity-0', 'pointer-events-none');
+      whatsappButton?.classList.add('opacity-100');
+    } else {
+      whatsappButton?.classList.add('opacity-0', 'pointer-events-none');
+      whatsappButton?.classList.remove('opacity-100');
+    }
+  };
+
+  whatsappButton?.classList.add('opacity-0', 'pointer-events-none', 'transition-opacity', 'duration-300');
+  
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+</script>

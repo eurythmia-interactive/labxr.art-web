@@ -1,0 +1,45 @@
+---
+import Section from '@/components/shared/Section.astro';
+import Container from '@/components/shared/Container.astro';
+import Heading from '@/components/shared/Heading.astro';
+import Text from '@/components/shared/Text.astro';
+import { ContactForm } from '@/components/islands/contact-form';
+import { ScrollReveal } from '@/components/islands/scroll-reveal';
+---
+
+<Section id="contact" padding="xl">
+  <Container size="lg">
+    <ScrollReveal direction="up" duration={0.8}>
+      <div class="scroll-reveal-item mb-12 text-center">
+        <Heading level={2} className="mb-4">
+          Hablemos de tu próximo proyecto
+        </Heading>
+        <Text size="lg" color="tertiary">
+          Respondemos en menos de 24 horas.
+        </Text>
+      </div>
+    </ScrollReveal>
+
+    <ScrollReveal direction="up" delay={0.2} duration={0.8}>
+      <div class="scroll-reveal-item">
+        <ContactForm client:visible />
+      </div>
+    </ScrollReveal>
+
+    <ScrollReveal direction="up" delay={0.4} duration={0.8}>
+      <div class="scroll-reveal-item mt-8 text-center">
+        <Text size="sm" color="tertiary">
+          ¿Prefieres WhatsApp?{' '}
+          <a
+            href="https://wa.me/5215512345678?text=Hola%20LabXR%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-primary underline transition-colors hover:text-primary/80"
+          >
+            Escríbenos directamente
+          </a>
+        </Text>
+      </div>
+    </ScrollReveal>
+  </Container>
+</Section>

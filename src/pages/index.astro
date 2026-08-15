@@ -6,6 +6,8 @@ import Manifesto from '@/components/sections/manifesto.astro';
 import Services from '@/components/sections/services.astro';
 import Portfolio from '@/components/sections/portfolio.astro';
 import Team from '@/components/sections/team.astro';
+import Contact from '@/components/sections/contact.astro';
+import WhatsAppButton from '@/components/shared/whatsapp-button.astro';
 import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
 
 const caseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
@@ -33,7 +35,9 @@ const serializedCaseStudies = caseStudies.map((study) => ({
     <Services />
     <Portfolio />
     <Team />
+    <Contact />
   </main>
 
+  <WhatsAppButton />
   <CaseStudyViewer client:idle caseStudies={serializedCaseStudies} />
 </BaseLayout>

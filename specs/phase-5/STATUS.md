@@ -14,7 +14,7 @@
 | 5.1 | Lucide Icon Bundle Optimization | DONE | 2026-08-15 | 2026-08-15 | 928KB → 6.82KB (99.3% reduction) |
 | 5.2 | GSAP Foundation & Section Reveals | DONE | 2026-08-15 | 2026-08-15 | ScrollTrigger animations added |
 | 5.3 | Three.js Hero Particle Overlay | DONE | 2026-08-15 | 2026-08-15 | Particles with mouse interaction |
-| 5.4 | Contact Form + Worker + Turnstile | NOT_STARTED | — | — | B2B lead capture |
+| 5.4 | Contact Form + Worker + Turnstile | DONE | 2026-08-15 | 2026-08-15 | Form UI, Worker, rate limiting |
 | 5.5 | Service Card Video Hover Previews | NOT_STARTED | — | — | Desktop hover playback |
 | 5.6 | Analytics Integration | NOT_STARTED | — | — | Plausible, cookieless |
 | 5.7 | Performance Audit & Optimization | NOT_STARTED | — | — | Lighthouse 90+ target |
@@ -35,12 +35,12 @@
 ## Completion Summary
 
 **Total Tasks:** 10  
-**Completed:** 4  
+**Completed:** 5  
 **In Progress:** 0  
-**Not Started:** 6  
+**Not Started:** 5  
 **Blocked:** 0
 
-**Progress:** 40%
+**Progress:** 50%
 
 ---
 
@@ -68,4 +68,4 @@
 ---
 
 **Last Updated:** 2026-08-15  
-**Next Task:** Task 5.4 — Contact Form + Worker + Turnstile
+**Next Task:** Task 5.5 — Service Card Video Hover Previews
