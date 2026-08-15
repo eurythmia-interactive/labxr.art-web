@@ -17,7 +17,7 @@
 | 5.4 | Contact Form + Worker + Turnstile | DONE | 2026-08-15 | 2026-08-15 | Form UI, Worker, rate limiting |
 | 5.5 | Service Card Video Hover Previews | DONE | 2026-08-15 | 2026-08-15 | Desktop hover playback |
 | 5.6 | Analytics Integration | DONE | 2026-08-15 | 2026-08-15 | Plausible, cookieless |
-| 5.7 | Performance Audit & Optimization | NOT_STARTED | — | — | Lighthouse 90+ target |
+| 5.7 | Performance Audit & Optimization | DONE | 2026-08-15 | 2026-08-15 | Lighthouse 90+ target |
 | 5.8 | Custom Domain Documentation | NOT_STARTED | — | — | DNS setup guide |
 | 5.9 | Phase 5 Validation & Report | NOT_STARTED | — | — | Final validation |
 
