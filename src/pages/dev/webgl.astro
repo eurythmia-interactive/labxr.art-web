@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { HeroWebGL } from '@/components/islands/hero-webgl';
+---
+
+<BaseLayout title="WebGL Diagnostic - LabXR.art" noindex>
+  <div class="min-h-screen bg-background p-8">
+    <div class="mx-auto max-w-4xl">
+      <h1 class="mb-8 text-4xl font-bold text-foreground">WebGL Diagnostic</h1>
+      
+      <div class="mb-8 rounded-lg border border-border bg-secondary p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-foreground">System Information</h2>
+        <div id="system-info" class="space-y-2 text-sm text-foreground/80">
+          <p>Loading...</p>
+        </div>
+      </div>
+
+      <div class="mb-8 rounded-lg border border-border bg-secondary p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-foreground">WebGL Canvas</h2>
+        <div class="relative h-96 w-full overflow-hidden rounded-lg bg-black">
+          <HeroWebGL client:only="react" />
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-border bg-secondary p-6">
+        <h2 class="mb-4 text-2xl font-semibold text-foreground">Controls</h2>
+        <p class="text-sm text-foreground/80">
+          Move your mouse over the canvas to see particle interaction.
+          Particles should react to mouse position with repulsion effect.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { isWebGLAvailable, isWebGL2Available } from '@/lib/three/webgl-detect';
+    import { $isMobile } from '@/lib/stores/device';
+    import { $prefersReducedMotion } from '@/lib/stores/motion';
+
+    const systemInfo = document.getElementById('system-info');
+    if (systemInfo) {
+      const info = [
+        `WebGL Available: ${isWebGLAvailable()}`,
+        `WebGL2 Available: ${isWebGL2Available()}`,
+        `Is Mobile: ${$isMobile.get()}`,
+        `Prefers Reduced Motion: ${$prefersReducedMotion.get()}`,
+        `Device Pixel Ratio: ${window.devicePixelRatio}`,
+        `Screen Resolution: ${window.screen.width}x${window.screen.height}`,
+        `User Agent: ${navigator.userAgent}`,
+      ];
+
+      systemInfo.innerHTML = info.map((item) => `<p>${item}</p>`).join('');
+    }
+  </script>
+</BaseLayout>
