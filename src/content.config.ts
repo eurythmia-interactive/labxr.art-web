@@ -27,6 +27,8 @@ const services = defineCollection({
     slug: z.string(),
     description: z.string(),
     icon: z.string(),
+    previewVideoUrl: z.string().optional(),
+    previewPosterUrl: z.string().optional(),
   }),
 });
 

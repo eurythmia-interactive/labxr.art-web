@@ -21,8 +21,10 @@ import {
   Send,
   Loader2,
   AlertCircle,
+  CheckCircle,
   Circle,
   Link,
+  MessageCircle,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -49,6 +51,8 @@ export const iconRegistry: Record<string, LucideIcon> = {
   Send,
   Loader2,
   AlertCircle,
+  CheckCircle,
   Circle,
   Link,
+  MessageCircle,
 };

@@ -3,6 +3,8 @@ title: "WebGL Experiences"
 slug: "webgl-experiences"
 description: "High-performance WebGL experiences for the web. From product configurators to interactive storytelling, we push the boundaries of what's possible in the browser."
 icon: "Box"
+previewVideoUrl: "/videos/test-video.mp4"
+previewPosterUrl: "/videos/test-video-poster.webp"
 ---
 
 We create stunning WebGL experiences that run smoothly across devices. Our expertise spans product configurators, interactive storytelling, data visualization, and immersive web applications.

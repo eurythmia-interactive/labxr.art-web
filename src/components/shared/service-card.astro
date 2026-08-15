@@ -13,14 +13,18 @@ interface Props {
   description: string;
   iconName: string;
   slug: string;
+  previewVideoUrl?: string;
+  previewPosterUrl?: string;
 }
 
-const { title, description, iconName, slug } = Astro.props;
+const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } = Astro.props;
 ---
 
 <a
   href={`/services/${slug}`}
-  class="group block transition-all duration-300 hover:scale-[1.02]"
+  class="service-card group block transition-all duration-300 hover:scale-[1.02]"
+  data-preview-video={previewVideoUrl}
+  data-preview-poster={previewPosterUrl}
 >
   <Card className="h-full border-border bg-secondary transition-colors duration-300 group-hover:border-primary">
     <CardHeader>
@@ -34,5 +38,48 @@ const { title, description, iconName, slug } = Astro.props;
         {description}
       </CardDescription>
     </CardContent>
+    {previewVideoUrl && (
+      <div class="service-card-video absolute inset-0 overflow-hidden rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <video
+          class="h-full w-full object-cover"
+          preload="none"
+          muted
+          loop
+          playsinline
+          webkit-playsinline
+          x5-playsinline
+          x5-video-player-type="h5"
+          poster={previewPosterUrl}
+        />
+      </div>
+    )}
   </Card>
 </a>
+
+<script>
+  import { $isMobile } from '@/lib/stores/device';
+
+  const cards = document.querySelectorAll('.service-card[data-preview-video]');
+  
+  if (!$isMobile.get()) {
+    cards.forEach((card) => {
+      const videoUrl = card.getAttribute('data-preview-video');
+      const videoEl = card.querySelector('video') as HTMLVideoElement | null;
+      
+      if (!videoEl || !videoUrl) return;
+      
+      card.addEventListener('mouseenter', () => {
+        if (!videoEl.src) {
+          videoEl.src = videoUrl;
+        }
+        videoEl.play().catch(() => {});
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        videoEl.pause();
+        videoEl.removeAttribute('src');
+        videoEl.load();
+      });
+    });
+  }
+</script>

@@ -23,6 +23,8 @@ const services: CollectionEntry<'services'>[] = await getCollection('services');
               description={service.data.description}
               iconName={service.data.icon}
               slug={service.data.slug}
+              previewVideoUrl={service.data.previewVideoUrl}
+              previewPosterUrl={service.data.previewPosterUrl}
             />
           </div>
         ))}
