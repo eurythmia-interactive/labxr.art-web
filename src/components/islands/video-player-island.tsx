@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '@/lib/hooks/use-intersection-observer';
 import { Play, Pause, Volume2, VolumeX, Loader2, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { VideoConfig } from '@/lib/video/types';
+import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
 
 interface VideoPlayerIslandProps {
   config: VideoConfig;
@@ -81,8 +82,12 @@ export function VideoPlayerIsland({
       setIsPlaying(true);
       setIsLoading(false);
       isAttemptingPlay.current = false;
+      trackEvent({ name: AnalyticsEvents.VIDEO_PLAY, properties: { video: config.alt } });
     };
-    const handlePause = () => setIsPlaying(false);
+    const handlePause = () => {
+      setIsPlaying(false);
+      trackEvent({ name: AnalyticsEvents.VIDEO_PAUSE, properties: { video: config.alt } });
+    };
     const handleWaiting = () => setIsLoading(true);
     const handleCanPlay = () => {
       setIsLoading(false);

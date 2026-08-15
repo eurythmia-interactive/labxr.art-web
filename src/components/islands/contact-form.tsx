@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { LucideIcon } from './lucide-icon';
+import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -67,6 +68,7 @@ export function ContactForm() {
     }
 
     $formStatus.set('submitting');
+    trackEvent({ name: AnalyticsEvents.CONTACT_FORM_SUBMIT });
 
     try {
       const response = await fetch('/api/contact', {
@@ -82,6 +84,7 @@ export function ContactForm() {
       }
 
       $formStatus.set('success');
+      trackEvent({ name: AnalyticsEvents.CONTACT_FORM_SUCCESS });
       setFormData({
         name: '',
         email: '',
@@ -94,6 +97,7 @@ export function ContactForm() {
     } catch (err) {
       $formStatus.set('error');
       $formError.set(err instanceof Error ? err.message : 'An error occurred');
+      trackEvent({ name: AnalyticsEvents.CONTACT_FORM_ERROR });
     }
   };
 

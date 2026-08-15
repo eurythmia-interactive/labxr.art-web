@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { VideoPlayerIsland } from '@/components/islands/video-player-island';
 import type { VideoConfig } from '@/lib/video/types';
+import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
 
 interface CaseStudyData {
   id: string;
@@ -36,6 +37,7 @@ export function CaseStudyViewer({ caseStudies }: CaseStudyViewerProps) {
   useEffect(() => {
     if (activeId) {
       setIsDialogOpen(true);
+      trackEvent({ name: AnalyticsEvents.CASE_STUDY_OPEN, properties: { id: activeId } });
     } else {
       setIsDialogOpen(false);
     }

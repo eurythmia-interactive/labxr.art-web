@@ -25,6 +25,7 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
   class="service-card group block transition-all duration-300 hover:scale-[1.02]"
   data-preview-video={previewVideoUrl}
   data-preview-poster={previewPosterUrl}
+  data-title={title}
 >
   <Card className="h-full border-border bg-secondary transition-colors duration-300 group-hover:border-primary">
     <CardHeader>
@@ -58,6 +59,7 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
 
 <script>
   import { $isMobile } from '@/lib/stores/device';
+  import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
 
   const cards = document.querySelectorAll('.service-card[data-preview-video]');
   
@@ -65,6 +67,7 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
     cards.forEach((card) => {
       const videoUrl = card.getAttribute('data-preview-video');
       const videoEl = card.querySelector('video') as HTMLVideoElement | null;
+      const title = card.getAttribute('data-title') || '';
       
       if (!videoEl || !videoUrl) return;
       
@@ -73,6 +76,7 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
           videoEl.src = videoUrl;
         }
         videoEl.play().catch(() => {});
+        trackEvent({ name: AnalyticsEvents.SERVICE_HOVER, properties: { service: title } });
       });
       
       card.addEventListener('mouseleave', () => {
