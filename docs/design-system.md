@@ -6,9 +6,44 @@ The LabXR.art design system provides a cohesive visual language for building cin
 
 ---
 
+## Theme System
+
+LabXR.art uses a CSS Variable-based theme system where changing **one import line** in `src/styles/global.css` switches the entire visual design.
+
+**Available Themes:**
+
+| Theme | File | Style | Inspiration |
+|-------|------|-------|-------------|
+| Cinematic Dark (default) | `cinematic-dark.css` | Dark, cyan accent, cinematic | Default LabXR theme |
+| Minimalist Monochrome | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
+| Neo-Brutalist | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
+| Glassmorphism | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
+
+**How to Switch Themes:**
+
+```css
+/* In src/styles/global.css */
+@import './themes/cinematic-dark.css';  /* Change this line */
+```
+
+**How to Create a New Theme:**
+
+1. Copy any existing theme file (e.g., `cinematic-dark.css`)
+2. Rename it (e.g., `my-custom-theme.css`)
+3. Modify the CSS variable values in `:root`
+4. Update the import in `global.css`
+
+**Required CSS Variables:** Every theme must define the full token set (colors, spacing, typography, borders, shadows, transitions, z-index). See `src/styles/themes/README.md` for the complete specification.
+
+**Theme-Specific Notes:**
+
+- **Glassmorphism:** Uses translucent `rgba()` backgrounds for `--color-bg-secondary` and `--color-bg-tertiary`. These work best when layered on `--color-bg-primary` (solid). Avoid using them as base backgrounds.
+
+---
+
 ## Design Tokens
 
-Design tokens are the atomic values that define our visual language. They are defined as CSS custom properties in `src/styles/tokens.css` and mapped to Tailwind utility classes.
+Design tokens are the atomic values that define our visual language. They are defined as CSS custom properties in `src/styles/themes/<theme-name>.css` (active theme: `cinematic-dark.css`) and mapped to Tailwind utility classes.
 
 ### Colors
 
@@ -684,9 +719,13 @@ src/
 │   │   └── ui.ts
 │   ├── focus.ts          # Focus management utilities
 │   └── utils.ts          # General utilities (cn)
-└── styles/
-    ├── global.css        # Global styles and font imports
-    └── tokens.css        # Design tokens
+    └── styles/
+        ├── global.css        # Global styles, font imports, shadcn bridge
+        └── themes/           # Theme system (CSS variable themes)
+            ├── cinematic-dark.css   # Active theme
+            ├── minimal-mono.css
+            ├── neo-brutalist.css
+            └── glassmorphism.css
 ```
 
 ---
@@ -701,5 +740,5 @@ src/
 
 ---
 
-**Last updated:** 2026-08-11
-**Version:** 1.0.0
+**Last updated:** 2026-08-17
+**Version:** 1.1.0 (Theme System added)

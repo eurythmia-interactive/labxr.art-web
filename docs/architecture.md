@@ -69,10 +69,39 @@ LabXR.art uses a **static-first, islands-based architecture** optimized for perf
 
 ```astro
 <!-- Base styles for mobile -->
-<div class="text-sm md:text-base lg:text-lg">
+<div class="text-sm md:text-base lg:text-xl">
   <!-- Responsive breakpoints -->
 </div>
 ```
+
+## Theme System
+
+The site uses a **CSS Variable-based theme system** that allows switching the entire visual design by changing one import line in `src/styles/global.css`.
+
+**Architecture:**
+
+- `src/styles/themes/` — Directory containing theme files
+- `src/styles/themes/cinematic-dark.css` — Default theme (active)
+- `src/styles/themes/{minimal-mono,neo-brutalist,glassmorphism}.css` — Alternative themes
+- `src/styles/global.css` — Imports active theme + shadcn bridge layer
+
+**How it works:**
+
+1. Each theme file defines the same CSS variables in `:root` with different values
+2. `global.css` imports the active theme via `@import './themes/<name>.css'`
+3. `tailwind.config.mjs` reads CSS variables via `var(...)` — no theme-specific config needed
+4. shadcn bridge layer in `global.css` maps LabXR tokens to shadcn standard names (`--background`, `--primary`, etc.)
+5. Switching themes requires changing one import line, no other code changes
+
+**Adding a new theme:**
+
+1. Copy any existing theme file
+2. Modify the CSS variable values
+3. Update the import in `global.css`
+
+See `src/styles/themes/README.md` for the complete guide and `docs/phase-5.6-report.md` for implementation details.
+
+---
 
 ## Future UI Primitives: shadcn/ui
 

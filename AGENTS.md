@@ -37,6 +37,7 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX. It brid
 - **Mobile-First Mandate:** Write base CSS for mobile. Use `md:`, `lg:`, and `xl:` breakpoints for desktop enhancements.
 - **Dark Theme Default:** The site is inherently dark and cinematic. Ensure contrast ratios meet WCAG AA standards.
 - **shadcn/ui Integration:** Use shadcn components for forms, buttons, and modals. Customize them via `tailwind.config.js` and global CSS variables, do not hardcode colors.
+- **Theme System:** All design tokens live in `src/styles/themes/<theme-name>.css`. The active theme is set via a single `@import` line at the top of `src/styles/global.css`. Never hardcode colors, spacing, typography, or shadows — always reference CSS variables.
 - **No Layout Shift (CLS):** All images, videos, and canvases MUST have explicit aspect ratios or dimensions reserved in the DOM before loading.
 
 ## 6. Media & Video Rules (Cloudflare R2)
@@ -73,7 +74,8 @@ On every new session, BEFORE doing anything else:
 
 1. Read `CONTEXT.md`
 2. Read `docs/PROJECT-STATUS.md`
-3. Read the latest phase report in `docs/` (e.g., `docs/phase-5-report.md`)
-4. Wait for user instructions before taking any action
+3. Read the latest phase report in `docs/` (e.g., `docs/phase-5.6-report.md`)
+4. If working with themes, read `src/styles/themes/README.md`
+5. Wait for user instructions before taking any action
 
 Do not proceed with any tasks unless explicitly instructed by the user.
