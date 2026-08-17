@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect, useState } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useStore } from '@nanostores/react';
 import { $isMobile } from '@/lib/stores/device';
@@ -29,8 +29,6 @@ class ErrorBoundary extends React.Component<
     return this.props.children;
   }
 }
-
-import React from 'react';
 
 function Particles() {
   const points = useRef<THREE.Points>(null);
