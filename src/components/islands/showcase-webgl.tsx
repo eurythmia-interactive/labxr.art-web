@@ -30,6 +30,107 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+// Camera controller that follows mouse movement with smooth interpolation
+function CameraController() {
+  const { camera } = useThree();
+  const mouse = useRef({ x: 0, y: 0 });
+  const target = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize mouse position to -1 to 1 range
+      mouse.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useFrame(() => {
+    // Smooth interpolation (lerp) towards mouse position
+    target.current.x += (mouse.current.x - target.current.x) * 0.05;
+    target.current.y += (mouse.current.y - target.current.y) * 0.05;
+
+    // Update camera position with offset
+    camera.position.x = target.current.x * 2;
+    camera.position.y = target.current.y * 2;
+    camera.position.z = 6;
+
+    // Always look at the center
+    camera.lookAt(0, 0, 0);
+  });
+
+  return null;
+}
+
+// Orbital spheres inspired by Three.js parallax barrier example
+function OrbitalSpheres() {
+  const spheresRef = useRef<THREE.Group>(null);
+  const spheresData = useRef<Array<{ mesh: THREE.Mesh; offset: number }>>([]);
+
+  const { spheres } = useMemo(() => {
+    const count = 150;
+    const sphereGeometry = new THREE.SphereGeometry(0.08, 16, 8);
+    const sphereMaterial = new THREE.MeshStandardMaterial({
+      color: '#00d4ff',
+      metalness: 0.9,
+      roughness: 0.1,
+      emissive: '#00d4ff',
+      emissiveIntensity: 0.3,
+    });
+
+    const sphereArray: Array<{ mesh: THREE.Mesh; offset: number }> = [];
+
+    for (let i = 0; i < count; i++) {
+      const mesh = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      
+      // Random initial positions in a larger volume
+      mesh.position.x = (Math.random() - 0.5) * 8;
+      mesh.position.y = (Math.random() - 0.5) * 8;
+      mesh.position.z = (Math.random() - 0.5) * 8;
+      
+      // Random scale variation
+      const scale = Math.random() * 1.5 + 0.5;
+      mesh.scale.set(scale, scale, scale);
+      
+      sphereArray.push({ mesh, offset: Math.random() * Math.PI * 2 });
+    }
+
+    spheresData.current = sphereArray;
+    return { spheres: sphereArray, count };
+  }, []);
+
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime() * 0.3;
+
+    spheresData.current.forEach(({ mesh, offset }, i) => {
+      // Create orbital motion patterns
+      mesh.position.x = 4 * Math.cos(time + offset + i * 0.1);
+      mesh.position.y = 4 * Math.sin(time * 0.8 + offset + i * 0.15);
+      mesh.position.z = 3 * Math.sin(time * 0.6 + offset + i * 0.2);
+    });
+  });
+
+  useEffect(() => {
+    return () => {
+      // Cleanup geometries and materials
+      spheresData.current.forEach(({ mesh }) => {
+        mesh.geometry.dispose();
+        (mesh.material as THREE.Material).dispose();
+      });
+    };
+  }, []);
+
+  return (
+    <group ref={spheresRef}>
+      {spheres.map(({ mesh }, i) => (
+        <primitive key={i} object={mesh} />
+      ))}
+    </group>
+  );
+}
+
 // ModelPlaceholder: Lightweight procedural geometry
 // TODO: Phase 6 - Replace with useGLTF('/models/labxr-model.glb') when real assets are ready
 function ModelPlaceholder() {
@@ -37,8 +138,12 @@ function ModelPlaceholder() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.3;
+      const time = state.clock.getElapsedTime();
+      meshRef.current.rotation.x = time * 0.2;
+      meshRef.current.rotation.y = time * 0.3;
+      
+      // Subtle floating motion
+      meshRef.current.position.y = Math.sin(time * 0.5) * 0.2;
     }
   });
 
@@ -56,10 +161,10 @@ function ModelPlaceholder() {
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
         color="#1a1a1a"
-        metalness={0.9}
-        roughness={0.2}
+        metalness={0.95}
+        roughness={0.1}
         emissive="#00d4ff"
-        emissiveIntensity={0.1}
+        emissiveIntensity={0.15}
       />
     </mesh>
   );
@@ -67,8 +172,6 @@ function ModelPlaceholder() {
 
 function Particles() {
   const points = useRef<THREE.Points>(null);
-  const { size } = useThree();
-  const mouse = useRef({ x: 0, y: 0 });
 
   const { positions, scales } = useMemo(() => {
     const count = 1500;
@@ -100,21 +203,10 @@ function Particles() {
     []
   );
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.current.x = (e.clientX / size.width) * 2 - 1;
-      mouse.current.y = -(e.clientY / size.height) * 2 + 1;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [size]);
-
   useFrame((state) => {
     if (points.current) {
       const material = points.current.material as THREE.ShaderMaterial;
       material.uniforms.uTime.value = state.clock.getElapsedTime();
-      material.uniforms.uMouse.value.set(mouse.current.x, mouse.current.y);
     }
   });
 
@@ -177,20 +269,27 @@ export function ShowcaseWebGL() {
     <ErrorBoundary>
       <div className="h-full w-full">
         <Canvas
-          camera={{ position: [0, 0, 6], fov: 45 }}
+          camera={{ position: [0, 0, 6], fov: 60 }}
           dpr={[1, 1.5]}
           gl={{ antialias: true, alpha: true }}
           style={{ background: 'transparent' }}
         >
-          {/* Lighting */}
-          <ambientLight intensity={0.3} />
-          <directionalLight position={[5, 5, 5]} intensity={1} color="#ffffff" />
-          <directionalLight position={[-5, -5, -5]} intensity={0.5} color="#00d4ff" />
+          {/* Camera controller for mouse-following */}
+          <CameraController />
           
-          {/* 3D Model */}
+          {/* Enhanced lighting setup */}
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 5, 5]} intensity={1.2} color="#ffffff" />
+          <directionalLight position={[-5, -5, -5]} intensity={0.6} color="#00d4ff" />
+          <pointLight position={[0, 0, 3]} intensity={0.8} color="#00d4ff" distance={10} />
+          
+          {/* Central 3D Model */}
           <ModelPlaceholder />
           
-          {/* Generative Particles */}
+          {/* Orbital spheres (inspired by Three.js parallax example) */}
+          <OrbitalSpheres />
+          
+          {/* Generative particle shell */}
           <Particles />
         </Canvas>
       </div>
