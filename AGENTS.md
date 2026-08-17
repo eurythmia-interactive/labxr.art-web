@@ -66,3 +66,14 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX. It brid
 - **Semantic HTML:** Use proper `<header>`, `<main>`, `<section>`, and `<footer>` tags.
 - **Focus Trapping:** Modals (shadcn Dialog) must trap focus and close on the `Escape` key.
 - **Error Boundaries:** Wrap React Islands in Error Boundaries. If a 3D canvas fails to load, the rest of the page must still function.
+
+## 10. Session Start Protocol
+
+On every new session, BEFORE doing anything else:
+
+1. Read `CONTEXT.md`
+2. Read `docs/PROJECT-STATUS.md`
+3. Read the latest phase report in `docs/` (e.g., `docs/phase-5-report.md`)
+4. Wait for user instructions before taking any action
+
+Do not proceed with any tasks unless explicitly instructed by the user.
