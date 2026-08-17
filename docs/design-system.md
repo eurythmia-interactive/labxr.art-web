@@ -18,6 +18,10 @@ LabXR.art uses a CSS Variable-based theme system where changing **one import lin
 | Minimalist Monochrome | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
 | Neo-Brutalist | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
 | Glassmorphism | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
+| Frosted Glass | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
+| Sunset Glass | `gradient-sunset-glass.css` | Warm dark, golden hour | Tropical sunsets, creative energy |
+| Aurora Glass | `gradient-aurora-glass.css` | Cool dark, ethereal | Northern lights, deep space |
+| Neon Glass | `gradient-neon-glass.css` | Cyberpunk, neon glow | Cyberpunk aesthetics, futuristic |
 
 **How to Switch Themes:**
 
@@ -49,9 +53,10 @@ Design tokens are the atomic values that define our visual language. They are de
 
 #### Background Colors
 
-- `--color-bg-primary: #0a0a0a` — Main background (deep black)
+- `--color-bg-primary: #0a0a0a` — Main background (solid color, used by components and Tailwind classes)
 - `--color-bg-secondary: #1a1a1a` — Secondary surfaces (cards, panels)
 - `--color-bg-tertiary: #2a2a2a` — Tertiary surfaces (hover states, borders)
+- `--color-bg-gradient: linear-gradient(...)` — **Optional** CSS gradient applied to `body` via `background-image`. Adds visual depth to the page background.
 
 **Tailwind Classes:**
 
@@ -721,11 +726,15 @@ src/
 │   └── utils.ts          # General utilities (cn)
     └── styles/
         ├── global.css        # Global styles, font imports, shadcn bridge
-        └── themes/           # Theme system (CSS variable themes)
-            ├── cinematic-dark.css   # Active theme
+        └── themes/           # Theme system (8 themes with gradients)
+            ├── cinematic-dark.css               # Active theme (default)
             ├── minimal-mono.css
             ├── neo-brutalist.css
-            └── glassmorphism.css
+            ├── glassmorphism.css
+            ├── gradient-frosted-glass.css
+            ├── gradient-sunset-glass.css
+            ├── gradient-aurora-glass.css
+            └── gradient-neon-glass.css
 ```
 
 ---
@@ -741,4 +750,4 @@ src/
 ---
 
 **Last updated:** 2026-08-17
-**Version:** 1.1.0 (Theme System added)
+**Version:** 1.2.0 (CSS gradients added to all 8 themes)

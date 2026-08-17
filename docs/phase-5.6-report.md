@@ -267,6 +267,45 @@ Documented in `src/styles/themes/README.md`:
 | `b88696b` | chore: theme system architecture with cinematic-dark default |
 | `dff8957` | feat: theme system with 4 themes (cinematic-dark, minimal-mono, neo-brutalist, glassmorphism) |
 | `4f4fc97` | docs: theme system documentation in CONTEXT and PROJECT-STATUS |
+| `0819ba8` | feat: add 4 gradient-glass themes with real CSS gradients |
+| `dbcd282` | docs: comprehensive Phase 5.6 documentation update (AGENTS, design-system, architecture, NEXT-SESSION-PROMPT) |
+
+---
+
+## Phase 5.6 Enhancement: CSS Gradients
+
+On 2026-08-17, the theme system was enhanced with real CSS gradients applied to all 8 themes via a new `--color-bg-gradient` variable.
+
+### What Was Added
+
+- **4 new gradient themes** (`gradient-frosted-glass`, `gradient-sunset-glass`, `gradient-aurora-glass`, `gradient-neon-glass`)
+- **Real CSS gradients** in all 8 themes (subtle on originals, dramatic on glass themes)
+- **`--color-bg-gradient` variable** in `global.css` body for optional gradient overlay
+
+### Architecture Decision
+
+Two separate background variables:
+- `--color-bg-primary` — Solid color (used by components, shadcn, Tailwind)
+- `--color-bg-gradient` — Optional CSS gradient applied to `body` only
+
+This separation ensures:
+- ✅ Zero breaking changes to components
+- ✅ Themes without gradients work as solid colors only
+- ✅ GPU-accelerated rendering, no JS overhead
+- ✅ iOS Safari safe (static `background-attachment: scroll`)
+
+### Gradient Strategy per Theme
+
+| Theme | Gradient |
+|-------|----------|
+| `cinematic-dark` | `linear-gradient(180deg, #0a0a0a 0%, #050505 100%)` |
+| `minimal-mono` | `linear-gradient(180deg, #ffffff 0%, #fafafa 100%)` |
+| `neo-brutalist` | `linear-gradient(135deg, #fffbf0 0%, #fff4d6 100%)` |
+| `glassmorphism` | `radial-gradient(ellipse at top, #1a1a3a 0%, #0f0f1e 70%)` |
+| `gradient-frosted-glass` | `radial-gradient(ellipse at top, #ffffff 0%, #e8e8f0 50%, #d8d8e0 100%)` |
+| `gradient-sunset-glass` | `radial-gradient(ellipse at top, #4a1f3a 0%, #2a0f1e 50%, #1a0f1e 100%)` |
+| `gradient-aurora-glass` | `linear-gradient(135deg, #0a0e27 0%, #1a1f4a 35%, #2a1a4a 70%, #0a0e27 100%)` |
+| `gradient-neon-glass` | `radial-gradient(ellipse at center, #1a0a2a 0%, #0a0a0f 70%)` |
 
 ---
 
@@ -280,9 +319,13 @@ Documented in `src/styles/themes/README.md`:
 
 4. **Documentation-first** — Creating the README in Task A.1 (instead of D.1) prevented committing an empty file. This was a refinement over the original plan.
 
+5. **Separate gradient variable** — Splitting solid (`--color-bg-primary`) and gradient (`--color-bg-gradient`) backgrounds avoided breaking the entire shadcn bridge and component solid-color usage.
+
+6. **All 8 themes get gradients** — User decision to add gradients to all themes (not just the 4 new glass themes) produced a more cohesive system. Original themes got subtle gradients; glass themes got dramatic ones.
+
 ---
 
 **Report generated:** 2026-08-17  
-**Phase 5.6 status:** ✅ COMPLETE  
+**Phase 5.6 status:** ✅ COMPLETE (incl. CSS gradient enhancement)  
 **Next phase:** Phase 6 — Content Production & SEO  
 **Estimated duration:** 4-5 hours

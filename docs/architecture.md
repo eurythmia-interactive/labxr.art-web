@@ -80,9 +80,10 @@ The site uses a **CSS Variable-based theme system** that allows switching the en
 
 **Architecture:**
 
-- `src/styles/themes/` — Directory containing theme files
+- `src/styles/themes/` — Directory containing 8 theme files
 - `src/styles/themes/cinematic-dark.css` — Default theme (active)
-- `src/styles/themes/{minimal-mono,neo-brutalist,glassmorphism}.css` — Alternative themes
+- `src/styles/themes/{minimal-mono,neo-brutalist,glassmorphism}.css` — Original 4 themes
+- `src/styles/themes/gradient-{frosted,sunset,aurora,neon}-glass.css` — 4 gradient themes
 - `src/styles/global.css` — Imports active theme + shadcn bridge layer
 
 **How it works:**
@@ -92,12 +93,37 @@ The site uses a **CSS Variable-based theme system** that allows switching the en
 3. `tailwind.config.mjs` reads CSS variables via `var(...)` — no theme-specific config needed
 4. shadcn bridge layer in `global.css` maps LabXR tokens to shadcn standard names (`--background`, `--primary`, etc.)
 5. Switching themes requires changing one import line, no other code changes
+6. Each theme may define `--color-bg-gradient` for an optional CSS gradient on the body
+
+**Background Architecture:**
+
+The theme system separates solid and gradient backgrounds into two distinct variables:
+
+- `--color-bg-primary` — Solid color (used by components, shadcn bridge, Tailwind classes)
+- `--color-bg-gradient` — **Optional** CSS gradient applied to `body` via `background-image`
+
+In `global.css`:
+
+```css
+body {
+  background-color: var(--color-bg-primary);  /* solid fallback always present */
+  background-image: var(--color-bg-gradient); /* gradient overlay if theme defines one */
+}
+```
+
+This design ensures:
+- Components keep using solid colors (no breaking changes)
+- Body gets a gradient overlay for visual depth
+- Themes without `--color-bg-gradient` work as solid colors only
+- GPU-accelerated rendering, no JS overhead
+- Static gradients only (no `background-attachment: fixed` for iOS Safari compatibility)
 
 **Adding a new theme:**
 
 1. Copy any existing theme file
 2. Modify the CSS variable values
-3. Update the import in `global.css`
+3. Optionally define `--color-bg-gradient` for a gradient background
+4. Update the import in `global.css`
 
 See `src/styles/themes/README.md` for the complete guide and `docs/phase-5.6-report.md` for implementation details.
 

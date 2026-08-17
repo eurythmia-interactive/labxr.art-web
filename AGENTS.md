@@ -38,6 +38,8 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX. It brid
 - **Dark Theme Default:** The site is inherently dark and cinematic. Ensure contrast ratios meet WCAG AA standards.
 - **shadcn/ui Integration:** Use shadcn components for forms, buttons, and modals. Customize them via `tailwind.config.js` and global CSS variables, do not hardcode colors.
 - **Theme System:** All design tokens live in `src/styles/themes/<theme-name>.css`. The active theme is set via a single `@import` line at the top of `src/styles/global.css`. Never hardcode colors, spacing, typography, or shadows — always reference CSS variables.
+- **Backgrounds:** Two separate variables — `--color-bg-primary` (solid, for components/shadcn/Tailwind) and `--color-bg-gradient` (optional CSS gradient, applied to body via `background-image`). Both can be defined in a theme. The body uses solid color as fallback when no gradient is defined.
+- **Gradient Performance:** Always use static gradients (`background-attachment: scroll`). Never use `background-attachment: fixed` (iOS Safari has bugs with it). Gradients are GPU-accelerated and have no JS overhead.
 - **No Layout Shift (CLS):** All images, videos, and canvases MUST have explicit aspect ratios or dimensions reserved in the DOM before loading.
 
 ## 6. Media & Video Rules (Cloudflare R2)

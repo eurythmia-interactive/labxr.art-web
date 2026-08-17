@@ -406,6 +406,93 @@ Use Prettier for formatting. Defer ESLint configuration to a later phase if need
 
 ---
 
+## Decision 012: Use CSS Variable-based theme system
+
+**Date:** 2026-08-17  
+**Status:** Accepted
+
+### Context
+
+The site uses CSS variables for design tokens but was locked to a single theme. We needed the ability to switch the entire visual design (colors, typography, spacing, backgrounds) without changing components.
+
+### Decision
+
+Implement a CSS Variable-based theme system where each theme is a separate CSS file defining the same variables in `:root`. The active theme is selected via a single `@import` line in `src/styles/global.css`.
+
+### Rationale
+
+- **Zero JS overhead** — No runtime theme-switching logic, no FOUC
+- **Build-time** — Theme is baked into the CSS bundle
+- **Tailwind-native** — Config already uses `var()` so no changes needed
+- **shadcn-compatible** — Bridge layer maps to standard tokens
+- **8 themes available** — 4 original + 4 gradient themes, demonstrating the system
+- **Zero breaking changes** — Existing components continue to work
+
+### Consequences
+
+**Positive:**
+
+- Complete visual redesign with one line change
+- New themes can be added by copying any existing file
+- shadcn, Tailwind, and components all work without modification
+- GPU-accelerated gradients, no JS overhead
+- Documentation in `src/styles/themes/README.md`
+
+**Negative:**
+
+- Only one theme is active at a time (build-time selection)
+- Theme files must be kept in sync (all define same variable set)
+
+---
+
+## Decision 013: Separate solid and gradient backgrounds
+
+**Date:** 2026-08-17  
+**Status:** Accepted
+
+### Context
+
+The original 4 themes used solid `--color-bg-primary` colors throughout components, Tailwind classes, and the shadcn bridge. We wanted to add CSS gradients to themes for visual depth without breaking the existing architecture.
+
+### Decision
+
+Use two separate background variables:
+- `--color-bg-primary` — Solid color (always required, used by components)
+- `--color-bg-gradient` — Optional CSS gradient (applied to `body` only via `background-image`)
+
+In `global.css`:
+
+```css
+body {
+  background-color: var(--color-bg-primary);  /* always solid fallback */
+  background-image: var(--color-bg-gradient); /* optional gradient overlay */
+}
+```
+
+### Rationale
+
+- **Zero breaking changes** — Components keep using solid `--color-bg-primary`
+- **Optional gradients** — Themes without `--color-bg-gradient` work as before
+- **shadcn bridge intact** — `--background` still maps to solid color
+- **GPU-accelerated** — CSS gradients have no JS overhead
+- **Static only** — No `background-attachment: fixed` (iOS Safari incompatibility)
+
+### Consequences
+
+**Positive:**
+
+- All 8 themes now have gradients (subtle on originals, dramatic on glass themes)
+- Components continue to use solid colors via Tailwind/shadcn
+- Gradients render fast via GPU
+- Architecture is future-proof for additional gradient variants
+
+**Negative:**
+
+- Two variables to manage per theme (minor)
+- Gradient design is constrained to body-level only (could be extended to sections later)
+
+---
+
 ## How to Add New Decisions
 
 Copy this template:
@@ -443,4 +530,4 @@ Copy this template:
 
 ---
 
-**Last updated:** 2026-08-11
+**Last updated:** 2026-08-17

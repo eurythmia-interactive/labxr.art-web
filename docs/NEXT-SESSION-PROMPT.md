@@ -36,7 +36,8 @@ If you're starting a session in a different directory or need to manually provid
 
 **Phase 5.6 Complete** - Theme System delivered:
 - ✅ CSS Variable-based theme system architecture
-- ✅ 4 themes available: cinematic-dark (default), minimal-mono, neo-brutalist, glassmorphism
+- ✅ 8 themes available: cinematic-dark (default), minimal-mono, neo-brutalist, glassmorphism, gradient-frosted-glass, gradient-sunset-glass, gradient-aurora-glass, gradient-neon-glass
+- ✅ Real CSS gradients (linear-gradient, radial-gradient) via `--color-bg-gradient` variable
 - ✅ Single-file theme switching (change one import line in global.css)
 - ✅ Complete theme system documentation
 - ✅ Zero breaking changes to existing components
