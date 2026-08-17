@@ -1,7 +1,7 @@
 /* Global Styles - LabXR.art */
 
-/* Import design tokens */
-@import './tokens.css';
+/* Import active theme */
+@import './themes/cinematic-dark.css';
 
 /* shadcn/ui Compatibility Layer */
 /* Maps shadcn-standard variable names to LabXR design tokens */
