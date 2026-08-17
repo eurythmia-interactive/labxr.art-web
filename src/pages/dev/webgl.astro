@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { HeroWebGL } from '@/components/islands/hero-webgl';
+import { ShowcaseWebGL } from '@/components/islands/showcase-webgl';
 ---
 
 <BaseLayout title="WebGL Diagnostic - LabXR.art" noindex>
@@ -18,7 +18,7 @@ import { HeroWebGL } from '@/components/islands/hero-webgl';
       <div class="mb-8 rounded-lg border border-border bg-secondary p-6">
         <h2 class="mb-4 text-2xl font-semibold text-foreground">WebGL Canvas</h2>
         <div class="relative h-96 w-full overflow-hidden rounded-lg bg-black">
-          <HeroWebGL client:only="react" />
+          <ShowcaseWebGL client:only="react" />
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/sections/hero.astro';
+import WebGLShowcase from '@/components/sections/webgl-showcase.astro';
 import Manifesto from '@/components/sections/manifesto.astro';
 import Services from '@/components/sections/services.astro';
 import Portfolio from '@/components/sections/portfolio.astro';
@@ -31,6 +32,7 @@ const serializedCaseStudies = caseStudies.map((study) => ({
 >
   <main id="main-content">
     <Hero />
+    <WebGLShowcase />
     <Manifesto />
     <Services />
     <Portfolio />

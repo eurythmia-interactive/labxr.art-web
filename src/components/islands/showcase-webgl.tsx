@@ -30,6 +30,41 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+// ModelPlaceholder: Lightweight procedural geometry
+// TODO: Phase 6 - Replace with useGLTF('/models/labxr-model.glb') when real assets are ready
+function ModelPlaceholder() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.2;
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.3;
+    }
+  });
+
+  useEffect(() => {
+    return () => {
+      if (meshRef.current) {
+        meshRef.current.geometry.dispose();
+        (meshRef.current.material as THREE.Material).dispose();
+      }
+    };
+  }, []);
+
+  return (
+    <mesh ref={meshRef}>
+      <torusKnotGeometry args={[1, 0.3, 128, 16]} />
+      <meshStandardMaterial
+        color="#1a1a1a"
+        metalness={0.9}
+        roughness={0.2}
+        emissive="#00d4ff"
+        emissiveIntensity={0.1}
+      />
+    </mesh>
+  );
+}
+
 function Particles() {
   const points = useRef<THREE.Points>(null);
   const { size } = useThree();
@@ -40,10 +75,11 @@ function Particles() {
     const positions = new Float32Array(count * 3);
     const scales = new Float32Array(count);
 
+    // Distribute particles in a shell around the model
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
-      const radius = Math.random() * 2 + 0.5;
+      const radius = 2.5 + Math.random() * 1.5; // Shell from 2.5 to 4.0
 
       positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
       positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
@@ -122,7 +158,7 @@ function Particles() {
   );
 }
 
-export function HeroWebGL() {
+export function ShowcaseWebGL() {
   const isMobile = useStore($isMobile);
   const prefersReducedMotion = useStore($prefersReducedMotion);
   const [webGLAvailable, setWebGLAvailable] = useState(false);
@@ -139,13 +175,22 @@ export function HeroWebGL() {
 
   return (
     <ErrorBoundary>
-      <div className="absolute inset-0 z-[1]">
+      <div className="h-full w-full">
         <Canvas
-          camera={{ position: [0, 0, 5], fov: 75 }}
+          camera={{ position: [0, 0, 6], fov: 45 }}
           dpr={[1, 1.5]}
-          gl={{ antialias: false, alpha: true }}
+          gl={{ antialias: true, alpha: true }}
           style={{ background: 'transparent' }}
         >
+          {/* Lighting */}
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[5, 5, 5]} intensity={1} color="#ffffff" />
+          <directionalLight position={[-5, -5, -5]} intensity={0.5} color="#00d4ff" />
+          
+          {/* 3D Model */}
+          <ModelPlaceholder />
+          
+          {/* Generative Particles */}
           <Particles />
         </Canvas>
       </div>

@@ -1,0 +1,37 @@
+---
+import Container from '@/components/shared/Container.astro';
+import Section from '@/components/shared/Section.astro';
+import Heading from '@/components/shared/Heading.astro';
+import Text from '@/components/shared/Text.astro';
+import { ShowcaseWebGL } from '@/components/islands/showcase-webgl';
+
+---
+
+<Section id="webgl-showcase" padding="xl" className="relative overflow-hidden">
+  <Container size="xl">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-center">
+      {/* Text Content */}
+      <div class="order-2 lg:order-1">
+        <Heading level={2} className="mb-6">
+          Ingeniería Generativa &amp; WebGL
+        </Heading>
+        <Text size="lg" className="mb-4">
+          Creamos experiencias 3D inmersivas que combinan shaders personalizados,
+          sistemas de partículas generativas y modelos interactivos en tiempo real.
+        </Text>
+        <Text size="base" color="tertiary">
+          Desde visualizaciones de producto hasta instalaciones interactivas a gran escala,
+          nuestro stack técnico (Three.js, GLSL, React Three Fiber) nos permite empujar
+          los límites de lo que es posible en el navegador.
+        </Text>
+      </div>
+
+      {/* WebGL Canvas Container */}
+      <div class="order-1 lg:order-2">
+        <div class="relative aspect-video w-full overflow-hidden rounded-lg border border-border bg-secondary">
+          <ShowcaseWebGL client:only="react" />
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
