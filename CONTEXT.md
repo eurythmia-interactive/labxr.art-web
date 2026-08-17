@@ -143,6 +143,26 @@ Video player implements lazy loading with IntersectionObserver, memory managemen
 
 ## Design System
 
+### Theme System
+
+LabXR.art uses a flexible CSS Variable-based theme system.
+
+**Available Themes:**
+- `cinematic-dark.css` - Default dark cinematic theme (cyan accent)
+- `minimal-mono.css` - Light minimalist theme (blue accent, Linear/Vercel inspired)
+- `neo-brutalist.css` - Bold high-contrast theme (pink accent, Gumroad/Framer inspired)
+- `glassmorphism.css` - Translucent glowing theme (purple accent, Apple/SaaS inspired)
+
+**How to Switch Themes:**
+Change the import in `src/styles/global.css`:
+```css
+@import './themes/cinematic-dark.css';  // Change this line
+```
+
+**Theme Files Location:** `src/styles/themes/`
+
+**Documentation:** See `src/styles/themes/README.md` for complete guide on creating custom themes.
+
 ### Colors
 - Background: `#0a0a0a` (deep black)
 - Foreground: `#ffffff` (white)
