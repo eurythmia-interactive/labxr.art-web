@@ -1,0 +1,86 @@
+/* Theme: Glassmorphism
+ * Inspired by Apple, modern SaaS
+ * Translucent, layered, depth-focused
+ *
+ * NOTE: Uses rgba() for bg-secondary and bg-tertiary.
+ * These translucent backgrounds work best when layered
+ * on top of --color-bg-primary (solid).
+ */
+
+:root {
+  /* Colors - Gradient-ready */
+  --color-bg-primary: #0f0f1e;
+  --color-bg-secondary: rgba(30, 30, 50, 0.6);
+  --color-bg-tertiary: rgba(50, 50, 80, 0.4);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-tertiary: rgba(255, 255, 255, 0.5);
+  --color-accent-primary: #a855f7;
+  --color-accent-secondary: #ec4899;
+  --color-accent-tertiary: #3b82f6;
+
+  /* Spacing Scale (balanced) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.625rem;
+  --space-md: 1.125rem;
+  --space-lg: 1.75rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 3.5rem;
+  --space-3xl: 5rem;
+
+  /* Typography - Font Families */
+  --font-sans:
+    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Typography - Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: 3.5rem;
+
+  /* Typography - Line Heights */
+  --leading-tight: 1.15;
+  --leading-snug: 1.25;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.6;
+
+  /* Typography - Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius (very rounded) */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 0.875rem;
+  --border-radius-lg: 1.5rem;
+  --border-radius-full: 9999px;
+
+  /* Shadows (soft, glowing) */
+  --shadow-sm: 0 2px 8px rgba(168, 85, 247, 0.15);
+  --shadow-md: 0 4px 16px rgba(168, 85, 247, 0.2);
+  --shadow-lg: 0 8px 24px rgba(168, 85, 247, 0.25);
+  --shadow-xl: 0 16px 40px rgba(168, 85, 247, 0.3);
+
+  /* Transitions (smooth) */
+  --transition-fast: 200ms;
+  --transition-base: 350ms;
+  --transition-slow: 500ms;
+
+  /* Z-Index Scale */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}
