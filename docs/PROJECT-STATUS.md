@@ -1,7 +1,7 @@
 # Project Status Summary
 
 **Last Updated:** 2026-08-15  
-**Current Phase:** Phase 5 Complete, Awaiting Phase 6  
+**Current Phase:** Phase 5.5 Complete, Awaiting Phase 6  
 **Status:** ✅ All systems operational
 
 ---
@@ -13,7 +13,7 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 ### Live Site
 **URL:** https://labxr-art-web.pages.dev  
 **Status:** ✅ Deployed and operational  
-**Last Deploy:** 2026-08-15 (commit 2b02646)
+**Last Deploy:** 2026-08-15 (commit 714dbdf)
 
 ---
 
@@ -68,6 +68,18 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - Created custom domain setup documentation
 - Created comprehensive development workflow guide
 - Fixed CSP policy, corrupted font, and video playback issues
+
+### ✅ Phase 5.5 — Cinematic Hero & Dedicated WebGL Showcase
+- Removed WebGL overlay from hero section for pure cinematic video experience
+- Created dedicated WebGL showcase section with split-screen layout
+- Refactored hero-webgl.tsx → showcase-webgl.tsx with enhanced features:
+  * Added TorusKnot model placeholder with metallic material
+  * Added ambient and directional lighting (white + cyan accent)
+  * Orbiting particles around model (shell distribution 2.5-4.0 radius)
+  * Updated camera to position [0,0,6] with fov 45
+  * Enabled antialiasing for better quality
+- Architecture ready for Phase 6 to swap placeholder with real GLTF model
+- Three.js chunk remains code-split (874KB, loads on demand)
 
 ---
 

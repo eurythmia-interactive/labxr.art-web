@@ -52,6 +52,8 @@
 
 ✅ **Phase 5** — Polish, Interaction, WebGL, Conversion & Performance Recovery — COMPLETE
 
+✅ **Phase 5.5** — Cinematic Hero & Dedicated WebGL Showcase — COMPLETE
+
 🔄 **Awaiting Phase 6 specification from user**
 
 **Phase 5 Task Status:**
@@ -66,6 +68,12 @@
 - 5.8: ✅ DONE (custom domain documentation)
 - 5.9: ✅ DONE (phase 5 validation & report)
 
+**Phase 5.5 Task Status:**
+- 5.5.1: ✅ DONE (cleaned up cinematic hero, removed WebGL overlay)
+- 5.5.2: ✅ DONE (created dedicated WebGL showcase section)
+- 5.5.3: ✅ DONE (upgraded WebGL component with model placeholder and orbiting particles)
+- 5.5.4: ✅ DONE (updated diagnostic route, verified performance)
+
 **Post-Phase 5 Fixes:**
 - ✅ Fixed CSP policy blocking Plausible analytics and inline scripts (added `'unsafe-inline'` and `https://plausible.io`)
 - ✅ Fixed corrupted JetBrains Mono font (was HTML, replaced with valid woff2)
@@ -74,7 +82,7 @@
 
 **Deployment:**
 - GitHub: https://github.com/eurythmia-interactive/labxr.art-web
-- Last commit: 2b02646 - docs: add comprehensive development workflow guide
+- Last commit: 714dbdf - feat: separate cinematic hero from WebGL showcase (Phase 5.5)
 - All code pushed to main branch
 - Cloudflare Pages auto-deploys on push
 
@@ -150,7 +158,7 @@ Video player implements lazy loading with IntersectionObserver, memory managemen
 ### Interactive Islands
 **Device/Motion:** DeviceDetector, MotionDetector, StateDisplay, DialogTest
 **Navigation:** MobileMenu
-**Media:** VideoPlayerIsland, CaseStudyViewer, HeroWebGL
+**Media:** VideoPlayerIsland, CaseStudyViewer, ShowcaseWebGL
 **Icons:** LucideIcon (with icon-registry for tree-shaking)
 **Animations:** ScrollReveal
 **Forms:** ContactForm
@@ -164,12 +172,13 @@ src/
 │   │   ├── case-study-viewer.tsx
 │   │   ├── mobile-menu.tsx
 │   │   ├── lucide-icon.tsx
-│   │   ├── icon-registry.ts       # Tree-shaken icon registry (6.82KB)
-│   │   ├── hero-webgl.tsx         # Three.js particle overlay
-│   │   ├── scroll-reveal.tsx      # GSAP ScrollTrigger wrapper
-│   │   └── contact-form.tsx       # Contact form with Zod validation
+│   │   ├── icon-registry.ts          # Tree-shaken icon registry (6.82KB)
+│   │   ├── showcase-webgl.tsx        # Three.js showcase (model + particles)
+│   │   ├── scroll-reveal.tsx         # GSAP ScrollTrigger wrapper
+│   │   └── contact-form.tsx          # Contact form with Zod validation
 │   ├── sections/     # Astro page sections
-│   │   ├── hero.astro
+│   │   ├── hero.astro                # Pure cinematic video (no WebGL)
+│   │   ├── webgl-showcase.astro      # Dedicated 3D showcase section
 │   │   ├── manifesto.astro
 │   │   ├── services.astro
 │   │   ├── portfolio.astro
@@ -179,8 +188,8 @@ src/
 │   │   ├── video-player.astro
 │   │   ├── navigation.astro
 │   │   ├── footer.astro
-│   │   ├── service-card.astro     # With video hover preview
-│   │   └── whatsapp-button.astro  # Floating CTA
+│   │   ├── service-card.astro        # With video hover preview
+│   │   └── whatsapp-button.astro     # Floating CTA
 │   └── ui/           # shadcn/ui components
 ├── content/          # Astro Content Collections
 │   ├── case-studies/ # Markdown files for projects
@@ -198,7 +207,7 @@ src/
 ├── assets/
 │   └── shaders/      # GLSL shaders (particles.vert, particles.frag)
 ├── pages/            # Astro pages
-│   ├── index.astro   # Homepage (hero, manifesto, services, portfolio, team, contact)
+│   ├── index.astro   # Homepage (hero, webgl-showcase, manifesto, services, portfolio, team, contact)
 │   └── dev/          # Diagnostic routes
 │       ├── health.astro
 │       ├── design-system.astro
@@ -219,7 +228,7 @@ functions/
 
 **Operational Rule:** Do not proceed with any tasks unless explicitly instructed by the user.
 
-Phase 5 is complete. Awaiting Phase 6 specification and task instructions from user.
+Phase 5.5 is complete. Awaiting Phase 6 specification and task instructions from user.
 
 ### Phase 6 Preview (from Phase 5 report)
 
@@ -227,6 +236,7 @@ Phase 6 will focus on **Content Production & SEO**:
 - Replace placeholder videos with real project showreels
 - Add real team member photos and company logo
 - Write real case study content
+- Replace TorusKnot placeholder with real GLTF 3D model
 - Add JSON-LD structured data
 - Generate sitemap.xml
 - Create Open Graph images
@@ -305,6 +315,23 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-15 (Session 7):**
+- Completed Phase 5.5 — Cinematic Hero & Dedicated WebGL Showcase
+- Task 5.5.1: Removed WebGL overlay from hero section, updated gradient for better text readability
+- Task 5.5.2: Created dedicated WebGL showcase section with split-screen layout
+- Task 5.5.3: Refactored hero-webgl.tsx → showcase-webgl.tsx with enhanced features:
+  * Added TorusKnot model placeholder with metallic material
+  * Added ambient and directional lighting (white + cyan accent)
+  * Orbiting particles around model (shell distribution 2.5-4.0 radius)
+  * Updated camera to position [0,0,6] with fov 45
+  * Enabled antialiasing for better quality
+- Task 5.5.4: Updated diagnostic route, verified performance (Three.js still code-split at 874KB)
+- Hero is now pure cinematic video experience (no visual noise from particles)
+- WebGL showcase section positioned immediately after hero
+- Architecture ready for Phase 6 to swap TorusKnot with real GLTF model
+- All TypeScript checks pass, build successful
+- Committed and pushed to GitHub (commit 714dbdf)
 
 **2026-08-15 (Session 6):**
 - Completed Phase 5 (all 10 tasks)
