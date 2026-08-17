@@ -82,7 +82,7 @@
 
 **Deployment:**
 - GitHub: https://github.com/eurythmia-interactive/labxr.art-web
-- Last commit: 714dbdf - feat: separate cinematic hero from WebGL showcase (Phase 5.5)
+- Last commit: 2e82ed3 - docs: add Phase 5.5 completion report and update status documents
 - All code pushed to main branch
 - Cloudflare Pages auto-deploys on push
 

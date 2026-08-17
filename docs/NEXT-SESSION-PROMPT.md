@@ -13,7 +13,7 @@ Read these documents to understand the LabXR.art project:
 - AGENTS.md (project rules and constraints)
 - CONTEXT.md (current state and architecture)
 - docs/PROJECT-STATUS.md (phase completion status)
-- docs/phase-5-report.md (latest phase completion)
+- docs/phase-5.5-report.md (latest phase completion)
 
 Wait for my instructions before taking any action.
 ```
@@ -33,15 +33,17 @@ If you're starting a session in a different directory or need to manually provid
 
 ## Current Project State
 
-**Phase 5 Complete** - All features delivered:
+**Phase 5.5 Complete** - All features delivered:
 - ✅ Lucide icon bundle optimized (928KB → 6.82KB)
 - ✅ GSAP ScrollTrigger animations
-- ✅ Three.js particle overlay (hero section)
+- ✅ Three.js showcase with model placeholder and orbiting particles
 - ✅ Contact form with Cloudflare Worker + Turnstile
 - ✅ Service card video hover previews
 - ✅ Plausible analytics integration
 - ✅ Performance optimized (Lighthouse 90+)
 - ✅ Custom domain documentation
+- ✅ Cinematic hero (pure video, no WebGL overlay)
+- ✅ Dedicated WebGL showcase section
 
 **Next:** Phase 6 specification needed (content production, SEO, i18n)
 
