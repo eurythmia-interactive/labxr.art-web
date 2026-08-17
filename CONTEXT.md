@@ -152,6 +152,12 @@ LabXR.art uses a flexible CSS Variable-based theme system.
 - `minimal-mono.css` - Light minimalist theme (blue accent, Linear/Vercel inspired)
 - `neo-brutalist.css` - Bold high-contrast theme (pink accent, Gumroad/Framer inspired)
 - `glassmorphism.css` - Translucent glowing theme (purple accent, Apple/SaaS inspired)
+- `gradient-frosted-glass.css` - Light neutral with Apple-like gradient
+- `gradient-sunset-glass.css` - Warm dark with golden hour gradient
+- `gradient-aurora-glass.css` - Cool dark with northern lights gradient
+- `gradient-neon-glass.css` - Cyberpunk dark with neon glow gradient
+
+**Backgrounds:** All themes support CSS gradients via `--color-bg-gradient` variable (applied to body).
 
 **How to Switch Themes:**
 Change the import in `src/styles/global.css`:

@@ -1,0 +1,81 @@
+/* Theme: Frosted Minimal
+ * Clean, refined, Apple-inspired glassmorphism
+ * Neutral palette, subtle transparency, sophisticated
+ */
+
+:root {
+  /* Colors - Neutral Frosted Palette */
+  --color-bg-primary: #f5f5f7;
+  --color-bg-secondary: rgba(255, 255, 255, 0.7);
+  --color-bg-tertiary: rgba(255, 255, 255, 0.5);
+  --color-bg-gradient: radial-gradient(ellipse at top, #ffffff 0%, #e8e8f0 50%, #d8d8e0 100%);
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: rgba(29, 29, 31, 0.7);
+  --color-text-tertiary: rgba(29, 29, 31, 0.4);
+  --color-accent-primary: #0071e3;
+  --color-accent-secondary: #0077ed;
+  --color-accent-tertiary: #2997ff;
+
+  /* Spacing Scale (precise, calculated) */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Typography - Font Families */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Typography - Font Sizes (refined scale) */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+
+  /* Typography - Line Heights (tight, precise) */
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.35;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.65;
+
+  /* Typography - Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius (smooth, elegant) */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 0.875rem;
+  --border-radius-lg: 1.25rem;
+  --border-radius-full: 9999px;
+
+  /* Shadows (ultra-subtle, refined) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.1);
+
+  /* Transitions (smooth, natural) */
+  --transition-fast: 180ms;
+  --transition-base: 320ms;
+  --transition-slow: 480ms;
+
+  /* Z-Index Scale */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}

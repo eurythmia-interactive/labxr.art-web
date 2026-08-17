@@ -107,6 +107,7 @@ body {
   line-height: var(--leading-relaxed);
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
+  background-image: var(--color-bg-gradient);
   min-height: 100vh;
 }
 

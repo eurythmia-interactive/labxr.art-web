@@ -12,6 +12,7 @@
   --color-bg-primary: #0f0f1e;
   --color-bg-secondary: rgba(30, 30, 50, 0.6);
   --color-bg-tertiary: rgba(50, 50, 80, 0.4);
+  --color-bg-gradient: radial-gradient(ellipse at top, #1a1a3a 0%, #0f0f1e 70%);
   --color-text-primary: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.8);
   --color-text-tertiary: rgba(255, 255, 255, 0.5);

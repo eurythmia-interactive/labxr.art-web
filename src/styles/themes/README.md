@@ -12,6 +12,10 @@ LabXR.art uses a CSS Variable-based theme system. Changing **one import line** i
 | Minimalist Monochrome | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
 | Neo-Brutalist | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
 | Glassmorphism | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
+| Frosted Glass | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
+| Sunset Glass | `gradient-sunset-glass.css` | Warm dark, golden hour | Tropical sunsets, creative energy |
+| Aurora Glass | `gradient-aurora-glass.css` | Cool dark, ethereal | Northern lights, deep space |
+| Neon Glass | `gradient-neon-glass.css` | Cyberpunk, neon glow | Cyberpunk aesthetics, futuristic |
 
 ## How to Switch Themes
 
@@ -38,9 +42,10 @@ LabXR.art uses a CSS Variable-based theme system. Changing **one import line** i
 Every theme **must** define these variables:
 
 **Colors:**
-- `--color-bg-primary` - Main background
+- `--color-bg-primary` - Main background (solid)
 - `--color-bg-secondary` - Secondary background (cards)
 - `--color-bg-tertiary` - Tertiary background (borders, inputs)
+- `--color-bg-gradient` - **Optional** CSS gradient applied to body (e.g., `linear-gradient(...)`, `radial-gradient(...)`)
 - `--color-text-primary` - Main text color
 - `--color-text-secondary` - Secondary text (muted)
 - `--color-text-tertiary` - Tertiary text (very muted)
@@ -75,12 +80,44 @@ Every theme **must** define these variables:
 ```
 src/styles/
  ├── themes/
- │   ├── cinematic-dark.css    # Current active theme
- │   ├── minimal-mono.css      # Alternative theme
- │   ├── neo-brutalist.css     # Alternative theme
- │   └── glassmorphism.css     # Alternative theme
- └── global.css                # Imports active theme + shadcn bridge
+ │   ├── cinematic-dark.css            # Current active theme
+ │   ├── minimal-mono.css              # Alternative theme
+ │   ├── neo-brutalist.css             # Alternative theme
+ │   ├── glassmorphism.css             # Alternative theme
+ │   ├── gradient-frosted-glass.css    # Gradient theme
+ │   ├── gradient-sunset-glass.css     # Gradient theme
+ │   ├── gradient-aurora-glass.css     # Gradient theme
+ │   └── gradient-neon-glass.css       # Gradient theme
+ └── global.css                        # Imports active theme + shadcn bridge
 ```
+
+## Backgrounds
+
+The theme system supports both **solid colors** and **CSS gradients** via two separate variables:
+
+- `--color-bg-primary` — Solid background color (used for components, shadcn bridge, Tailwind classes)
+- `--color-bg-gradient` — Optional CSS gradient applied to the body element via `background-image`
+
+**How it works in `global.css`:**
+
+```css
+body {
+  background-color: var(--color-bg-primary);  /* solid fallback */
+  background-image: var(--color-bg-gradient); /* gradient overlay if defined */
+}
+```
+
+This architecture ensures:
+- ✅ Components keep using solid colors (no breaking changes)
+- ✅ Body gets a gradient overlay for visual depth
+- ✅ Themes without `--color-bg-gradient` work as solid colors only
+- ✅ GPU-accelerated rendering, no JS overhead
+
+**Gradient examples:**
+
+- `linear-gradient(180deg, #0a0a0a 0%, #050505 100%)` — Subtle dark vignette
+- `radial-gradient(ellipse at top, #1a1a3a 0%, #0f0f1e 70%)` — Purple glow
+- `linear-gradient(135deg, #0a0e27 0%, #1a1f4a 35%, #2a1a4a 70%, #0a0e27 100%)` — Aurora effect
 
 ## How It Works
 

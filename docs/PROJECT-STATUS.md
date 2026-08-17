@@ -147,7 +147,8 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - ✅ Plausible analytics (cookieless, 8 custom events)
 - ✅ WhatsApp floating CTA button
 - ✅ Optimized icon bundle (6.82KB vs 928KB)
-- ✅ Flexible theme system (4 themes: cinematic-dark, minimal-mono, neo-brutalist, glassmorphism)
+- ✅ Flexible theme system (8 themes: cinematic-dark, minimal-mono, neo-brutalist, glassmorphism, gradient-frosted-glass, gradient-sunset-glass, gradient-aurora-glass, gradient-neon-glass)
+- ✅ CSS gradient backgrounds (linear-gradient, radial-gradient) via `--color-bg-gradient`
 
 ### Performance
 - ✅ Zero CLS (Cumulative Layout Shift)

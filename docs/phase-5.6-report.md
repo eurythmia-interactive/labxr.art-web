@@ -30,13 +30,39 @@ Created `src/styles/themes/` directory with the following structure:
 ```
 src/styles/
 ├── themes/
-│   ├── README.md                  # Complete theme system guide
-│   ├── cinematic-dark.css         # Default theme (LabXR signature)
-│   ├── minimal-mono.css           # Light, minimalist (Linear/Vercel)
-│   ├── neo-brutalist.css          # Bold, high-contrast (Gumroad/Framer)
-│   └── glassmorphism.css          # Translucent, glowing (Apple/SaaS)
-└── global.css                     # Imports active theme + shadcn bridge
+│   ├── README.md                       # Complete theme system guide
+│   ├── cinematic-dark.css              # Default theme (LabXR signature)
+│   ├── minimal-mono.css                # Light, minimalist (Linear/Vercel)
+│   ├── neo-brutalist.css               # Bold, high-contrast (Gumroad/Framer)
+│   ├── glassmorphism.css               # Translucent, glowing (Apple/SaaS)
+│   ├── gradient-frosted-glass.css      # Light neutral with Apple-like gradient
+│   ├── gradient-sunset-glass.css       # Warm dark with golden hour gradient
+│   ├── gradient-aurora-glass.css       # Cool dark with northern lights gradient
+│   └── gradient-neon-glass.css         # Cyberpunk dark with neon glow gradient
+└── global.css                          # Imports active theme + shadcn bridge
 ```
+
+### 2. CSS Gradient Backgrounds
+
+All 8 themes support **real CSS gradients** via a new `--color-bg-gradient` variable:
+
+**Original 4 themes (subtle gradients):**
+- `cinematic-dark`: `linear-gradient(180deg, #0a0a0a 0%, #050505 100%)` — Subtle dark vignette
+- `minimal-mono`: `linear-gradient(180deg, #ffffff 0%, #fafafa 100%)` — Imperceptible warmth
+- `neo-brutalist`: `linear-gradient(135deg, #fffbf0 0%, #fff4d6 100%)` — Subtle warm glow
+- `glassmorphism`: `radial-gradient(ellipse at top, #1a1a3a 0%, #0f0f1e 70%)` — Purple glow
+
+**4 new gradient themes (dramatic gradients):**
+- `gradient-frosted-glass`: `radial-gradient(ellipse at top, #ffffff 0%, #e8e8f0 50%, #d8d8e0 100%)` — Apple-like light glow
+- `gradient-sunset-glass`: `radial-gradient(ellipse at top, #4a1f3a 0%, #2a0f1e 50%, #1a0f1e 100%)` — Golden hour warmth
+- `gradient-aurora-glass`: `linear-gradient(135deg, #0a0e27 0%, #1a1f4a 35%, #2a1a4a 70%, #0a0e27 100%)` — Northern lights
+- `gradient-neon-glass`: `radial-gradient(ellipse at center, #1a0a2a 0%, #0a0a0f 70%)` — Cyberpunk glow
+
+**Architecture:**
+- `--color-bg-primary` remains solid (for components, shadcn, Tailwind)
+- `--color-bg-gradient` is a CSS gradient applied to `body` via `background-image`
+- Two separate variables, zero breaking changes
+- GPU-accelerated, no JS overhead
 
 ### 2. Theme Files
 
