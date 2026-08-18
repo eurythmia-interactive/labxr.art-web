@@ -107,11 +107,11 @@ Deployed to Cloudflare Pages. See `docs/cloudflare-setup.md` for details.
 
 ## Phase Status
 
-**Current Phase:** Phase 5.61 — Multi-Page Routing & Runtime Theme Switcher (COMPLETE)
+**Current Phase:** Phase 6.0 — Fictional Content Population (COMPLETE)
 
-**Next:** Awaiting Phase 6 specification
+**Next:** Awaiting Phase 6.1 (real assets replacement)
 
-See `specs/phase-5.61/STATUS.md` for task tracking.
+See `specs/phase-6.0/STATUS.md` for task tracking.
 
 ## Mobile Video Compatibility
 
@@ -140,6 +140,7 @@ See `docs/mobile-video-complete-guide.md` for comprehensive details.
 - `docs/phase-5.5-report.md` - Phase 5.5 completion report
 - `docs/phase-5.6-report.md` - Phase 5.6 completion report
 - `docs/phase-5.61-report.md` - Phase 5.61 completion report
+- `docs/phase-6.0-report.md` - Phase 6.0 completion report
 
 ### Guides & Setup
 - `docs/DEVELOPMENT-WORKFLOW.md` - Development workflow guide (git, commands, testing)

@@ -8,16 +8,20 @@ const caseStudies = defineCollection({
   schema: z.object({
     title: z.string(),
     client: z.string(),
-    category: z.string(),
+    category: z.string().default('Project'),
     pubDate: z.coerce.date(),
     description: z.string(),
-    videoUrl: z.string(),
-    posterUrl: z.string(),
-    techStack: z.array(z.string()),
-    metrics: z.object({
-      interactions: z.string(),
-      uptime: z.string(),
-    }),
+    year: z.number().optional(),
+    coverImage: z.string().optional(),
+    videoUrl: z.string().optional(),
+    posterUrl: z.string().optional(),
+    techStack: z.array(z.string()).default([]),
+    metrics: z
+      .object({
+        interactions: z.string().optional(),
+        uptime: z.string().optional(),
+      })
+      .optional(),
     disciplines: z.array(z.enum(DISCIPLINES)).default([]),
   }),
 });

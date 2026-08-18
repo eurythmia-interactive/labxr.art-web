@@ -1,7 +1,7 @@
 # Project Status Summary
 
 **Last Updated:** 2026-08-17  
-**Current Phase:** Phase 5.61 Complete, Awaiting Phase 6  
+**Current Phase:** Phase 6.0 Complete, Awaiting Phase 6.1 (real assets)  
 **Status:** ✅ All systems operational
 
 ---
@@ -98,6 +98,16 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - "Work" dropdown in navigation (Astro-native `<details>` for desktop, React state accordion for mobile)
 - All decisions recorded in `docs/decision-log.md` (D014, D015)
 - Total pages: 5 → 12
+
+### ✅ Phase 6.0 — Fictional Content Population
+- 8 new case studies covering all 7 disciplines (D016: schema fields made optional, added `year` + `coverImage`)
+- 7 services (2 updated + 5 new): Interactive Installations, WebGL & 3D Web, Projection Mapping, Extended Reality, Digital Museography, Real-Time Video Systems, Creative Tech Consulting
+- 6 team members: Creative Director, Technical Director, Lead Creative Developer, 3D & WebGL Artist, UX/UI Designer, Executive Producer
+- Homepage now shows featured 6 case studies + 3 services (sliced from full collection)
+- Team grid: 3 cols desktop / 2 tablet / 1 mobile (responsive)
+- CaseStudyViewer modal: graceful image+text fallback when no `videoUrl`
+- All 7 disciplines have ≥2 case studies + ≥1 service
+- All placeholder assets via `placehold.co` (thematic colors per project)
 
 ---
 
@@ -198,6 +208,7 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - `docs/phase-5.5-report.md` - Cinematic Hero & WebGL Showcase
 - `docs/phase-5.6-report.md` - CSS Variable Theme System
 - `docs/phase-5.61-report.md` - Multi-Page Routing & Runtime Theme Switcher
+- `docs/phase-6.0-report.md` - Fictional Content Population
 
 ### Mobile Video
 - `docs/mobile-video-complete-guide.md` - Comprehensive guide (27KB)
@@ -224,12 +235,11 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 
 ## Next Steps
 
-### Awaiting Phase 6 Specification
+### Awaiting Phase 6.1 Specification (Real Asset Replacement)
 
-Phase 6 will focus on **Content Production & SEO**:
-- Replace placeholder videos with real project showreels
+Phase 6.1 will focus on **real content production & SEO**:
+- Replace `placehold.co` placeholders with real images/videos for case studies
 - Add real team member photos and company logo
-- Write real case study content
 - Add JSON-LD structured data
 - Generate sitemap.xml
 - Create Open Graph images
@@ -239,7 +249,7 @@ Phase 6 will focus on **Content Production & SEO**:
 - Blog/Insights section for organic SEO
 - English translation for global agency outreach
 
-**Status:** ⏸️ Waiting for user to provide Phase 6 specification
+**Status:** ⏸️ Waiting for user to provide Phase 6.1 specification and real assets
 
 ---
 
@@ -278,14 +288,14 @@ Phase 6 will focus on **Content Production & SEO**:
 - **Lighthouse:** 90+ across all categories
 
 ### Content
-- **Case Studies:** 2 placeholder entries
-- **Services:** 2 placeholder entries (with video hover previews)
-- **Team:** 2 placeholder entries
+- **Case Studies:** 10 entries (2 with video + 8 new with placehold.co images)
+- **Services:** 7 entries (all with video hover preview)
+- **Team:** 6 fictional entries
 
 ### Media
 - **Videos:** 1 test video (legacy-safe encoding)
-- **Images:** 2 placeholder team avatars (SVG)
-- **Posters:** Auto-generated from video
+- **Images:** 8 placehold.co cover images + 6 placehold.co team avatars
+- **Posters:** Auto-generated from video for legacy case studies
 
 ### Performance
 - **Lucide Icons:** 6.82KB (down from 928KB, 99.3% reduction)

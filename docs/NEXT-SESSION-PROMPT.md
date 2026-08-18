@@ -13,7 +13,7 @@ Read these documents to understand the LabXR.art project:
 - AGENTS.md (project rules and constraints)
 - CONTEXT.md (current state and architecture)
 - docs/PROJECT-STATUS.md (phase completion status)
-- docs/phase-5.61-report.md (latest phase completion)
+- docs/phase-6.0-report.md (latest phase completion)
 - src/styles/themes/README.md (if working with themes)
 
 Wait for my instructions before taking any action.
@@ -52,7 +52,17 @@ If you're starting a session in a different directory or need to manually provid
 - ✅ All decisions documented (D014, D015)
 - Total pages: 5 → 12
 
-**Active Phase:** Phase 5.61 (Complete — Awaiting Phase 6)
+**Phase 6.0 Complete** - Fictional Content Population:
+- ✅ 8 new case studies covering all 7 disciplines (Neon Nexus, Echoes of the Maya, AeroFlow, Lumina Retail AR, Sonic Bloom, Terra Verde, Pulse CDMX, Velvet & Steel)
+- ✅ 7 services (2 updated + 5 new: Projection Mapping, Extended Reality, Digital Museography, Real-Time Video, Creative Tech Consulting)
+- ✅ 6 team members (Mateo, Elena, Diego, Sofia, Javier, Camila)
+- ✅ CaseStudyViewer modal: graceful image+text fallback for missing video
+- ✅ Team grid: 3 cols desktop / 2 tablet / 1 mobile
+- ✅ Homepage: featured 6 case studies + 3 services
+- ✅ D016: schema fields made optional (videoUrl, posterUrl, metrics), added year + coverImage
+- All 12 pages build; all 7 disciplines have content
+
+**Active Phase:** Phase 6.0 (Complete — Awaiting Phase 6.1 real assets)
 - From Phase 5.5: Lucide icon bundle optimized (928KB → 6.82KB)
 - From Phase 5.5: GSAP ScrollTrigger animations
 - From Phase 5.5: Three.js showcase with model placeholder and orbiting particles

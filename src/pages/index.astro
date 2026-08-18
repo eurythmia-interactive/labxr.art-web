@@ -11,14 +11,19 @@ import Contact from '@/components/sections/contact.astro';
 import WhatsAppButton from '@/components/shared/whatsapp-button.astro';
 import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
 
-const caseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
+const allCaseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
+const allServices: CollectionEntry<'services'>[] = await getCollection('services');
 
-const serializedCaseStudies = caseStudies.map((study) => ({
+const featuredCaseStudies = allCaseStudies.slice(0, 6);
+const featuredServices = allServices.slice(0, 3);
+
+const serializedCaseStudies = allCaseStudies.map((study) => ({
   id: study.id,
   data: {
     title: study.data.title,
     client: study.data.client,
     description: study.data.description,
+    coverImage: study.data.coverImage,
     videoUrl: study.data.videoUrl,
     posterUrl: study.data.posterUrl,
     techStack: study.data.techStack,
@@ -34,8 +39,8 @@ const serializedCaseStudies = caseStudies.map((study) => ({
     <Hero />
     <WebGLShowcase />
     <Manifesto />
-    <Services />
-    <Portfolio />
+    <Services data={featuredServices} />
+    <Portfolio data={featuredCaseStudies} />
     <Team />
     <Contact />
   </main>

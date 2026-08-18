@@ -570,6 +570,55 @@ Add a `disciplines` array field to the `case-studies` and `services` Zod schemas
 
 ---
 
+## Decision 016: Mark video/poster/metrics optional in case-studies schema
+
+**Date:** 2026-08-17  
+**Status:** Accepted
+
+### Context
+
+Phase 6.0 introduced 8 fictional case studies with `coverImage` placeholders but no video assets. The existing schema required `videoUrl`, `posterUrl`, and `metrics` fields. Either all 8 files would need fabricated video URLs (deceptive) OR the schema needed relaxation.
+
+### Decision
+
+Mark the following fields as optional in `case-studies` Zod schema:
+- `videoUrl: z.string()` → `z.string().optional()`
+- `posterUrl: z.string()` → `z.string().optional()`
+- `metrics.interactions: z.string()` → `z.string().optional()`
+- `metrics.uptime: z.string()` → `z.string().optional()`
+- `metrics` itself: `z.object({...})` → `z.object({...}).optional()`
+
+Add two new optional fields:
+- `year: z.number().optional()` — explicit publication year (vs. `pubDate` which is full ISO date)
+- `coverImage: z.string().optional()` — marketing/marketing image distinct from video poster
+
+Add fallback chain in `Portfolio.astro`: `<img src={coverImage ?? posterUrl}>`. Refactor `CaseStudyViewer.tsx` to detect missing video and render image + text modal (no video player).
+
+### Rationale
+
+- **Spec faithfulness** — Phase 6.0 spec uses placehold.co images, not videos; requiring videoUrl would force fabrication
+- **Forward compatible** — When real videos arrive (Phase 6.1+), they can be added to the existing 8 case studies without schema changes
+- **Two image roles** — `coverImage` is the marketing hero (used in grids); `posterUrl` is the video poster (used in modal). Distinction allows different image strategies
+- **Backward compatible** — The 2 existing case studies (espejo-ai, holograma-retail) keep working with their videoUrl/posterUrl/metrics
+- **Modal fallback** — Without graceful handling, opening a no-video case study in the modal would crash
+
+### Consequences
+
+**Positive:**
+
+- 8 new case studies can be added with image-only placeholders
+- Future content can ship progressively (image first, video later)
+- CaseStudyViewer renders gracefully for both video and image-only case studies
+- No data fabrication required
+
+**Negative:**
+
+- Schema is less strict — content authors can publish incomplete case studies
+- Modal fallback is image+text only; less rich than video experience
+- 2 fields now exist for similar purposes (coverImage vs posterUrl) — content authors must choose
+
+---
+
 ## How to Add New Decisions
 
 Copy this template:
@@ -607,4 +656,4 @@ Copy this template:
 
 ---
 
-**Last updated:** 2026-08-17
+**Last updated:** 2026-08-17 (Phase 6.0 — D016)

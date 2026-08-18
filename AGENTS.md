@@ -76,7 +76,7 @@ On every new session, BEFORE doing anything else:
 
 1. Read `CONTEXT.md`
 2. Read `docs/PROJECT-STATUS.md`
-3. Read the latest phase report in `docs/` (e.g., `docs/phase-5.61-report.md`)
+3. Read the latest phase report in `docs/` (e.g., `docs/phase-6.0-report.md`)
 4. If working with themes, read `src/styles/themes/README.md`
 5. Wait for user instructions before taking any action
 

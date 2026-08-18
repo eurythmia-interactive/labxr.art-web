@@ -58,7 +58,9 @@
 
 ✅ **Phase 5.61** — Multi-Page Routing & Runtime Theme Switcher — COMPLETE
 
-🔄 **Awaiting Phase 6 specification from user**
+✅ **Phase 6.0** — Fictional Content Population — COMPLETE
+
+🔄 **Awaiting Phase 6.1 specification from user (real assets replacement)**
 
 **Phase 5 Task Status:**
 - 5.0: ✅ DONE (spec tracking)
@@ -90,6 +92,16 @@
 - 5.61.4: ✅ DONE (ThemeSwitcher in desktop nav + mobile menu)
 - 5.61.5: ✅ DONE (disciplines field in content schemas + 7 discipline pages)
 - 5.61.6: ✅ DONE (Work dropdown in navigation linking to disciplines)
+
+**Phase 6.0 Task Status:**
+- 6.0.1: ✅ DONE (schema: made videoUrl/posterUrl/metrics/category optional, added year + coverImage)
+- 6.0.2: ✅ DONE (Portfolio: coverImage fallback; Team grid: 3/2/1 responsive)
+- 6.0.3: ✅ DONE (CaseStudyViewer: graceful no-video image+text modal fallback)
+- 6.0.4: ✅ DONE (8 case studies created with discipline tags covering all 7 disciplines)
+- 6.0.5: ✅ DONE (7 services: 2 updated + 5 new — projection-mapping, extended-reality, digital-museography, real-time-video, creative-tech-consulting)
+- 6.0.6: ✅ DONE (6 team members: Creative Director, Technical Director, Lead Creative Developer, 3D Artist, UX Designer, Executive Producer)
+- 6.0.7: ✅ DONE (Homepage: slice(0, 6) case studies + slice(0, 3) services)
+- 6.0.8: ✅ DONE (Discipline audit: all 7 disciplines have ≥2 case studies + ≥1 service)
 
 **Post-Phase 5 Fixes:**
 - ✅ Fixed CSP policy blocking Plausible analytics and inline scripts (added `'unsafe-inline'` and `https://plausible.io`)
@@ -363,6 +375,22 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-17 (Session 10):**
+- Completed Phase 6.0 — Fictional Content Population
+- Updated `content.config.ts`: made `videoUrl`/`posterUrl`/`metrics.interactions`/`metrics.uptime` optional; added `year` + `coverImage` to case-studies schema (D016)
+- Renamed `webgl-experiences.md` → `webgl-3d-web.md`; updated both existing services with richer descriptions
+- Created 5 new services: projection-mapping, extended-reality, digital-museography, real-time-video, creative-tech-consulting
+- Created 8 new case studies: Neon Nexus, Echoes of the Maya, AeroFlow, Lumina Retail, Sonic Bloom, Terra Verde, Pulse CDMX, Velvet & Steel
+- Created 6 team members: Mateo Vargas (Creative Director), Elena Rostova (Technical Director), Diego Fuentes (Lead Creative Developer), Sofia Mendoza (3D & WebGL Artist), Javier Torres (UX/UI Designer), Camila Rojas (Executive Producer)
+- Updated `Portfolio.astro`: `coverImage ?? posterUrl` fallback for case study images
+- Updated `Team.astro`: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 responsive
+- Refactored `CaseStudyViewer.tsx`: graceful image+text modal fallback when no `videoUrl` (no more crashes)
+- Updated `index.astro`: slices featured case studies to 6, services to 3
+- Discipline audit: all 7 disciplines have ≥2 case studies + ≥1 service
+- All 12 pages build successfully in 8.47s
+- TypeScript check: 0 errors, 0 warnings, 0 hints
+- Committed and pushed to GitHub
 
 **2026-08-17 (Session 9):**
 - Completed Phase 5.61 — Multi-Page Routing & Runtime Theme Switcher
