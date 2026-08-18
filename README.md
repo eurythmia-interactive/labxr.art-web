@@ -107,11 +107,11 @@ Deployed to Cloudflare Pages. See `docs/cloudflare-setup.md` for details.
 
 ## Phase Status
 
-**Current Phase:** Phase 5.5 — Cinematic Hero & Dedicated WebGL Showcase (COMPLETE)
+**Current Phase:** Phase 5.61 — Multi-Page Routing & Runtime Theme Switcher (COMPLETE)
 
 **Next:** Awaiting Phase 6 specification
 
-See `specs/phase-5.5/STATUS.md` for task tracking.
+See `specs/phase-5.61/STATUS.md` for task tracking.
 
 ## Mobile Video Compatibility
 
@@ -138,6 +138,8 @@ See `docs/mobile-video-complete-guide.md` for comprehensive details.
 - `docs/phase-4-report.md` - Phase 4 completion report
 - `docs/phase-5-report.md` - Phase 5 completion report
 - `docs/phase-5.5-report.md` - Phase 5.5 completion report
+- `docs/phase-5.6-report.md` - Phase 5.6 completion report
+- `docs/phase-5.61-report.md` - Phase 5.61 completion report
 
 ### Guides & Setup
 - `docs/DEVELOPMENT-WORKFLOW.md` - Development workflow guide (git, commands, testing)

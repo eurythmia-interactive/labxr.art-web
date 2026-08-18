@@ -7,7 +7,7 @@
  * on top of --color-bg-primary (solid).
  */
 
-:root {
+html.theme-glass {
   /* Colors - Gradient-ready */
   --color-bg-primary: #0f0f1e;
   --color-bg-secondary: rgba(30, 30, 50, 0.6);

@@ -5,6 +5,7 @@ description: "Custom-built interactive installations for museums, retail spaces,
 icon: "Monitor"
 previewVideoUrl: "/videos/test-video.mp4"
 previewPosterUrl: "/videos/test-video-poster.webp"
+disciplines: ['interactivity', 'xr', 'videomapping', 'museography']
 ---
 
 We design and build bespoke interactive installations that transform physical spaces into immersive digital experiences. Our installations combine computer vision, real-time graphics, and custom hardware to create engaging touchpoints for brands and cultural institutions.

@@ -10,6 +10,7 @@ techStack: ["TensorFlow.js", "WebGL", "Three.js", "MediaPipe"]
 metrics:
   interactions: "12,000+ visitors"
   uptime: "99.8%"
+disciplines: ['interactivity', 'museography', 'xr']
 ---
 
 A groundbreaking interactive installation that uses AI to transform museum visitors into living digital artworks. The system analyzes visitor movements and generates real-time visual responses projected onto a large-scale mirror display.

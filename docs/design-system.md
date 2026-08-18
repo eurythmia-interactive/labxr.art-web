@@ -8,34 +8,37 @@ The LabXR.art design system provides a cohesive visual language for building cin
 
 ## Theme System
 
-LabXR.art uses a CSS Variable-based theme system where changing **one import line** in `src/styles/global.css` switches the entire visual design.
+LabXR.art uses a CSS Variable-based theme system with **runtime switching** (Phase 5.61). Users can switch between 8 themes instantly via the navigation; selection persists in `localStorage`. No reload required.
 
 **Available Themes:**
 
-| Theme | File | Style | Inspiration |
-|-------|------|-------|-------------|
-| Cinematic Dark (default) | `cinematic-dark.css` | Dark, cyan accent, cinematic | Default LabXR theme |
-| Minimalist Monochrome | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
-| Neo-Brutalist | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
-| Glassmorphism | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
-| Frosted Glass | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
-| Sunset Glass | `gradient-sunset-glass.css` | Warm dark, golden hour | Tropical sunsets, creative energy |
-| Aurora Glass | `gradient-aurora-glass.css` | Cool dark, ethereal | Northern lights, deep space |
-| Neon Glass | `gradient-neon-glass.css` | Cyberpunk, neon glow | Cyberpunk aesthetics, futuristic |
+| Theme | Class | File | Style | Inspiration |
+|-------|-------|------|-------|-------------|
+| Cinematic (default) | `theme-cinematic` | `cinematic-dark.css` | Dark, cyan accent, cinematic | Default LabXR theme |
+| Minimal | `theme-minimal` | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
+| Brutalist | `theme-brutalist` | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
+| Glass | `theme-glass` | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
+| Frosted | `theme-frosted` | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
+| Sunset | `theme-sunset` | `gradient-sunset-glass.css` | Warm dark, golden hour | Tropical sunsets, creative energy |
+| Aurora | `theme-aurora` | `gradient-aurora-glass.css` | Cool dark, ethereal | Northern lights, deep space |
+| Neon | `theme-neon` | `gradient-neon-glass.css` | Cyberpunk, neon glow | Cyberpunk aesthetics, futuristic |
 
-**How to Switch Themes:**
+**How to Switch Themes (User):**
 
-```css
-/* In src/styles/global.css */
-@import './themes/cinematic-dark.css';  /* Change this line */
-```
+Click the palette icon in the navigation header (desktop) or mobile menu. Selection persists across page loads and sessions.
+
+**How to Switch Themes (Build-time):**
+
+For a fixed theme without runtime switching, remove all but one theme `@import` line from `src/layouts/BaseLayout.astro`. The `<html class="theme-cinematic">` default still applies.
 
 **How to Create a New Theme:**
 
 1. Copy any existing theme file (e.g., `cinematic-dark.css`)
 2. Rename it (e.g., `my-custom-theme.css`)
-3. Modify the CSS variable values in `:root`
-4. Update the import in `global.css`
+3. Change the selector from `html.theme-cinematic {` to `html.theme-myname {`
+4. Modify the CSS variable values
+5. Add the new theme to `THEMES` array in `src/components/islands/theme-switcher.tsx`
+6. Add the `@import` line to `src/layouts/BaseLayout.astro`
 
 **Required CSS Variables:** Every theme must define the full token set (colors, spacing, typography, borders, shadows, transitions, z-index). See `src/styles/themes/README.md` for the complete specification.
 
@@ -47,7 +50,7 @@ LabXR.art uses a CSS Variable-based theme system where changing **one import lin
 
 ## Design Tokens
 
-Design tokens are the atomic values that define our visual language. They are defined as CSS custom properties in `src/styles/themes/<theme-name>.css` (active theme: `cinematic-dark.css`) and mapped to Tailwind utility classes.
+Design tokens are the atomic values that define our visual language. They are defined as CSS custom properties in `src/styles/themes/<theme-name>.css` (scoped to `html.theme-[name]`, default active: `cinematic-dark.css`) and mapped to Tailwind utility classes.
 
 ### Colors
 
@@ -750,4 +753,4 @@ src/
 ---
 
 **Last updated:** 2026-08-17
-**Version:** 1.2.0 (CSS gradients added to all 8 themes)
+**Version:** 1.3.0 (Runtime theme switching + discipline routing)

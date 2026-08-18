@@ -19,16 +19,51 @@ LabXR.art uses a CSS Variable-based theme system. Changing **one import line** i
 
 ## How to Switch Themes
 
-1. Open `src/styles/global.css`
-2. Find the theme import line:
-   ```css
-   @import './themes/cinematic-dark.css';
-   ```
-3. Change it to your desired theme:
-   ```css
-   @import './themes/minimal-mono.css';
-   ```
-4. Save and refresh the browser.
+### Runtime (Recommended — for users)
+
+Users can switch themes instantly via the **Theme Switcher** in the navigation header (desktop) or mobile menu. Selection is persisted in `localStorage['labxr-theme']`. No reload required.
+
+### Build-time (Optional)
+
+For a fixed theme (no runtime switcher), edit `src/layouts/BaseLayout.astro` and remove the other theme `@import` lines. The `<html class="theme-cinematic">` default still applies the cinematic theme on first paint.
+
+### Programmatic (For Developers)
+
+```js
+import { applyTheme } from '@/lib/themes'; // utility TBD
+
+// Or directly:
+document.documentElement.className = 'theme-aurora';
+localStorage.setItem('labxr-theme', 'theme-aurora');
+```
+
+## Theme Architecture
+
+Themes use **class-based scoping** (`html.theme-[name]`) so all 8 themes can coexist:
+
+```css
+html.theme-cinematic {
+  --color-bg-primary: #0a0a0a;
+  /* ... */
+}
+```
+
+All 8 theme files are loaded eagerly in `BaseLayout.astro` via `@import`. The active theme is the one whose class matches `document.documentElement.className`.
+
+**FOUC Prevention:** An inline `<script is:inline>` in `<head>` runs synchronously before paint and reads `localStorage['labxr-theme']` to apply the saved theme class. This eliminates the flash of unstyled/wrong-theme content on page load.
+
+## Available Theme IDs
+
+| File | Class | Label |
+|------|-------|-------|
+| `cinematic-dark.css` | `theme-cinematic` | Cinematic |
+| `minimal-mono.css` | `theme-minimal` | Minimal |
+| `neo-brutalist.css` | `theme-brutalist` | Brutalist |
+| `glassmorphism.css` | `theme-glass` | Glass |
+| `gradient-frosted-glass.css` | `theme-frosted` | Frosted |
+| `gradient-sunset-glass.css` | `theme-sunset` | Sunset |
+| `gradient-aurora-glass.css` | `theme-aurora` | Aurora |
+| `gradient-neon-glass.css` | `theme-neon` | Neon |
 
 ## How to Create a New Theme
 
@@ -145,8 +180,8 @@ This architecture ensures:
 
 Potential features for the theme system:
 
-- **Runtime theme switcher** - Allow users to switch themes via UI
-- **Theme persistence** - Save theme preference in localStorage
 - **System preference detection** - Auto-switch based on `prefers-color-scheme`
+- **Theme picker UI** - Visual swatches instead of text labels
 - **More themes** - Create additional themes (Swiss, Editorial, Cyberpunk, etc.)
 - **Theme variants** - Light/dark variants of each theme
+- **Per-section themes** - Allow different themes for different page sections

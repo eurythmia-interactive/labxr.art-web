@@ -10,6 +10,7 @@ techStack: ["WebXR", "Three.js", "React", "Cloudflare R2"]
 metrics:
   interactions: "45,000+ sessions"
   uptime: "99.9%"
+disciplines: ['xr', 'products', 'ux-design']
 ---
 
 An innovative AR system that brings luxury furniture directly into customers' homes through their mobile devices. The system uses WebXR for precise spatial mapping and realistic lighting estimation.

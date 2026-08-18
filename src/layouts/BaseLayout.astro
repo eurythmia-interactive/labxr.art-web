@@ -1,5 +1,13 @@
 ---
 import '@/styles/global.css';
+import '@/styles/themes/cinematic-dark.css';
+import '@/styles/themes/minimal-mono.css';
+import '@/styles/themes/neo-brutalist.css';
+import '@/styles/themes/glassmorphism.css';
+import '@/styles/themes/gradient-frosted-glass.css';
+import '@/styles/themes/gradient-sunset-glass.css';
+import '@/styles/themes/gradient-aurora-glass.css';
+import '@/styles/themes/gradient-neon-glass.css';
 import SkipNav from '@/components/shared/SkipNav.astro';
 import Navigation from '@/components/shared/navigation.astro';
 import Footer from '@/components/shared/footer.astro';
@@ -20,12 +28,24 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-cinematic">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- FOUC Prevention: Apply saved theme before first paint -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('labxr-theme');
+          if (saved) {
+            document.documentElement.className = saved;
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -41,7 +61,7 @@ const {
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-    
+
     <!-- Plausible Analytics -->
     <script is:inline defer data-domain="labxr.art" src="https://plausible.io/js/script.js"></script>
   </head>

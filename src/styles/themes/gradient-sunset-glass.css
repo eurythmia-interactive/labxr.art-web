@@ -3,7 +3,7 @@
  * Inspired by golden hour, tropical sunsets, creative energy
  */
 
-:root {
+html.theme-sunset {
   /* Colors - Warm Sunset Palette */
   --color-bg-primary: #1a0f1e;
   --color-bg-secondary: rgba(60, 30, 50, 0.5);

@@ -54,6 +54,10 @@
 
 ✅ **Phase 5.5** — Cinematic Hero & Dedicated WebGL Showcase — COMPLETE
 
+✅ **Phase 5.6** — CSS Variable Theme System — COMPLETE
+
+✅ **Phase 5.61** — Multi-Page Routing & Runtime Theme Switcher — COMPLETE
+
 🔄 **Awaiting Phase 6 specification from user**
 
 **Phase 5 Task Status:**
@@ -74,6 +78,19 @@
 - 5.5.3: ✅ DONE (upgraded WebGL component with model placeholder and orbiting particles)
 - 5.5.4: ✅ DONE (updated diagnostic route, verified performance)
 
+**Phase 5.6 Task Status:**
+- 5.6.1: ✅ DONE (CSS Variable theme architecture with 4 themes)
+- 5.6.2: ✅ DONE (added 4 gradient themes — frosted, sunset, aurora, neon)
+- 5.6.3: ✅ DONE (separate solid + gradient background variables)
+
+**Phase 5.61 Task Status:**
+- 5.61.1: ✅ DONE (refactored 8 theme files: `:root` → `html.theme-*`)
+- 5.61.2: ✅ DONE (BaseLayout loads all 8 themes + FOUC prevention script)
+- 5.61.3: ✅ DONE (ThemeSwitcher React island with localStorage persistence)
+- 5.61.4: ✅ DONE (ThemeSwitcher in desktop nav + mobile menu)
+- 5.61.5: ✅ DONE (disciplines field in content schemas + 7 discipline pages)
+- 5.61.6: ✅ DONE (Work dropdown in navigation linking to disciplines)
+
 **Post-Phase 5 Fixes:**
 - ✅ Fixed CSP policy blocking Plausible analytics and inline scripts (added `'unsafe-inline'` and `https://plausible.io`)
 - ✅ Fixed corrupted JetBrains Mono font (was HTML, replaced with valid woff2)
@@ -93,6 +110,8 @@
 ### 1. Astro Islands Architecture
 React components only where interactivity is needed. Static content uses pure Astro for performance.
 
+**Discipline pages** (Phase 5.61): `src/pages/discipline/[slug].astro` with `getStaticPaths()` returns 7 pages. Content is filtered by `disciplines` array on each `case-studies` and `services` entry.
+
 ### 2. Nano Stores for State
 Cross-framework state management for:
 - `$isMobile` - Device detection
@@ -102,11 +121,16 @@ Cross-framework state management for:
 - `$formStatus` - Contact form status ('idle' | 'submitting' | 'success' | 'error')
 - `$formError` - Contact form error message
 
+**Theme state** (Phase 5.61): Lives in `localStorage['labxr-theme']` (key = `theme-[name]`). Applied to `<html>` element via inline script + ThemeSwitcher island.
+
 ### 3. CSS Variable Bridge Layer
 shadcn components use standard tokens (`--background`, `--foreground`, etc.) mapped to custom LabXR tokens. This allows shadcn CLI to work while maintaining custom design system.
 
 **Custom tokens:** `--color-bg-primary`, `--color-text-primary`, `--color-accent-primary`
-**shadcn tokens:** `--background`, `--foreground`, `--primary` (mapped to custom tokens)
+**shadcn tokens:** `--background`, `--foreground`, `--primary` (mapped to custom tokens via `:root` cascade)
+
+### 4. Multi-Page Routing (Phase 5.61)
+Seven discipline pages at `/discipline/{xr,ux-design,dev,videomapping,interactivity,museography,products}`. Each has unique title, description, and filtered content. Portfolio + Services sections accept optional `data` prop to render filtered collections.
 
 ### 4. Cloudflare R2 (Complete)
 Media storage for videos and images. Bucket `labxr-assets` created in WNAM region with CORS configured.
@@ -145,9 +169,9 @@ Video player implements lazy loading with IntersectionObserver, memory managemen
 
 ### Theme System
 
-LabXR.art uses a flexible CSS Variable-based theme system.
+LabXR.art uses a flexible CSS Variable-based theme system with runtime switching.
 
-**Available Themes:**
+**Available Themes (8 total):**
 - `cinematic-dark.css` - Default dark cinematic theme (cyan accent)
 - `minimal-mono.css` - Light minimalist theme (blue accent, Linear/Vercel inspired)
 - `neo-brutalist.css` - Bold high-contrast theme (pink accent, Gumroad/Framer inspired)
@@ -159,15 +183,13 @@ LabXR.art uses a flexible CSS Variable-based theme system.
 
 **Backgrounds:** All themes support CSS gradients via `--color-bg-gradient` variable (applied to body).
 
-**How to Switch Themes:**
-Change the import in `src/styles/global.css`:
-```css
-@import './themes/cinematic-dark.css';  // Change this line
-```
+**Architecture (Phase 5.61):** Themes use `html.theme-[name]` class scoping. `BaseLayout.astro` loads all 8 themes via `@import`. A `ThemeSwitcher` React island (`client:idle`) lets users switch at runtime; selection persists in `localStorage['labxr-theme']`. An inline `<script is:inline>` in `<head>` applies the saved theme before first paint to prevent FOUC.
+
+**How to Switch at Runtime:** Click the palette icon in the navigation header (desktop) or in the mobile menu.
 
 **Theme Files Location:** `src/styles/themes/`
 
-**Documentation:** See `src/styles/themes/README.md` for complete guide on creating custom themes.
+**Documentation:** See `src/styles/themes/README.md` for complete guide.
 
 ### Colors
 - Background: `#0a0a0a` (deep black)
@@ -341,6 +363,25 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-17 (Session 9):**
+- Completed Phase 5.61 — Multi-Page Routing & Runtime Theme Switcher
+- Refactored all 8 theme files: `:root` → `html.theme-[name]` (cinematic, minimal, brutalist, glass, frosted, sunset, aurora, neon)
+- Updated `BaseLayout.astro`: imports all 8 themes, default `<html class="theme-cinematic">`, inline FOUC-prevention `<script is:inline>` reads `localStorage['labxr-theme']` before paint
+- Created `src/components/islands/theme-switcher.tsx` (`client:idle`) with palette icon + check mark for active theme, `desktop` + `mobile` variants, localStorage persistence
+- Added `Palette` + `Check` icons to `icon-registry.ts`
+- Integrated ThemeSwitcher into desktop nav (`navigation.astro`) and mobile menu (`mobile-menu.tsx`)
+- Added `disciplines` array to `src/content.config.ts` (caseStudies + services Zod schemas)
+- Tagged existing content: `espejo-ai.md` → `interactivity, museography, xr`; `holograma-retail.md` → `xr, products, ux-design`; `interactive-installations.md` → `interactivity, xr, videomapping, museography`; `webgl-experiences.md` → `dev, products, ux-design`
+- Created `src/lib/disciplines.ts` (separate from `content.config.ts` to avoid `astro:content` client-side import)
+- Created `src/components/sections/discipline-hero.astro` (eyebrow + title + description)
+- Refactored `portfolio.astro` + `services.astro` to accept optional `data` prop for filtered rendering, with empty-state copy
+- Created `src/pages/discipline/[slug].astro` with `getStaticPaths()` returning all 7 slugs (xr, ux-design, dev, videomapping, interactivity, museography, products)
+- Added "Work" dropdown to navigation (Astro-native `<details>` for desktop, React state accordion for mobile)
+- Updated `AGENTS.md` §5 to document runtime class-based theme switching
+- Updated `docs/decision-log.md` with D014 (runtime theme switching) and D015 (multi-discipline routing)
+- All TypeScript checks pass; build produces 12 pages (5 + 7 disciplines); total CSS ~45KB (all 8 themes), Three.js chunk remains code-split at ~875KB (desktop only)
+- Committed and pushed to GitHub
 
 **2026-08-15 (Session 7):**
 - Completed Phase 5.5 — Cinematic Hero & Dedicated WebGL Showcase

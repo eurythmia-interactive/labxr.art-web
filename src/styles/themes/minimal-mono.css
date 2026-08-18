@@ -3,7 +3,7 @@
  * Clean, minimal, professional
  */
 
-:root {
+html.theme-minimal {
   /* Colors - Light Minimal */
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #fafafa;

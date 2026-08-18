@@ -1,7 +1,10 @@
 /* Global Styles - LabXR.art */
 
-/* Import active theme */
-@import './themes/cinematic-dark.css';
+/* Theme files are loaded in BaseLayout.astro to support
+ * runtime theme switching via html.theme-* class.
+ * The shadcn bridge below uses :root, which inherits
+ * from html.theme-* variables via CSS cascade.
+ */
 
 /* shadcn/ui Compatibility Layer */
 /* Maps shadcn-standard variable names to LabXR design tokens */

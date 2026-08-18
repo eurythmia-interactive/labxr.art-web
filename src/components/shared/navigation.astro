@@ -1,10 +1,10 @@
 ---
 import { MobileMenu } from '@/components/islands/mobile-menu';
+import { ThemeSwitcher } from '@/components/islands/theme-switcher';
+import { DISCIPLINES, DISCIPLINE_LABELS } from '@/lib/disciplines';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/#work', label: 'Work' },
   { href: '/#services', label: 'Services' },
   { href: '/#manifesto', label: 'Manifesto' },
   { href: '/#contact', label: 'Contact' },
@@ -31,18 +31,62 @@ const { className = '' } = Astro.props;
     </a>
 
     {/* Desktop navigation */}
-    <ul class="hidden items-center gap-8 md:flex">
-      {navLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
-          >
-            {link.label}
-          </a>
+    <div class="hidden items-center gap-6 md:flex">
+      <ul class="flex items-center gap-8">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+        {/* Work dropdown — Astro-native <details> for zero JS */}
+        <li class="relative">
+          <details class="group">
+            <summary
+              class="flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-foreground/80 transition-colors hover:text-primary [&::-webkit-details-marker]:hidden"
+            >
+              Work
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transition-transform group-open:rotate-180"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </summary>
+            <ul
+              class="absolute right-0 top-full z-tooltip mt-2 min-w-[200px] rounded-md border border-border bg-bg-secondary p-2 shadow-lg"
+              role="menu"
+            >
+              {DISCIPLINES.map((slug) => (
+                <li role="none">
+                  <a
+                    href={`/discipline/${slug}`}
+                    role="menuitem"
+                    class="block rounded-sm px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-bg-tertiary hover:text-foreground"
+                  >
+                    {DISCIPLINE_LABELS[slug]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </details>
         </li>
-      ))}
-    </ul>
+      </ul>
+      <ThemeSwitcher client:idle variant="desktop" />
+    </div>
 
     {/* Mobile menu (React island) */}
     <MobileMenu client:load />

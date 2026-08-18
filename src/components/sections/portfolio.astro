@@ -5,51 +5,66 @@ import Container from '@/components/shared/Container.astro';
 import Heading from '@/components/shared/Heading.astro';
 import { ScrollReveal } from '@/components/islands/scroll-reveal';
 
-const caseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
+interface Props {
+  data?: CollectionEntry<'caseStudies'>[];
+  heading?: string;
+  id?: string;
+}
+
+const { data, heading = 'Proyectos Destacados', id = 'portfolio' } = Astro.props;
+
+const caseStudies: CollectionEntry<'caseStudies'>[] =
+  data ?? (await getCollection('caseStudies'));
 ---
 
-<Section id="portfolio" padding="xl">
+<Section id={id} padding="xl">
   <Container size="xl">
     <Heading level={2} className="mb-12 text-center">
-      Proyectos Destacados
+      {heading}
     </Heading>
-    <ScrollReveal direction="up" stagger={0.1} duration={0.8}>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {caseStudies.map((study) => (
-          <div class="scroll-reveal-item">
-            <button
-              type="button"
-              data-case-study-id={study.id}
-              class="group relative overflow-hidden rounded-lg border border-border bg-secondary text-left transition-all duration-300 hover:scale-[1.02] hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
-            >
-              <div class="aspect-video overflow-hidden bg-black">
-                <img
-                  src={study.data.posterUrl}
-                  alt={study.data.title}
-                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-              <div class="p-6">
-                <h3 class="mb-2 text-xl font-semibold text-foreground">
-                  {study.data.title}
-                </h3>
-                <p class="mb-3 text-sm text-foreground/60">
-                  {study.data.client}
-                </p>
-                <div class="flex flex-wrap gap-2">
-                  {study.data.techStack.map((tech: string) => (
-                    <span class="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
-                      {tech}
-                    </span>
-                  ))}
+    {caseStudies.length === 0 ? (
+      <p class="text-center text-foreground/60">
+        No projects available in this discipline yet.
+      </p>
+    ) : (
+      <ScrollReveal direction="up" stagger={0.1} duration={0.8}>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {caseStudies.map((study) => (
+            <div class="scroll-reveal-item">
+              <button
+                type="button"
+                data-case-study-id={study.id}
+                class="group relative overflow-hidden rounded-lg border border-border bg-secondary text-left transition-all duration-300 hover:scale-[1.02] hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <div class="aspect-video overflow-hidden bg-black">
+                  <img
+                    src={study.data.posterUrl}
+                    alt={study.data.title}
+                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
-              </div>
-            </button>
-          </div>
-        ))}
-      </div>
-    </ScrollReveal>
+                <div class="p-6">
+                  <h3 class="mb-2 text-xl font-semibold text-foreground">
+                    {study.data.title}
+                  </h3>
+                  <p class="mb-3 text-sm text-foreground/60">
+                    {study.data.client}
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    {study.data.techStack.map((tech: string) => (
+                      <span class="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </button>
+            </div>
+          ))}
+        </div>
+      </ScrollReveal>
+    )}
   </Container>
 </Section>
 

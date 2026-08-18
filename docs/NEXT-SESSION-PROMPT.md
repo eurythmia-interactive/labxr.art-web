@@ -13,7 +13,7 @@ Read these documents to understand the LabXR.art project:
 - AGENTS.md (project rules and constraints)
 - CONTEXT.md (current state and architecture)
 - docs/PROJECT-STATUS.md (phase completion status)
-- docs/phase-5.6-report.md (latest phase completion)
+- docs/phase-5.61-report.md (latest phase completion)
 - src/styles/themes/README.md (if working with themes)
 
 Wait for my instructions before taking any action.
@@ -42,7 +42,17 @@ If you're starting a session in a different directory or need to manually provid
 - ✅ Complete theme system documentation
 - ✅ Zero breaking changes to existing components
 
-**Active Phase:** Phase 5.6 (Theme System)
+**Phase 5.61 Complete** - Multi-Page Routing & Runtime Theme Switcher:
+- ✅ All 8 themes refactored to `html.theme-[name]` class scoping (D014)
+- ✅ BaseLayout loads all 8 themes + FOUC prevention via `<script is:inline>`
+- ✅ New `ThemeSwitcher` React island with localStorage persistence
+- ✅ New `disciplines` Zod field on content collections
+- ✅ 7 new discipline pages: `/discipline/{xr,ux-design,dev,videomapping,interactivity,museography,products}`
+- ✅ "Work" dropdown in navigation (Astro-native `<details>` + React state accordion)
+- ✅ All decisions documented (D014, D015)
+- Total pages: 5 → 12
+
+**Active Phase:** Phase 5.61 (Complete — Awaiting Phase 6)
 - From Phase 5.5: Lucide icon bundle optimized (928KB → 6.82KB)
 - From Phase 5.5: GSAP ScrollTrigger animations
 - From Phase 5.5: Three.js showcase with model placeholder and orbiting particles
@@ -78,4 +88,4 @@ When completing work in a session:
 
 ---
 
-**Last Updated:** 2026-08-17
+**Last Updated:** 2026-08-17 (Phase 5.61 complete)

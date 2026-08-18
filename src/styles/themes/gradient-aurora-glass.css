@@ -3,7 +3,7 @@
  * Inspired by northern lights, deep space, meditation apps
  */
 
-:root {
+html.theme-aurora {
   /* Colors - Cool Aurora Palette */
   --color-bg-primary: #0a0e27;
   --color-bg-secondary: rgba(20, 30, 80, 0.4);

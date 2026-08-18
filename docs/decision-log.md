@@ -493,6 +493,83 @@ body {
 
 ---
 
+## Decision 014: Allow runtime theme switching via class-based scoping
+
+**Date:** 2026-08-17  
+**Status:** Accepted
+
+### Context
+
+Phase 5.6 introduced a build-time theme system using `:root { --color-* }` definitions. The README documented runtime switching as a future enhancement. Users couldn't switch themes without rebuilding the site. Phase 5.61 introduced a `ThemeSwitcher` React island requiring multiple themes to coexist in the browser without conflicts.
+
+### Decision
+
+Refactor theme selectors from `:root` to `html.theme-[name]`. All 8 theme files are loaded eagerly via `@import` in `BaseLayout.astro`. A default `class="theme-cinematic"` on `<html>` provides initial paint. An inline `<script is:inline>` in `<head>` reads `localStorage['labxr-theme']` and applies the saved theme before first paint to prevent FOUC. The `ThemeSwitcher` island persists selections to `localStorage` and applies the new class on click.
+
+### Rationale
+
+- **Class-based isolation** — Multiple themes coexist without selector conflicts (specificity equal, last-load wins on `:root` cascade)
+- **FOUC-free** — Inline script runs synchronously before body renders
+- **Build-time still works** — A single theme can still be selected at build time by setting the html class; the runtime layer is opt-in
+- **Zero JS overhead for build-time users** — If runtime switching is not used, the same architecture works
+- **Tailwind/shadcn unchanged** — The shadcn bridge layer (`global.css`) still uses `:root { --background: var(--color-bg-primary) }`; the variable resolves via cascade
+
+### Consequences
+
+**Positive:**
+
+- Users can switch themes instantly without page reload
+- Theme preference persists across sessions (localStorage)
+- Glassmorphism `rgba()` backgrounds render correctly when layered on the body
+- All 8 themes coexist; no build-time choice required
+- Single-line `@import` in BaseLayout replaces the need for the build-time `@import` in `global.css`
+
+**Negative:**
+
+- Eager loading of all 8 theme files adds ~5KB gzipped to initial CSS bundle
+- ThemeSwitcher island adds ~2KB gzipped to initial JS bundle
+- Theme classes on `<html>` can interfere with prefers-color-scheme detection (handled by using class instead of media query)
+
+---
+
+## Decision 015: Multi-discipline routing via [slug].astro
+
+**Date:** 2026-08-17  
+**Status:** Accepted
+
+### Context
+
+The homepage was the only entry point for portfolio + services content. Agencies visiting from search engines or social shares had no per-discipline landing pages for SEO or contextual entry. The team needed a way to expose XR, UX, Dev, and other disciplines as first-class pages.
+
+### Decision
+
+Add a `disciplines` array field to the `case-studies` and `services` Zod schemas (7 values: `xr`, `ux-design`, `dev`, `videomapping`, `interactivity`, `museography`, `products`). Create `src/pages/discipline/[slug].astro` with `getStaticPaths()` returning all 7 slugs. Filter content by `disciplines.includes(slug)`. Refactor `portfolio.astro` and `services.astro` to accept optional `data` prop (filtered collection) — fallback to full collection when omitted (homepage behavior unchanged). Add a "Work" dropdown to navigation linking to all 7 discipline pages.
+
+### Rationale
+
+- **SEO-friendly** — Each discipline has a unique title, description, and filtered content (no duplicate-content penalty because content differs per slug)
+- **Reuses existing sections** — `Portfolio` and `Services` accept filtered data; no duplication of section markup
+- **Type-safe** — Zod enum ensures only valid disciplines are tagged
+- **Lightweight routing** — Static generation, no server-side runtime
+- **Astro-native nav** — `<details>`/`<summary>` for desktop dropdown, React state for mobile accordion — no Radix UI dependency added
+
+### Consequences
+
+**Positive:**
+
+- 7 new SEO landing pages (5 → 12 total pages)
+- Agencies can deep-link to specific discipline content
+- Content schema is now discipline-aware for future filtering (e.g., search, related content)
+- Empty discipline pages gracefully show "No projects available in this discipline yet" copy
+
+**Negative:**
+
+- 5 of 7 discipline pages will be sparse until more content is tagged (espejo-ai + holograma-retail cover 4 disciplines; 3 disciplines currently empty)
+- Duplicate hero/contact patterns across 7 pages (mitigated by reusing Portfolio/Services with filtered data)
+- Content tagging maintenance burden — every new case study needs `disciplines` array
+
+---
+
 ## How to Add New Decisions
 
 Copy this template:

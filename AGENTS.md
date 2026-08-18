@@ -37,7 +37,7 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX. It brid
 - **Mobile-First Mandate:** Write base CSS for mobile. Use `md:`, `lg:`, and `xl:` breakpoints for desktop enhancements.
 - **Dark Theme Default:** The site is inherently dark and cinematic. Ensure contrast ratios meet WCAG AA standards.
 - **shadcn/ui Integration:** Use shadcn components for forms, buttons, and modals. Customize them via `tailwind.config.js` and global CSS variables, do not hardcode colors.
-- **Theme System:** All design tokens live in `src/styles/themes/<theme-name>.css`. The active theme is set via a single `@import` line at the top of `src/styles/global.css`. Never hardcode colors, spacing, typography, or shadows — always reference CSS variables.
+- **Theme System:** All design tokens live in `src/styles/themes/<theme-name>.css`. The themes use `html.theme-[name]` class scoping (e.g., `html.theme-cinematic { --color-bg-primary: ... }`). `BaseLayout.astro` loads all 8 themes via `@import` so the `ThemeSwitcher` island can switch at runtime. The default theme (`theme-cinematic`) is applied via `class="theme-cinematic"` on `<html>`; an inline `<script is:inline>` in `<head>` reads `localStorage['labxr-theme']` and applies the saved theme before first paint (FOUC prevention). Never hardcode colors, spacing, typography, or shadows — always reference CSS variables.
 - **Backgrounds:** Two separate variables — `--color-bg-primary` (solid, for components/shadcn/Tailwind) and `--color-bg-gradient` (optional CSS gradient, applied to body via `background-image`). Both can be defined in a theme. The body uses solid color as fallback when no gradient is defined.
 - **Gradient Performance:** Always use static gradients (`background-attachment: scroll`). Never use `background-attachment: fixed` (iOS Safari has bugs with it). Gradients are GPU-accelerated and have no JS overhead.
 - **No Layout Shift (CLS):** All images, videos, and canvases MUST have explicit aspect ratios or dimensions reserved in the DOM before loading.
@@ -76,7 +76,7 @@ On every new session, BEFORE doing anything else:
 
 1. Read `CONTEXT.md`
 2. Read `docs/PROJECT-STATUS.md`
-3. Read the latest phase report in `docs/` (e.g., `docs/phase-5.6-report.md`)
+3. Read the latest phase report in `docs/` (e.g., `docs/phase-5.61-report.md`)
 4. If working with themes, read `src/styles/themes/README.md`
 5. Wait for user instructions before taking any action
 

@@ -6,29 +6,44 @@ import Heading from '@/components/shared/Heading.astro';
 import ServiceCard from '@/components/shared/service-card.astro';
 import { ScrollReveal } from '@/components/islands/scroll-reveal';
 
-const services: CollectionEntry<'services'>[] = await getCollection('services');
+interface Props {
+  data?: CollectionEntry<'services'>[];
+  heading?: string;
+  id?: string;
+}
+
+const { data, heading = 'Nuestras Capacidades', id = 'services' } = Astro.props;
+
+const services: CollectionEntry<'services'>[] =
+  data ?? (await getCollection('services'));
 ---
 
-<Section id="services" padding="xl">
+<Section id={id} padding="xl">
   <Container size="xl">
     <Heading level={2} className="mb-12 text-center">
-      Nuestras Capacidades
+      {heading}
     </Heading>
-    <ScrollReveal direction="up" stagger={0.15} duration={0.8}>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {services.map((service) => (
-          <div class="scroll-reveal-item">
-            <ServiceCard
-              title={service.data.title}
-              description={service.data.description}
-              iconName={service.data.icon}
-              slug={service.data.slug}
-              previewVideoUrl={service.data.previewVideoUrl}
-              previewPosterUrl={service.data.previewPosterUrl}
-            />
-          </div>
-        ))}
-      </div>
-    </ScrollReveal>
+    {services.length === 0 ? (
+      <p class="text-center text-foreground/60">
+        No services available in this discipline yet.
+      </p>
+    ) : (
+      <ScrollReveal direction="up" stagger={0.15} duration={0.8}>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {services.map((service) => (
+            <div class="scroll-reveal-item">
+              <ServiceCard
+                title={service.data.title}
+                description={service.data.description}
+                iconName={service.data.icon}
+                slug={service.data.slug}
+                previewVideoUrl={service.data.previewVideoUrl}
+                previewPosterUrl={service.data.previewPosterUrl}
+              />
+            </div>
+          ))}
+        </div>
+      </ScrollReveal>
+    )}
   </Container>
 </Section>

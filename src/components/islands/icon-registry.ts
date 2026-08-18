@@ -25,6 +25,8 @@ import {
   Circle,
   Link,
   MessageCircle,
+  Palette,
+  Check,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -55,4 +57,6 @@ export const iconRegistry: Record<string, LucideIcon> = {
   Circle,
   Link,
   MessageCircle,
+  Palette,
+  Check,
 };

@@ -5,6 +5,7 @@ description: "High-performance WebGL experiences for the web. From product confi
 icon: "Box"
 previewVideoUrl: "/videos/test-video.mp4"
 previewPosterUrl: "/videos/test-video-poster.webp"
+disciplines: ['dev', 'products', 'ux-design']
 ---
 
 We create stunning WebGL experiences that run smoothly across devices. Our expertise spans product configurators, interactive storytelling, data visualization, and immersive web applications.

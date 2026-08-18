@@ -3,7 +3,7 @@
  * Bold, high-contrast, playful
  */
 
-:root {
+html.theme-brutalist {
   /* Colors - High Contrast */
   --color-bg-primary: #fffbf0;
   --color-bg-secondary: #fff4d6;

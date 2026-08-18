@@ -76,24 +76,53 @@ LabXR.art uses a **static-first, islands-based architecture** optimized for perf
 
 ## Theme System
 
-The site uses a **CSS Variable-based theme system** that allows switching the entire visual design by changing one import line in `src/styles/global.css`.
+The site uses a **CSS Variable-based theme system with runtime switching** (Phase 5.61).
 
 **Architecture:**
 
 - `src/styles/themes/` — Directory containing 8 theme files
-- `src/styles/themes/cinematic-dark.css` — Default theme (active)
+- `src/styles/themes/cinematic-dark.css` — Default theme (active on first paint)
 - `src/styles/themes/{minimal-mono,neo-brutalist,glassmorphism}.css` — Original 4 themes
 - `src/styles/themes/gradient-{frosted,sunset,aurora,neon}-glass.css` — 4 gradient themes
-- `src/styles/global.css` — Imports active theme + shadcn bridge layer
+- `src/layouts/BaseLayout.astro` — Loads all 8 themes via `@import`; inline FOUC-prevention `<script is:inline>`; `<html class="theme-cinematic">` default
+- `src/components/islands/theme-switcher.tsx` — React island for runtime switching
+- `src/styles/global.css` — shadcn bridge layer (no theme import)
 
 **How it works:**
 
-1. Each theme file defines the same CSS variables in `:root` with different values
-2. `global.css` imports the active theme via `@import './themes/<name>.css'`
-3. `tailwind.config.mjs` reads CSS variables via `var(...)` — no theme-specific config needed
-4. shadcn bridge layer in `global.css` maps LabXR tokens to shadcn standard names (`--background`, `--primary`, etc.)
-5. Switching themes requires changing one import line, no other code changes
-6. Each theme may define `--color-bg-gradient` for an optional CSS gradient on the body
+1. Each theme file defines the same CSS variables under `html.theme-[name]` selector
+2. `BaseLayout.astro` imports all 8 themes in the frontmatter
+3. The inline `<script is:inline>` in `<head>` reads `localStorage['labxr-theme']` and sets `document.documentElement.className` synchronously before paint
+4. The `ThemeSwitcher` island (`client:idle`) writes the chosen theme class on click and persists to `localStorage`
+5. `tailwind.config.mjs` reads CSS variables via `var(...)` — no theme-specific config needed
+6. shadcn bridge layer in `global.css` maps LabXR tokens to shadcn standard names via the `:root` cascade (`--background: var(--color-bg-primary)`)
+7. Each theme may define `--color-bg-gradient` for an optional CSS gradient on the body
+
+**Theme IDs (for `className`):** `theme-cinematic`, `theme-minimal`, `theme-brutalist`, `theme-glass`, `theme-frosted`, `theme-sunset`, `theme-aurora`, `theme-neon`
+
+**Why class-based (not `:root`)?** All themes can coexist in the same bundle. Class scoping avoids specificity conflicts; the active theme is whichever class matches `document.documentElement.className`.
+
+---
+
+## Multi-Page Routing (Phase 5.61)
+
+**Why discipline pages?**
+
+- SEO: Each discipline (XR, UX, Dev, etc.) becomes a first-class landing page
+- Contextual entry: Agencies can deep-link from search engines or social shares
+- Content organization: Forces explicit discipline tagging in content collections
+
+**Architecture:**
+
+- `src/pages/discipline/[slug].astro` — Dynamic route with `getStaticPaths()` returning 7 slugs
+- `src/content.config.ts` — Adds `disciplines: z.array(z.enum(DISCIPLINES))` to `case-studies` and `services` schemas
+- `src/lib/disciplines.ts` — Discipline constants + labels + descriptions (separate from `content.config.ts` to avoid `astro:content` client-side imports)
+- `src/components/sections/discipline-hero.astro` — Reusable hero for discipline pages
+- `src/components/sections/portfolio.astro` + `services.astro` — Accept optional `data` prop for filtered rendering
+
+**Navigation:** Astro-native `<details>` dropdown for desktop; React state accordion for mobile. Links to all 7 discipline pages.
+
+**SEO:** Each discipline has unique `<title>`, `<meta description>`, hero copy, and filtered content (no duplicate-content penalty).
 
 **Background Architecture:**
 
@@ -421,4 +450,4 @@ See `docs/decision-log.md` for architecture decisions and rationale.
 
 ---
 
-**Last updated:** 2026-08-11
+**Last updated:** 2026-08-17

@@ -3,7 +3,7 @@
  * Neon accents, glowing borders, high contrast
  */
 
-:root {
+html.theme-neon {
   /* Colors - Neon Cyberpunk Palette */
   --color-bg-primary: #0a0a0f;
   --color-bg-secondary: rgba(20, 20, 35, 0.6);

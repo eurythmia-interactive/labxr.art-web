@@ -3,12 +3,13 @@ import { useStore } from '@nanostores/react';
 import { $isMobileMenuOpen, setIsMobileMenuOpen } from '@/lib/stores/ui';
 import { useDevice } from '@/lib/hooks/use-device';
 import { trapFocus } from '@/lib/focus';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { ThemeSwitcher } from './theme-switcher';
+import { DISCIPLINES, DISCIPLINE_LABELS } from '@/lib/disciplines';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/#work', label: 'Work' },
   { href: '/#services', label: 'Services' },
   { href: '/#manifesto', label: 'Manifesto' },
   { href: '/#contact', label: 'Contact' },
@@ -18,6 +19,7 @@ export function MobileMenu() {
   const isOpen = useStore($isMobileMenuOpen);
   const { isMobile } = useDevice();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +84,7 @@ export function MobileMenu() {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         )}
       >
-        <nav className="flex flex-1 flex-col items-center justify-center gap-8">
+        <nav className="flex flex-1 flex-col items-center justify-center gap-6 overflow-y-auto px-4 py-8">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -93,6 +95,40 @@ export function MobileMenu() {
               {link.label}
             </a>
           ))}
+
+          {/* Work accordion (mobile) */}
+          <div className="flex w-full max-w-xs flex-col items-center">
+            <button
+              type="button"
+              onClick={() => setWorkOpen(!workOpen)}
+              aria-expanded={workOpen}
+              className="flex items-center gap-2 text-2xl font-medium text-foreground transition-colors hover:text-primary"
+            >
+              Work
+              <ChevronDown
+                className={cn('h-5 w-5 transition-transform', workOpen && 'rotate-180')}
+              />
+            </button>
+            {workOpen && (
+              <ul className="mt-3 flex flex-col items-center gap-3">
+                {DISCIPLINES.map((slug) => (
+                  <li key={slug}>
+                    <a
+                      href={`/discipline/${slug}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-lg text-foreground/70 transition-colors hover:text-primary"
+                    >
+                      {DISCIPLINE_LABELS[slug]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className="mt-4 w-64">
+            <ThemeSwitcher variant="mobile" />
+          </div>
         </nav>
       </div>
 

@@ -1,0 +1,69 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DisciplineHero from '@/components/sections/discipline-hero.astro';
+import Services from '@/components/sections/services.astro';
+import Portfolio from '@/components/sections/portfolio.astro';
+import Contact from '@/components/sections/contact.astro';
+import WhatsAppButton from '@/components/shared/whatsapp-button.astro';
+import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
+import {
+  DISCIPLINES,
+  DISCIPLINE_LABELS,
+  DISCIPLINE_DESCRIPTIONS,
+  type Discipline,
+} from '@/lib/disciplines';
+
+export function getStaticPaths() {
+  return DISCIPLINES.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params as { slug: Discipline };
+
+const allCaseStudies: CollectionEntry<'caseStudies'>[] =
+  await getCollection('caseStudies');
+const allServices: CollectionEntry<'services'>[] =
+  await getCollection('services');
+
+const filteredCaseStudies = allCaseStudies.filter((study) =>
+  study.data.disciplines.includes(slug)
+);
+const filteredServices = allServices.filter((service) =>
+  service.data.disciplines.includes(slug)
+);
+
+const title = `${DISCIPLINE_LABELS[slug]} | LabXR.art`;
+const description = DISCIPLINE_DESCRIPTIONS[slug];
+
+const serializedCaseStudies = filteredCaseStudies.map((study) => ({
+  id: study.id,
+  data: {
+    title: study.data.title,
+    client: study.data.client,
+    description: study.data.description,
+    videoUrl: study.data.videoUrl,
+    posterUrl: study.data.posterUrl,
+    techStack: study.data.techStack,
+  },
+}));
+---
+
+<BaseLayout title={title} description={description}>
+  <main id="main-content">
+    <DisciplineHero
+      eyebrow="Discipline"
+      title={DISCIPLINE_LABELS[slug]}
+      description={description}
+    />
+    <Services data={filteredServices} id={`services-${slug}`} heading="Related Services" />
+    <Portfolio
+      data={filteredCaseStudies}
+      id={`portfolio-${slug}`}
+      heading="Featured Projects"
+    />
+    <Contact />
+  </main>
+
+  <WhatsAppButton />
+  <CaseStudyViewer client:idle caseStudies={serializedCaseStudies} />
+</BaseLayout>

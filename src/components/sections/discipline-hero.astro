@@ -1,0 +1,31 @@
+---
+import Section from '@/components/shared/Section.astro';
+import Container from '@/components/shared/Container.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+}
+
+const { title, description, eyebrow } = Astro.props;
+---
+
+<Section padding="xl" className="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-bg-gradient opacity-50"></div>
+  <Container size="lg">
+    <div class="text-center">
+      {eyebrow && (
+        <p class="mb-4 text-sm font-medium uppercase tracking-widest text-accent-primary md:text-base">
+          {eyebrow}
+        </p>
+      )}
+      <h1 class="mb-6 text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+        {title}
+      </h1>
+      <p class="mx-auto max-w-3xl text-lg text-foreground/70 md:text-xl lg:text-2xl">
+        {description}
+      </p>
+    </div>
+  </Container>
+</Section>

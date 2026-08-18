@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { DISCIPLINES } from '@/lib/disciplines';
 
 const caseStudies = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/case-studies' }),
@@ -17,6 +18,7 @@ const caseStudies = defineCollection({
       interactions: z.string(),
       uptime: z.string(),
     }),
+    disciplines: z.array(z.enum(DISCIPLINES)).default([]),
   }),
 });
 
@@ -29,6 +31,7 @@ const services = defineCollection({
     icon: z.string(),
     previewVideoUrl: z.string().optional(),
     previewPosterUrl: z.string().optional(),
+    disciplines: z.array(z.enum(DISCIPLINES)).default([]),
   }),
 });
 

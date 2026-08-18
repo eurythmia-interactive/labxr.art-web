@@ -1,7 +1,7 @@
 # Project Status Summary
 
-**Last Updated:** 2026-08-15  
-**Current Phase:** Phase 5.5 Complete, Awaiting Phase 6  
+**Last Updated:** 2026-08-17  
+**Current Phase:** Phase 5.61 Complete, Awaiting Phase 6  
 **Status:** ✅ All systems operational
 
 ---
@@ -13,7 +13,7 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 ### Live Site
 **URL:** https://labxr-art-web.pages.dev  
 **Status:** ✅ Deployed and operational  
-**Last Deploy:** 2026-08-15 (commit 2e82ed3)
+**Last Deploy:** 2026-08-17 (Phase 5.61 — see `docs/phase-5.61-report.md`)
 
 ---
 
@@ -80,6 +80,24 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
   * Enabled antialiasing for better quality
 - Architecture ready for Phase 6 to swap placeholder with real GLTF model
 - Three.js chunk remains code-split (874KB, loads on demand)
+
+### ✅ Phase 5.6 — CSS Variable Theme System
+- 8 themes via single `@import` line in `global.css`
+- `cinematic-dark` (active default), `minimal-mono`, `neo-brutalist`, `glassmorphism`, + 4 gradient variants
+- Two-variable background: `--color-bg-primary` (solid) + `--color-bg-gradient` (optional, body-level)
+- shadcn bridge layer preserved — zero breaking changes
+
+### ✅ Phase 5.61 — Multi-Page Routing & Runtime Theme Switcher
+- Refactored all 8 theme files: `:root` → `html.theme-[name]` class scoping (D014)
+- `BaseLayout.astro` loads all 8 themes; FOUC prevention via inline `<script is:inline>` + `<html class="theme-cinematic">` default
+- New `ThemeSwitcher` React island (`client:idle`) with `Palette` + `Check` icons from `icon-registry`
+- Selection persists in `localStorage['labxr-theme']`; works in desktop nav + mobile menu
+- New `disciplines` Zod field on `case-studies` + `services` schemas (7 values: xr, ux-design, dev, videomapping, interactivity, museography, products)
+- New `src/pages/discipline/[slug].astro` with `getStaticPaths()` — 7 SEO landing pages
+- New `src/components/sections/discipline-hero.astro` + refactored `portfolio.astro` + `services.astro` to accept optional filtered `data` prop
+- "Work" dropdown in navigation (Astro-native `<details>` for desktop, React state accordion for mobile)
+- All decisions recorded in `docs/decision-log.md` (D014, D015)
+- Total pages: 5 → 12
 
 ---
 
@@ -149,6 +167,9 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - ✅ Optimized icon bundle (6.82KB vs 928KB)
 - ✅ Flexible theme system (8 themes: cinematic-dark, minimal-mono, neo-brutalist, glassmorphism, gradient-frosted-glass, gradient-sunset-glass, gradient-aurora-glass, gradient-neon-glass)
 - ✅ CSS gradient backgrounds (linear-gradient, radial-gradient) via `--color-bg-gradient`
+- ✅ Runtime theme switcher (ThemeSwitcher island + localStorage persistence + FOUC prevention)
+- ✅ 7 discipline landing pages (/discipline/xr, /discipline/ux-design, /discipline/dev, /discipline/videomapping, /discipline/interactivity, /discipline/museography, /discipline/products)
+- ✅ "Work" dropdown navigation linking to all disciplines
 
 ### Performance
 - ✅ Zero CLS (Cumulative Layout Shift)
@@ -174,6 +195,9 @@ LabXR.art is a B2B portfolio site for a creative technology lab in CDMX, Mexico.
 - `docs/phase-3-report.md` - Site Chrome & Video Infrastructure
 - `docs/phase-4-report.md` - Data Architecture & Core Sections
 - `docs/phase-5-report.md` - Polish, Interaction, WebGL, Conversion
+- `docs/phase-5.5-report.md` - Cinematic Hero & WebGL Showcase
+- `docs/phase-5.6-report.md` - CSS Variable Theme System
+- `docs/phase-5.61-report.md` - Multi-Page Routing & Runtime Theme Switcher
 
 ### Mobile Video
 - `docs/mobile-video-complete-guide.md` - Comprehensive guide (27KB)
