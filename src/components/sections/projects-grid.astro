@@ -1,0 +1,53 @@
+---
+import Container from '@/components/shared/Container.astro';
+import { ProjectFilter } from '@/components/islands/project-filter';
+import type { CollectionEntry } from 'astro:content';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  caseStudies: CollectionEntry<'caseStudies'>[];
+  className?: string;
+}
+
+const { caseStudies, className = '' } = Astro.props;
+
+const serializedCaseStudies = caseStudies.map((study) => ({
+  id: study.id,
+  data: {
+    title: study.data.title,
+    client: study.data.client,
+    description: study.data.description,
+    coverImage: study.data.coverImage,
+    posterUrl: study.data.posterUrl,
+    year: study.data.year,
+    category: study.data.category,
+    disciplines: study.data.disciplines,
+    idea: study.data.idea,
+    experience: study.data.experience,
+    technology: study.data.technology,
+    process: study.data.process,
+    venue: study.data.venue,
+    scope: study.data.scope,
+    techStack: study.data.techStack,
+  },
+}));
+---
+
+<section class={cn('border-t border-white/8 bg-bg-primary py-24 md:py-32', className)}>
+  <Container>
+    <!-- Section Header -->
+    <div class="mb-16 max-w-4xl">
+      <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">SELECTED WORKS</p>
+      <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        Projects Archive
+      </h2>
+      <p class="max-w-2xl font-sans text-lg leading-relaxed text-text-secondary">
+        A curated selection of interactive installations, immersive experiences, and digital
+        creations spanning XR, physical computing, and advanced web technologies.
+      </p>
+    </div>
+
+    <!-- Project Filter Island -->
+    <ProjectFilter client:load caseStudies={serializedCaseStudies} />
+  </Container>
+</section>

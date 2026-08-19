@@ -23,6 +23,12 @@ const caseStudies = defineCollection({
       })
       .optional(),
     disciplines: z.array(z.enum(DISCIPLINES)).default([]),
+    idea: z.string().optional(),
+    experience: z.string().optional(),
+    technology: z.string().optional(),
+    process: z.string().optional(),
+    venue: z.string().optional(),
+    scope: z.string().optional(),
   }),
 });
 

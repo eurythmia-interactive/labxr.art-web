@@ -6,6 +6,7 @@ const PaletteIcon = iconRegistry.Palette;
 const CheckIcon = iconRegistry.Check;
 
 export const THEMES = [
+  { id: 'theme-lab', label: 'Terminal' },
   { id: 'theme-cinematic', label: 'Cinematic' },
   { id: 'theme-minimal', label: 'Minimal' },
   { id: 'theme-brutalist', label: 'Brutalist' },
@@ -19,7 +20,7 @@ export const THEMES = [
 export type ThemeId = (typeof THEMES)[number]['id'];
 
 const STORAGE_KEY = 'labxr-theme';
-const DEFAULT_THEME: ThemeId = 'theme-cinematic';
+const DEFAULT_THEME: ThemeId = 'theme-lab';
 
 function applyTheme(themeId: ThemeId): void {
   document.documentElement.className = themeId;

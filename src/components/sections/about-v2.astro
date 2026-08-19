@@ -1,0 +1,202 @@
+---
+import Container from '@/components/shared/Container.astro';
+import Timeline from '@/components/sections/timeline.astro';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={className}>
+  <!-- Manifesto Section -->
+  <div class="border-t border-white/8 bg-bg-primary py-24 md:py-32">
+    <Container>
+      <div class="max-w-4xl">
+        <p class="mb-4 font-mono text-xs tracking-wider text-accent-primary">MANIFESTO</p>
+        <h2 class="mb-8 font-sans text-3xl font-bold leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
+          We do not execute standard requirements; we explore the boundaries of what is possible.
+        </h2>
+        <div class="space-y-6 font-sans text-lg leading-relaxed text-text-secondary">
+          <p>
+            LABXR.art is a digital creation lab, sensory engineering studio, and spatial experimentation unit. 
+            We bridge the gap between intangible code and perceptible physical space — transforming data, light, 
+            hardware, and narrative into memorable human experiences.
+          </p>
+          <p>
+            We understand technology not as a support tool, but as the artistic and narrative medium of our time. 
+            From a custom microcontroller reading a visitor's pulse to an immersive spatial environment, 
+            we engineer the intersection where physical and digital realities become one.
+          </p>
+        </div>
+
+        <!-- Diagram -->
+        <div class="mt-12 border border-white/8 bg-bg-secondary p-6 md:p-8">
+          <div class="flex flex-col items-center gap-4 md:flex-row md:justify-around">
+            <div class="text-center">
+              <p class="font-mono text-xs tracking-wider text-accent-primary">ART & NARRATIVE</p>
+            </div>
+            <div class="hidden h-px w-16 bg-white/8 md:block"></div>
+            <div class="text-center">
+              <p class="font-mono text-xs tracking-wider text-accent-primary">CODE & SOFTWARE</p>
+            </div>
+            <div class="hidden h-px w-16 bg-white/8 md:block"></div>
+            <div class="text-center">
+              <p class="font-mono text-xs tracking-wider text-accent-primary">HARDWARE & SPACE</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Commercial × Experimental Section -->
+  <div class="border-t border-white/8 bg-bg-secondary py-24 md:py-32">
+    <Container>
+      <div class="mb-16 max-w-3xl">
+        <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">OPERATING MODEL</p>
+        <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          Commercial × Experimental
+        </h2>
+        <p class="font-sans text-lg leading-relaxed text-text-secondary">
+          We operate on a dual-core model: delivering high-impact projects for brands and institutions 
+          while maintaining unrestricted R&D for artistic exploration.
+        </p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2">
+        <!-- Commercial Column -->
+        <div class="cursor-none border border-white/8 bg-bg-primary p-6 transition-all hover:border-accent-primary/30 md:p-8" data-cursor="hover">
+          <p class="mb-4 font-mono text-xs tracking-wider text-accent-primary">COMMERCIAL</p>
+          <h3 class="mb-6 font-sans text-xl font-bold tracking-tight text-foreground">
+            Rigor & Business
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-primary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Guaranteed delivery on tight deadlines
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-primary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Technical robustness for public spaces and permanent museums
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-primary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Clear impact metrics, engagement rate, and dwell time
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-primary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Proven ROI for brands and cultural institutions
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Experimental Column -->
+        <div class="cursor-none border border-white/8 bg-bg-primary p-6 transition-all hover:border-accent-primary/30 md:p-8" data-cursor="hover">
+          <p class="mb-4 font-mono text-xs tracking-wider text-accent-primary">EXPERIMENTAL</p>
+          <h3 class="mb-6 font-sans text-xl font-bold tracking-tight text-foreground">
+            Innovation & Art
+          </h3>
+          <ul class="space-y-3">
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-secondary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Self-funded R&D free from client constraints
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-secondary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Rapid prototyping with emerging sensors and hardware
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-secondary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Artistic collaborations and conceptual installations
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-secondary"></span>
+              <span class="font-sans text-sm text-text-secondary">
+                Open-source creative coding, shaders, and physics experiments
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </div>
+
+  <!-- Timeline Section -->
+  <Timeline />
+
+  <!-- Global Footprint Section -->
+  <div class="border-t border-white/8 bg-bg-primary py-24 md:py-32">
+    <Container>
+      <div class="mb-16 max-w-3xl">
+        <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">GLOBAL REACH</p>
+        <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          CDMX · MEXICO
+        </h2>
+        <p class="font-sans text-lg leading-relaxed text-text-secondary">
+          Based in Mexico City, collaborating with institutions and brands worldwide.
+        </p>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <!-- Hub -->
+        <div class="cursor-none border border-accent-primary/30 bg-bg-secondary p-6" data-cursor="hover">
+          <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">HUB</p>
+          <p class="font-sans text-lg font-bold text-foreground">MEXICO CITY</p>
+          <p class="mt-1 font-mono text-xs tracking-wider text-text-tertiary">CDMX · 19.43° N</p>
+        </div>
+
+        <!-- Markets -->
+        <div class="cursor-none border border-white/8 bg-bg-secondary p-6" data-cursor="hover">
+          <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">MARKETS</p>
+          <ul class="space-y-1">
+            <li class="font-sans text-sm text-text-secondary">Mexico</li>
+            <li class="font-sans text-sm text-text-secondary">United States</li>
+            <li class="font-sans text-sm text-text-secondary">Latin America</li>
+            <li class="font-sans text-sm text-text-secondary">Europe</li>
+          </ul>
+        </div>
+
+        <!-- Collaborations -->
+        <div class="cursor-none border border-white/8 bg-bg-secondary p-6" data-cursor="hover">
+          <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">COLLABORATIONS</p>
+          <ul class="space-y-1">
+            <li class="font-sans text-sm text-text-secondary">Museums & Cultural Institutions</li>
+            <li class="font-sans text-sm text-text-secondary">Global Brands</li>
+            <li class="font-sans text-sm text-text-secondary">Creative Agencies</li>
+            <li class="font-sans text-sm text-text-secondary">Research Labs</li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="cursor-none border border-white/8 bg-bg-secondary p-6" data-cursor="hover">
+          <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">INITIATE</p>
+          <a
+            href="mailto:hello@labxr.art"
+            class="font-sans text-sm text-foreground transition-colors hover:text-accent-primary"
+          >
+            hello@labxr.art
+          </a>
+          <p class="mt-2 font-mono text-xs tracking-wider text-text-tertiary">
+            (UTC-06:00) Central Time
+          </p>
+        </div>
+      </div>
+    </Container>
+  </div>
+</section>

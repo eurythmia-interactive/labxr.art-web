@@ -1,0 +1,98 @@
+---
+import Container from '@/components/shared/Container.astro';
+import { cn } from '@/lib/utils';
+
+interface MethodStep {
+  number: string;
+  title: string;
+  description: string;
+}
+
+const steps: MethodStep[] = [
+  {
+    number: '01',
+    title: 'EXPLORE',
+    description: 'Research and technical feasibility mapping.',
+  },
+  {
+    number: '02',
+    title: 'DESIGN',
+    description: 'Narrative, UX/UI & prototyping.',
+  },
+  {
+    number: '03',
+    title: 'CREATE',
+    description: 'Hardware/software engineering & code.',
+  },
+  {
+    number: '04',
+    title: 'EXPERIENCE',
+    description: 'Deployment, physical staging & calibration.',
+  },
+];
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={cn('border-t border-white/8 bg-bg-secondary py-24 md:py-32', className)}>
+  <Container>
+    <!-- Section Header -->
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">METHODOLOGY</p>
+      <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        From Idea to Experience
+      </h2>
+    </div>
+
+    <!-- Method Steps -->
+    <div class="grid gap-8 md:grid-cols-4 md:gap-4">
+      {steps.map((step, index) => (
+        <div class="relative">
+          <!-- Step Card -->
+          <div class="cursor-none border border-white/8 bg-bg-primary p-6 transition-all hover:border-accent-primary/30" data-cursor="hover">
+            <!-- Step Number -->
+            <div class="mb-4 flex items-center gap-3">
+              <span class="font-mono text-3xl font-bold text-accent-primary md:text-4xl">
+                {step.number}
+              </span>
+              <div class="h-px flex-1 bg-white/8"></div>
+            </div>
+
+            <!-- Step Title -->
+            <h3 class="mb-3 font-mono text-sm font-bold tracking-wider text-foreground md:text-base">
+              {step.title}
+            </h3>
+
+            <!-- Step Description -->
+            <p class="font-sans text-sm leading-relaxed text-text-secondary">
+              {step.description}
+            </p>
+          </div>
+
+          <!-- Connector Arrow (Desktop Only) -->
+          {index < steps.length - 1 && (
+            <div class="absolute right-0 top-1/2 hidden h-px w-4 -translate-y-1/2 translate-x-full bg-accent-primary/30 md:block">
+              <div class="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 translate-x-1 rotate-45 border-r border-t border-accent-primary/30"></div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile Connector Lines -->
+    <div class="mt-8 flex justify-center md:hidden">
+      <div class="flex items-center gap-2">
+        {steps.map((_, index) => (
+          <>
+            <div class="h-2 w-2 rounded-full bg-accent-primary/30"></div>
+            {index < steps.length - 1 && <div class="h-px w-8 bg-accent-primary/30"></div>}
+          </>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

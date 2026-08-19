@@ -1,0 +1,125 @@
+---
+import Container from '@/components/shared/Container.astro';
+
+interface TimelineEntry {
+  era: string;
+  years: string;
+  title: string;
+  description: string;
+  milestones: string[];
+}
+
+const timeline: TimelineEntry[] = [
+  {
+    era: '2000s',
+    years: '2000 — 2009',
+    title: 'Web Interactivity & Rich Media',
+    description: 'The dawn of interactive web experiences. Flash, early JavaScript, and the first experiments in digital storytelling.',
+    milestones: [
+      'Launched first interactive web platform (2002)',
+      'Pioneered rich media campaigns for Latin American brands (2005)',
+      'Developed custom CMS solutions for cultural institutions (2007)',
+      'Created award-winning interactive documentaries (2009)',
+    ],
+  },
+  {
+    era: '2010s',
+    years: '2010 — 2019',
+    title: 'Projection Mapping & Physical Spaces',
+    description: 'Moving beyond screens into physical environments. Large-scale projection mapping, interactive installations, and spatial experiences.',
+    milestones: [
+      'First architectural projection mapping installation (2011)',
+      'Interactive museum exhibits for national institutions (2013)',
+      'Real-time motion tracking for live performances (2015)',
+      'Custom sensor systems for retail environments (2017)',
+      'Large-scale public art installations in CDMX (2019)',
+    ],
+  },
+  {
+    era: '2020s',
+    years: '2020 — 2024',
+    title: 'Creative Coding, Sensors & IoT',
+    description: 'Deepening technical expertise. Custom hardware, computer vision, IoT integration, and advanced creative coding.',
+    milestones: [
+      'Custom LiDAR tracking systems for immersive spaces (2020)',
+      'Real-time data visualization dashboards (2021)',
+      'IoT-enabled interactive environments (2022)',
+      'Computer vision for gesture-based interfaces (2023)',
+      'Multi-sensor fusion for spatial computing (2024)',
+    ],
+  },
+  {
+    era: 'Today',
+    years: '2025 — Beyond',
+    title: 'XR, Spatial Computing & Hybrid Spaces',
+    description: 'The convergence of physical and digital. Extended reality, spatial computing, AI integration, and hybrid experiences.',
+    milestones: [
+      'WebXR experiences for global brands (2025)',
+      'Spatial computing prototypes for retail and culture',
+      'AI-driven interactive installations (in development)',
+      'Hybrid physical-digital experiences (ongoing R&D)',
+    ],
+  },
+];
+---
+
+<section class="border-t border-white/8 bg-bg-secondary py-24 md:py-32">
+  <Container>
+    <!-- Section Header -->
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">20-YEAR EVOLUTION</p>
+      <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        Two decades of technological exploration.
+      </h2>
+      <p class="font-sans text-lg leading-relaxed text-text-secondary">
+        From early web interactivity to spatial computing, we've mastered every major technological wave before it hit the mainstream.
+      </p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="space-y-12">
+      {timeline.map((entry, index) => (
+        <article class="relative cursor-none border border-white/8 bg-bg-primary p-6 transition-all hover:border-accent-primary/30 md:p-8" data-cursor="hover">
+          <!-- Era Header -->
+          <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-3xl font-bold text-accent-primary md:text-4xl">
+                {entry.era}
+              </span>
+              <span class="font-mono text-xs tracking-wider text-text-tertiary">
+                {entry.years}
+              </span>
+            </div>
+            <div class="h-px flex-1 bg-white/8 md:hidden"></div>
+          </div>
+
+          <!-- Title & Description -->
+          <h3 class="mb-4 font-sans text-xl font-bold tracking-tight text-foreground md:text-2xl">
+            {entry.title}
+          </h3>
+          <p class="mb-6 font-sans text-sm leading-relaxed text-text-secondary md:text-base">
+            {entry.description}
+          </p>
+
+          <!-- Milestones -->
+          <div class="space-y-2">
+            <p class="font-mono text-xs tracking-wider text-accent-primary">KEY MILESTONES</p>
+            <ul class="space-y-2">
+              {entry.milestones.map((milestone) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1.5 h-1 w-1 flex-shrink-0 bg-accent-primary"></span>
+                  <span class="font-sans text-sm text-text-secondary">{milestone}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Connector Line (except last) -->
+          {index < timeline.length - 1 && (
+            <div class="absolute bottom-0 left-1/2 hidden h-12 w-px -translate-x-1/2 translate-y-full bg-accent-primary/30 md:block"></div>
+          )}
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>

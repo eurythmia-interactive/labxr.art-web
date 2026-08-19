@@ -10,4 +10,8 @@ export default defineConfig({
     format: 'directory',
   },
   trailingSlash: 'never',
+  transitions: {
+    style: 'fade',
+    animation: 'none',
+  },
 });

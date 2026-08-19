@@ -1,8 +1,8 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/sections/hero.astro';
-import WebGLShowcase from '@/components/sections/webgl-showcase.astro';
+import HeroV2 from '@/components/sections/hero-v2.astro';
+import CuratedShowcase from '@/components/sections/curated-showcase.astro';
 import Manifesto from '@/components/sections/manifesto.astro';
 import Services from '@/components/sections/services.astro';
 import Portfolio from '@/components/sections/portfolio.astro';
@@ -14,7 +14,7 @@ import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
 const allCaseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
 const allServices: CollectionEntry<'services'>[] = await getCollection('services');
 
-const featuredCaseStudies = allCaseStudies.slice(0, 6);
+const featuredCaseStudies = allCaseStudies.slice(0, 3);
 const featuredServices = allServices.slice(0, 3);
 
 const serializedCaseStudies = allCaseStudies.map((study) => ({
@@ -27,20 +27,26 @@ const serializedCaseStudies = allCaseStudies.map((study) => ({
     videoUrl: study.data.videoUrl,
     posterUrl: study.data.posterUrl,
     techStack: study.data.techStack,
+    idea: study.data.idea,
+    experience: study.data.experience,
+    technology: study.data.technology,
+    process: study.data.process,
+    venue: study.data.venue,
+    scope: study.data.scope,
   },
 }));
 ---
 
 <BaseLayout
-  title="LabXR.art — Code & Cinema"
-  description="Creative technology lab in CDMX bridging Code and Cinema. White-label interactive installations and WebGL experiences."
+  title="LabXR.art — Digital Creation Studio"
+  description="Digital creation studio and technology experimentation laboratory. CDMX · Mexico."
 >
   <main id="main-content">
-    <Hero />
-    <WebGLShowcase />
+    <HeroV2 />
+    <CuratedShowcase caseStudies={featuredCaseStudies} />
     <Manifesto />
     <Services data={featuredServices} />
-    <Portfolio data={featuredCaseStudies} />
+    <Portfolio data={allCaseStudies.slice(0, 6)} />
     <Team />
     <Contact />
   </main>

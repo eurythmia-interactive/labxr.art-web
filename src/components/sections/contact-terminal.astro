@@ -1,0 +1,59 @@
+---
+import Container from '@/components/shared/Container.astro';
+import { ContactTerminalForm } from '@/components/islands/contact-terminal-form';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={cn('border-t border-white/8 bg-bg-primary py-24 md:py-32', className)}>
+  <Container>
+    <div class="grid gap-16 lg:grid-cols-2">
+      <!-- Left: Info -->
+      <div>
+        <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">
+          05 // INITIATE A CONVERSATION
+        </p>
+        <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          Let's build what's next.
+        </h2>
+        <p class="mb-12 font-sans text-lg leading-relaxed text-text-secondary">
+          Do you have a project, idea, or experiment in mind? We're ready to explore the
+          boundaries of what's possible.
+        </p>
+
+        <!-- Direct Channel -->
+        <div class="space-y-6">
+          <div>
+            <p class="mb-2 font-mono text-xs tracking-wider text-text-tertiary">DIRECT CHANNEL</p>
+            <a
+              href="mailto:hello@labxr.art"
+              class="font-sans text-lg text-foreground transition-colors hover:text-accent-primary"
+            >
+              hello@labxr.art
+            </a>
+          </div>
+
+          <div>
+            <p class="mb-2 font-mono text-xs tracking-wider text-text-tertiary">LOCATION</p>
+            <p class="font-sans text-lg text-foreground">CDMX · MEXICO</p>
+          </div>
+
+          <div>
+            <p class="mb-2 font-mono text-xs tracking-wider text-text-tertiary">TIMEZONE</p>
+            <p class="font-sans text-lg text-foreground">(UTC-06:00) Central Time</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Terminal Form -->
+      <div>
+        <ContactTerminalForm client:load />
+      </div>
+    </div>
+  </Container>
+</section>

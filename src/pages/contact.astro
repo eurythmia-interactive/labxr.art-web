@@ -1,0 +1,28 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/shared/Container.astro';
+import ContactTerminal from '@/components/sections/contact-terminal.astro';
+---
+
+<BaseLayout title="Contact — LabXR.art" description="Initiate a conversation with LabXR.art">
+  <main id="main-content" class="pt-20">
+    <!-- Page Hero -->
+    <section class="border-t border-white/8 bg-bg-primary py-24 md:py-32">
+      <Container>
+        <div class="max-w-4xl">
+          <p class="mb-4 font-mono text-xs tracking-wider text-accent-primary">04 / CONTACT</p>
+          <h1 class="mb-6 font-sans text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+            Let's create.
+          </h1>
+          <p class="max-w-2xl font-sans text-lg leading-relaxed text-text-secondary">
+            Ready to explore the boundaries of what's possible? Whether you have a project, idea, 
+            or experiment in mind, we're here to help bring it to life.
+          </p>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Contact Terminal -->
+    <ContactTerminal />
+  </main>
+</BaseLayout>

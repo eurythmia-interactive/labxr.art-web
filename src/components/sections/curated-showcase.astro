@@ -1,0 +1,111 @@
+---
+import Container from '@/components/shared/Container.astro';
+import type { CollectionEntry } from 'astro:content';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  caseStudies: CollectionEntry<'caseStudies'>[];
+  className?: string;
+}
+
+const { caseStudies, className = '' } = Astro.props;
+---
+
+<section class={cn('border-t border-white/8 bg-bg-primary py-24 md:py-32', className)}>
+  <Container>
+    <!-- Section Header -->
+    <div class="mb-16 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+      <div>
+        <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">SELECTED WORKS</p>
+        <h2 class="font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          Curated Showcase
+        </h2>
+      </div>
+      <a
+        href="/projects"
+        class="group flex items-center gap-2 font-mono text-xs tracking-wider text-text-secondary transition-colors hover:text-accent-primary"
+      >
+        VIEW ALL PROJECTS
+        <span class="transition-transform group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+
+    <!-- Case Study Cards -->
+    <div class="space-y-16 md:space-y-24">
+      {caseStudies.slice(0, 3).map((study, index) => (
+        <article class="group" data-cursor="hover">
+          <!-- Project Metadata -->
+          <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p class="font-mono text-xs tracking-wider text-text-tertiary">
+                [{String(index + 1).padStart(2, '0')}] / {study.data.category ?? 'PROJECT'}
+              </p>
+              <h3 class="glitch-text mt-2 font-sans text-2xl font-bold tracking-tight text-foreground md:text-3xl" data-text={study.data.title}>
+                {study.data.title}
+              </h3>
+            </div>
+            <div class="flex items-center gap-4">
+              {study.data.year && (
+                <span class="font-mono text-xs tracking-wider text-text-secondary">
+                  {study.data.year}
+                </span>
+              )}
+              <span class="font-mono text-xs tracking-wider text-text-tertiary">|</span>
+              <span class="font-mono text-xs tracking-wider text-text-secondary">
+                {study.data.client}
+              </span>
+            </div>
+          </div>
+
+          <!-- Cover Image / Video Placeholder -->
+          <div class="relative aspect-video overflow-hidden border border-white/8 bg-bg-secondary">
+            {study.data.coverImage ? (
+              <img
+                src={study.data.coverImage}
+                alt={study.data.title}
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            ) : study.data.posterUrl ? (
+              <img
+                src={study.data.posterUrl}
+                alt={study.data.title}
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            ) : (
+              <div class="flex h-full items-center justify-center">
+                <span class="font-mono text-xs tracking-wider text-text-tertiary">
+                  [ MEDIA PENDING ]
+                </span>
+              </div>
+            )}
+
+            <!-- Overlay on Hover -->
+            <div class="absolute inset-0 flex items-end bg-gradient-to-t from-bg-primary/80 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <div class="p-6 md:p-8">
+                <p class="font-mono text-xs tracking-wider text-accent-primary">
+                  VIEW CASE STUDY →
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mt-6 max-w-2xl">
+            <p class="font-sans text-sm leading-relaxed text-text-secondary md:text-base">
+              {study.data.description}
+            </p>
+            {study.data.disciplines && study.data.disciplines.length > 0 && (
+              <div class="mt-4 flex flex-wrap gap-2">
+                {study.data.disciplines.map((discipline: string) => (
+                  <span class="border border-white/8 px-2 py-1 font-mono text-[10px] tracking-wider text-text-tertiary">
+                    {discipline.toUpperCase()}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>

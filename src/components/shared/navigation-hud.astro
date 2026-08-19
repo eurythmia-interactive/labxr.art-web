@@ -1,0 +1,164 @@
+---
+import { MobileMenuHud } from '@/components/islands/mobile-menu-hud';
+import { ThemeSwitcher } from '@/components/islands/theme-switcher';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
+const navLinks = [
+  { href: '/projects', label: 'PROJECTS', micro: 'What we create' },
+  { href: '/what-we-do', label: 'WHAT WE DO', micro: 'How we create' },
+  { href: '/about', label: 'ABOUT', micro: '20 years of tech' },
+  { href: '/contact', label: 'CONTACT', micro: "Let's create" },
+];
+---
+
+<header class={cn('fixed left-0 right-0 top-0 z-50 transition-all duration-300', className)} id="hud-header">
+  <nav
+    class="flex h-16 items-center justify-between border-b border-white/8 bg-bg-primary/80 px-4 backdrop-blur-md transition-all duration-300 md:h-20 md:px-6"
+    id="hud-nav"
+    aria-label="Main navigation"
+  >
+    <!-- Left: Logo + Status -->
+    <div class="flex items-center gap-3">
+      <a
+        href="/"
+        class="font-mono text-sm font-bold tracking-wider text-foreground transition-colors hover:text-accent-primary md:text-base"
+      >
+        LABXR.ART
+      </a>
+      <div class="hidden items-center gap-2 md:flex">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-primary opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-accent-primary"></span>
+        </span>
+        <span class="font-mono text-xs tracking-wider text-text-secondary">ONLINE</span>
+      </div>
+    </div>
+
+    <!-- Center-Left: Coordinates + Clock (Desktop Only) -->
+    <div class="hidden items-center gap-4 md:flex">
+      <span class="font-mono text-xs tracking-wider text-text-secondary">
+        CDMX · 19.43° N
+      </span>
+      <span class="font-mono text-xs text-text-tertiary">|</span>
+      <time class="font-mono text-xs tracking-wider text-text-secondary" id="hud-clock">
+        --:-- CST
+      </time>
+    </div>
+
+    <!-- Center-Right: Navigation Cluster (Desktop) -->
+    <div class="hidden items-center gap-6 md:flex">
+      <ul class="flex items-center gap-6">
+        {navLinks.map((link) => (
+          <li class="group relative">
+            <a
+              href={link.href}
+              class="font-mono text-xs font-medium tracking-wider text-foreground/80 transition-colors hover:text-accent-primary"
+            >
+              {link.label}
+            </a>
+            <!-- Micro-copy on hover -->
+            <span class="absolute left-0 top-full mt-1 font-mono text-[10px] tracking-wider text-text-tertiary opacity-0 transition-opacity group-hover:opacity-100">
+              {link.micro}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <ThemeSwitcher client:idle variant="desktop" />
+    </div>
+
+    <!-- Right: Contact CTA (Desktop) -->
+    <div class="hidden md:block">
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 border border-accent-primary/30 px-4 py-2 font-mono text-xs font-medium tracking-wider text-accent-primary transition-all hover:border-accent-primary hover:bg-accent-primary/10"
+      >
+        CONTACT
+        <span class="text-sm">→</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <MobileMenuHud client:load />
+  </nav>
+</header>
+
+<script>
+  function updateClock() {
+    const clock = document.getElementById('hud-clock');
+    if (!clock) return;
+
+    const now = new Date();
+    const cstOffset = -6;
+    const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+    const cst = new Date(utc + cstOffset * 3600000);
+
+    const hours = cst.getHours().toString().padStart(2, '0');
+    const minutes = cst.getMinutes().toString().padStart(2, '0');
+
+    clock.textContent = `${hours}:${minutes} CST`;
+  }
+
+  updateClock();
+  setInterval(updateClock, 60000);
+
+  // Smart sticky header
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+
+  function updateHeader() {
+    const header = document.getElementById('hud-header');
+    const nav = document.getElementById('hud-nav');
+    if (!header || !nav) return;
+
+    const currentScrollY = window.scrollY;
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    if (currentScrollY > 100) {
+      if (scrollDelta > 0) {
+        // Scrolling down - compress
+        header.classList.add('header-compressed');
+        nav.classList.add('nav-compressed');
+      } else {
+        // Scrolling up - expand
+        header.classList.remove('header-compressed');
+        nav.classList.remove('nav-compressed');
+      }
+    } else {
+      // Near top - always expanded
+      header.classList.remove('header-compressed');
+      nav.classList.remove('nav-compressed');
+    }
+
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  });
+</script>
+
+<style>
+  .header-compressed {
+    transform: translateY(-50%);
+  }
+
+  .nav-compressed {
+    height: 3rem !important;
+  }
+
+  @media (min-width: 768px) {
+    .nav-compressed {
+      height: 4rem !important;
+    }
+  }
+</style>

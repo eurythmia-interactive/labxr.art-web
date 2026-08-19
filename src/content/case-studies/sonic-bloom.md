@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/a855f7?text=Sonic+Bloom"
 description: "A massive audio-reactive LED and projection installation at the festival's main stage. The system ingests live audio feeds from the DJ booth, processing frequencies in real-time to drive generative visual algorithms, creating a unique visual show for every performance."
 techStack: ["TouchDesigner", "Resolume", "MaxMSP", "NDI", "disguise"]
 disciplines: ['interactivity', 'videomapping']
+idea: "Each headliner's set needed a visually distinct identity without the logistical nightmare of shipping unique pre-rendered content for each act. The constraint: visual content must respond in real-time to whatever the DJ plays — there are no rehearsals, no predetermined set lists."
+experience: "The main-stage visual system for one of LatAm's largest electronic music festivals, featuring 18 international headliners across a 4-day run. The installation spanned a 40-meter-wide, 12-meter-tall LED wall plus a secondary projection mapping layer. Visual-to-audio sync latency: 32ms (human perception threshold: 100ms)."
+technology: "Audio analysis pipeline tapping directly into front-of-house mix (split into 8 frequency bands), processes spectral features (centroid, rolloff, flux) in MaxMSP, forwards OSC messages to TouchDesigner. 14 distinct visual 'moods' pre-selectable via custom OSC controller. Graceful degradation if any layer fails."
+process: "Built audio analysis pipeline with 8-band frequency split. Developed MaxMSP spectral feature processing. Created TouchDesigner generative system with 14 visual moods. Implemented graceful degradation for live event reliability. Crew of 4 ran entire show without overtime."
+venue: "Main Stage, International Music Festival"
+scope: "AUDIO-REACTIVE LED · PROJECTION MAPPING · REAL-TIME GENERATIVE VISUALS"
 ---
 
 # Sonic Bloom — Audio-Reactive Stage Installation

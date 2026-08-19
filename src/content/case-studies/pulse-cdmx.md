@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/3b82f6?text=Pulse+CDMX"
 description: "A real-time data visualization dashboard for urban mobility. We built a custom WebGL engine ingesting live API feeds from the city's transit system, rendering thousands of moving data points to visualize traffic flow and public transport efficiency."
 techStack: ["Three.js", "WebSockets", "GLSL", "Cloudflare Workers", "Mapbox GL"]
 disciplines: ['dev', 'interactivity']
+idea: "The CDMX government wanted a public-facing display that would make smart-city data tangible to citizens, journalists, and visiting dignitaries. The challenge wasn't data collection — it was making the data legible, beautiful, and honest. No greenwashing congestion as 'smooth flow'."
+experience: "A permanent installation at CDMX's Smart City command center, visualizing real-time data from 14 distinct data streams (Subway, Metrobus, traffic cameras, ambulances, weather, etc.) at up to 50 messages per second, rendering thousands of moving data points on a 6-meter-wide 8K display wall. 99.97% uptime over 6 months."
+technology: "Custom WebGL engine (not Mapbox, not deck.gl) handling 50,000 simultaneously-moving data points at 60fps. Three visual layers: base map as custom cartogram, flow layer showing traffic as animated streams, alert layer surfacing incidents. Data pipeline through Cloudflare Worker with server-sent events (SSE)."
+process: "Built custom WebGL engine for 50,000 data points at 60fps. Developed custom cartogram (no external dependencies). Implemented three visual layers (base, flow, alert). Created Cloudflare Worker for data aggregation. Built 'historical replay' mode for past 30 days."
+venue: "CDMX Smart City Command Center"
+scope: "REAL-TIME DATA VISUALIZATION · CUSTOM WEBGL ENGINE · 8K DISPLAY WALL"
 ---
 
 # Pulse CDMX — Real-Time Urban Mobility Dashboard

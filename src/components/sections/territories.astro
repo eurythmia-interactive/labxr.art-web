@@ -1,0 +1,107 @@
+---
+import Container from '@/components/shared/Container.astro';
+import { cn } from '@/lib/utils';
+
+interface Territory {
+  id: string;
+  title: string;
+  description: string;
+  techTags: string[];
+}
+
+const territories: Territory[] = [
+  {
+    id: 'xr',
+    title: 'XR & SPATIAL COMPUTING',
+    description:
+      'Augmented Reality (AR), Virtual Reality (VR), Mixed Reality (MR), spatial simulations, and real-time immersive environments.',
+    techTags: ['Unity', 'Unreal Engine', 'ARKit', 'ARCore', 'WebXR', 'OpenXR'],
+  },
+  {
+    id: 'interactive',
+    title: 'INTERACTIVE & PHYSICAL COMPUTING',
+    description:
+      'Interactive projection mapping, digital scenography, custom sensors, computer vision (OpenCV), LiDAR tracking, and IoT integrations.',
+    techTags: ['TouchDesigner', 'ESP32', 'LiDAR', 'OptiTrack', 'OpenCV', 'Arduino'],
+  },
+  {
+    id: 'digital',
+    title: 'ADVANCED DIGITAL & WEBGL',
+    description:
+      'Creative coding, custom GLSL shaders, interactive WebGL experiences, advergaming, and ultra-high-performance web platforms.',
+    techTags: ['Three.js', 'GLSL', 'React Three Fiber', 'WebGL 2.0', 'TypeScript'],
+  },
+  {
+    id: 'uxui',
+    title: 'UX / UI & SPATIAL DESIGN',
+    description:
+      'Spatial interaction design, gesture-based interfaces, non-standard hardware UX, and reactive visual systems.',
+    techTags: ['Figma', 'Framer', 'Protopie', 'Spatial UI', 'Gesture Recognition'],
+  },
+  {
+    id: 'experimental',
+    title: 'EXPERIMENTAL & R&D',
+    description:
+      'Generative art, emerging hardware exploration, rapid functional prototyping, and innovation labs for culture and brands.',
+    techTags: ['Processing', 'p5.js', 'Custom PCB', 'Sensor Fusion', 'Rapid Prototyping'],
+  },
+];
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={cn('border-t border-white/8 bg-bg-primary py-24 md:py-32', className)}>
+  <Container>
+    <!-- Section Header -->
+    <div class="mb-16 max-w-3xl">
+      <p class="mb-2 font-mono text-xs tracking-wider text-accent-primary">EXPLORATION TERRITORIES</p>
+      <h2 class="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        We engineer experiences where technology, design, narrative, and space converge.
+      </h2>
+    </div>
+
+    <!-- Territories Grid -->
+    <div class="space-y-8">
+      {territories.map((territory, index) => (
+        <article class="group cursor-none border border-white/8 bg-bg-secondary p-6 transition-all hover:border-accent-primary/30 hover:bg-bg-tertiary md:p-8" data-cursor="hover">
+          <!-- Territory Header -->
+          <div class="mb-4 flex items-start justify-between gap-4">
+            <div class="flex-1">
+              <div class="mb-2 flex items-center gap-3">
+                <span class="font-mono text-xs tracking-wider text-text-tertiary">
+                  [{String(index + 1).padStart(2, '0')}]
+                </span>
+                <h3 class="font-mono text-sm font-bold tracking-wider text-foreground md:text-base">
+                  {territory.title}
+                </h3>
+              </div>
+              <p class="font-sans text-sm leading-relaxed text-text-secondary md:text-base">
+                {territory.description}
+              </p>
+            </div>
+          </div>
+
+          <!-- Tech Tags (Visible on Hover) -->
+          <div class="mt-6 flex flex-wrap gap-2 opacity-60 transition-opacity group-hover:opacity-100">
+            {territory.techTags.map((tag) => (
+              <span class="border border-white/8 px-3 py-1 font-mono text-[10px] tracking-wider text-text-tertiary transition-colors group-hover:border-accent-primary/30 group-hover:text-accent-primary">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Closing Statement -->
+    <div class="mt-16 border-t border-white/8 pt-8 text-center">
+      <p class="font-mono text-xs tracking-wider text-text-tertiary">
+        "Every project is an exploration."
+      </p>
+    </div>
+  </Container>
+</section>

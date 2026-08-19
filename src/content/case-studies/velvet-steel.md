@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/ec4899?text=Velvet+Steel"
 description: "A cinematic e-commerce experience focusing on macro-photography and micro-interactions. The site features smooth scroll-triggered reveals, 3D product spinners, and a bespoke checkout flow that increased conversion rates by 34%."
 techStack: ["GSAP", "Three.js", "Lenis", "Stripe", "Astro"]
 disciplines: ['ux-design', 'products', 'dev']
+idea: "The brand's pieces are intricate, hand-finished objects meant to be examined up close. Standard e-commerce templates weren't doing them justice. They needed a site where every interaction rewarded slowing down. Bonus: the existing site converted at 1.8%; they wanted 2.5%+."
+experience: "A complete digital flagship for an artisan jewelry brand specializing in hand-forged steel pieces. The site functions simultaneously as a brand showcase and a high-conversion storefront, with heavy emphasis on macro-photography and slow, deliberate scroll storytelling. Conversion rate: 2.42% (up from 1.8% baseline, +34% lift)."
+technology: "14 days of macro product photography (4K, 60fps, focus-stacked). Lenis for scroll smoothing, GSAP ScrollTrigger for orchestrated reveals. Three.js for 3D-rotatable product models. Single-page progressive checkout form with Stripe Elements. Astro for static pages with React islands only for cart/checkout."
+process: "Shot 14 days of macro product photography/videography. Implemented Lenis scroll smoothing + GSAP ScrollTrigger reveals. Built Three.js 3D product spinners. Developed single-page progressive checkout with Stripe Elements. Created custom state machine for engraving/gift wrap/sizing. Site ships only 32KB of JS."
+venue: "Global (E-commerce)"
+scope: "CINEMATIC E-COMMERCE · MACRO PHOTOGRAPHY · 3D PRODUCT SPINNERS"
 ---
 
 # Velvet & Steel — Cinematic E-commerce

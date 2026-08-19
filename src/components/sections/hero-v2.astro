@@ -1,0 +1,104 @@
+---
+import Container from '@/components/shared/Container.astro';
+import { ShowcaseWebGL } from '@/components/islands/showcase-webgl';
+import { HeroHud } from '@/components/islands/hero-hud';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+---
+
+<section class={cn('relative flex min-h-screen flex-col items-center justify-center overflow-hidden', className)}>
+  <!-- WebGL Canvas (Desktop) / Video Fallback (Mobile) -->
+  <div class="absolute inset-0" data-cursor="drag">
+    <ShowcaseWebGL client:visible />
+  </div>
+
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/40 via-bg-primary/60 to-bg-primary" />
+
+  <!-- Content -->
+  <Container className="relative z-10 flex flex-col items-center text-center">
+    <!-- Main Statement -->
+    <div class="space-y-6">
+      <h1 class="font-sans text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+        LABXR.ART
+      </h1>
+      <p class="max-w-3xl font-sans text-lg font-medium leading-relaxed text-text-secondary md:text-xl">
+        Digital creation studio and technology experimentation laboratory.
+      </p>
+      <p class="font-mono text-xs tracking-wider text-text-tertiary md:text-sm">
+        XR · IMMERSIVE SPACES · SENSORS · INTERACTION
+      </p>
+      <p class="font-mono text-xs tracking-wider text-accent-primary md:text-sm">
+        CDMX · MEXICO // GLOBAL REACH
+      </p>
+    </div>
+
+    <!-- Interactive Canvas Label -->
+    <HeroHud client:visible />
+  </Container>
+
+  <!-- Authority Ticker -->
+  <div class="absolute bottom-0 left-0 right-0 border-t border-white/8 bg-bg-primary/80 py-4 backdrop-blur-sm">
+    <div class="overflow-hidden">
+      <div class="animate-ticker flex whitespace-nowrap">
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">
+          20 YEARS OF DIGITAL CREATION
+        </span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">
+          COMMERCIAL × EXPERIMENTAL
+        </span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">XR</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">INTERACTION</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">CODE</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">
+          20 YEARS OF DIGITAL CREATION
+        </span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">
+          COMMERCIAL × EXPERIMENTAL
+        </span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">XR</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">INTERACTION</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-secondary">CODE</span>
+        <span class="mx-8 font-mono text-xs tracking-wider text-text-tertiary">·</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-24 left-1/2 -translate-x-1/2 md:bottom-28">
+    <div class="flex flex-col items-center gap-2">
+      <span class="font-mono text-xs tracking-wider text-text-tertiary">EXPLORE</span>
+      <div class="h-12 w-px animate-pulse bg-gradient-to-b from-accent-primary to-transparent" />
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes ticker {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-ticker {
+    animation: ticker 30s linear infinite;
+  }
+</style>

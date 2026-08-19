@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/00d4ff?text=Neon+Nexus"
 description: "An immersive, multi-sensory brand activation blending real-time motion capture with volumetric lighting. Visitors stepped into a neon-lit digital realm where their movements generated cascading particle effects, translating physical energy into a living, breathing digital artwork."
 techStack: ["Three.js", "MediaPipe", "WebGL", "GLSL", "TouchDesigner"]
 disciplines: ['xr', 'interactivity']
+idea: "Demonstrate 5G's low-latency capabilities in a visceral, memorable way. Prove that the network is so fast, your body becomes the controller — no wearables, no apps, no friction."
+experience: "Visitors entered a 12-meter diameter circular arena where their physical presence drove a real-time generative visual experience. Average dwell time: 4 minutes 22 seconds (industry benchmark: 45 seconds). 96% positive sentiment in post-visit surveys."
+technology: "Custom 24-camera volumetric capture rig with sub-frame synchronization, feeding skeletal tracking data through MediaPipe pipeline into WebGL particle engine. 200,000-particle volumetric cloud sculpted by signed distance fields (SDF). Eight 4K laser projectors in HDR."
+process: "Deployed custom volumetric capture system with 24 cameras. Built MediaPipe pipeline for skeletal tracking. Developed WebGL particle engine with SDF rendering. Composed ambient generative score responding to motion data. 3-day pop-up activation."
+venue: "Mexico City"
+scope: "INTERACTIVE VIDEOMAPPING · CUSTOM LIDAR SENSORS · REAL-TIME GENERATIVE AUDIO"
 ---
 
 # Neon Nexus — Live Brand Activation

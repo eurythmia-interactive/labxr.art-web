@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/ff006e?text=Echoes+Maya"
 description: "A 360-degree projection mapping experience transforming the museum's central courtyard. We mapped 4K laser projectors onto ancient stone textures, bringing pre-Hispanic mythology to life through synchronized audio-reactive visuals and spatial sound design."
 techStack: ["Disguise", "MadMapper", "TouchDesigner", "Resolume Arena", "MaxMSP"]
 disciplines: ['museography', 'videomapping']
+idea: "Breathe new life into the museum's existing collection of Maya stelae without removing or modifying any artifacts. Create an experience that feels timeless, reverent, and authentically rooted in the source material."
+experience: "A permanent installation transforming the central courtyard into a living canvas for pre-Hispanic mythology. The experience runs nightly for 22 minutes and has been viewed by over 800,000 visitors since opening. Average visit time increased 3.4x for courtyard-adjacent galleries."
+technology: "3D-scanned the courtyard at sub-millimeter resolution using photogrammetry (4,200 reference photos) and LiDAR fusion. Eight 4K laser projectors, edge-blended and color-calibrated, wrap the courtyard in 360 degrees of generative animation. Audio-reactive layer built in MaxMSP."
+process: "Photogrammetry scanning with 4,200 reference photos. LiDAR fusion for sub-millimeter accuracy. Master UV unwrap accounting for limestone irregularities. Hand-painted content by 6 Mexican illustrators. Period instruments with spatialized ambient textures."
+venue: "National Museum of Anthropology, CDMX"
+scope: "360° PROJECTION MAPPING · PHOTOGRAMMETRY · AUDIO-REACTIVE VISUALS"
 ---
 
 # Echoes of the Maya — 360° Projection Mapping

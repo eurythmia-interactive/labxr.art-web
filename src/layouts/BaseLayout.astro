@@ -8,9 +8,11 @@ import '@/styles/themes/gradient-frosted-glass.css';
 import '@/styles/themes/gradient-sunset-glass.css';
 import '@/styles/themes/gradient-aurora-glass.css';
 import '@/styles/themes/gradient-neon-glass.css';
+import '@/styles/themes/lab-terminal.css';
 import SkipNav from '@/components/shared/SkipNav.astro';
-import Navigation from '@/components/shared/navigation.astro';
+import NavigationHud from '@/components/shared/navigation-hud.astro';
 import Footer from '@/components/shared/footer.astro';
+import { LabCursor } from '@/components/islands/lab-cursor';
 
 interface Props {
   title: string;
@@ -28,7 +30,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="theme-cinematic">
+<html lang="en" class="theme-lab">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,8 +69,9 @@ const {
   </head>
   <body class="bg-background text-foreground antialiased">
     <SkipNav />
-    <Navigation />
+    <NavigationHud />
     <slot />
     <Footer />
+    <LabCursor client:load />
   </body>
 </html>

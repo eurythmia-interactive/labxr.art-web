@@ -8,6 +8,12 @@ coverImage: "https://placehold.co/1200x800/1a1a1a/ffbe0b?text=Lumina+AR"
 description: "An augmented reality try-on experience for high-end accessories. Using advanced WebAR and LiDAR scanning on iOS, customers can visualize handbags and jewelry in their actual physical space with accurate scale, lighting, and occlusion."
 techStack: ["WebXR", "Three.js", "LiDAR", "Apple ARKit", "8th Wall"]
 disciplines: ['xr', 'products', 'ux-design']
+idea: "The brand's flagship product is a handbag retailing at $4,800 USD. The conversion rate from website to purchase was 1.2%, well below industry benchmark (2.8%). The hypothesis: customers can't visualize scale and styling in their own context, so they hesitate."
+experience: "A premium AR experience built natively into the brand's existing e-commerce site via a progressive web app. Customers place life-size handbags and jewelry in their own space with sub-centimeter accuracy, accurate lighting estimation, and real-world occlusion. Conversion rate on product pages with AR: 3.7% (vs. 1.2% baseline)."
+technology: "WebAR pipeline using 8th Wall's SLAM engine with LiDAR depth fusion for supported iOS devices (iPhone Pro / iPad Pro 2020+). ARKit's environment probe API captures ambient HDR cubemap for accurate lighting estimation. Custom shader work for occlusion (4ms budget per frame)."
+process: "Built WebAR pipeline with 8th Wall SLAM + LiDAR depth fusion. Implemented ARKit environment probe API for HDR cubemap capture. Developed custom occlusion shaders with depth buffer comparison. Entire pipeline runs in browser — no app download, no QR code."
+venue: "Global (Mobile Web)"
+scope: "WEBAR TRY-ON · LIDAR DEPTH FUSION · REAL-WORLD OCCLUSION"
 ---
 
 # Lumina — AR Try-On for Luxury Accessories
