@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogBody,
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
@@ -66,111 +67,118 @@ export function CaseStudyViewer({ caseStudies }: CaseStudyViewerProps) {
   return (
     <Dialog open={isDialogOpen} onOpenChange={(open) => !open && closeCaseStudy()}>
       <DialogContent className="max-w-4xl border-border bg-secondary">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">{activeStudy.data.title}</DialogTitle>
-          <DialogDescription className="text-foreground/60">
-            {activeStudy.data.client}
-            {activeStudy.data.venue && ` · ${activeStudy.data.venue}`}
-          </DialogDescription>
-        </DialogHeader>
-        <div className="mt-4">
-          {hasVideo ? (
-            <VideoPlayerIsland
-              config={
-                {
-                  src: {
-                    mp4: activeStudy.data.videoUrl!,
-                    webm: activeStudy.data.videoUrl!.replace('.mp4', '.webm'),
-                  },
-                  poster: activeStudy.data.posterUrl ?? activeStudy.data.coverImage ?? '',
-                  thumbnail:
-                    activeStudy.data.posterUrl?.replace('-poster.webp', '-thumb.webp') ??
-                    activeStudy.data.coverImage ??
-                    '',
-                  alt: activeStudy.data.title,
-                  autoplay: true,
-                  muted: true,
-                  loop: false,
-                  controls: true,
-                  playsInline: true,
-                } satisfies VideoConfig
-              }
-              aspectRatio="16:9"
-              forceLoad={true}
-            />
-          ) : imageSrc ? (
-            <div className="overflow-hidden rounded-lg border border-border">
-              <img
-                src={imageSrc}
-                alt={activeStudy.data.title}
-                className="aspect-video h-full w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          ) : null}
+        {/* Sticky Header - Always Visible */}
+        <div className="flex-shrink-0 border-b border-border bg-secondary p-6 pb-4">
+          <DialogHeader>
+            <DialogTitle className="text-2xl">{activeStudy.data.title}</DialogTitle>
+            <DialogDescription className="text-foreground/60">
+              {activeStudy.data.client}
+              {activeStudy.data.venue && ` · ${activeStudy.data.venue}`}
+            </DialogDescription>
+          </DialogHeader>
         </div>
 
-        {hasBlueprint ? (
-          <div className="mt-6 space-y-6">
-            {activeStudy.data.idea && (
-              <div>
-                <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
-                  01 // THE IDEA
-                </h4>
-                <p className="text-sm leading-relaxed text-foreground/80">
-                  {activeStudy.data.idea}
-                </p>
+        {/* Scrollable Content */}
+        <DialogBody>
+          <div className="mt-2">
+            {hasVideo ? (
+              <VideoPlayerIsland
+                config={
+                  {
+                    src: {
+                      mp4: activeStudy.data.videoUrl!,
+                      webm: activeStudy.data.videoUrl!.replace('.mp4', '.webm'),
+                    },
+                    poster: activeStudy.data.posterUrl ?? activeStudy.data.coverImage ?? '',
+                    thumbnail:
+                      activeStudy.data.posterUrl?.replace('-poster.webp', '-thumb.webp') ??
+                      activeStudy.data.coverImage ??
+                      '',
+                    alt: activeStudy.data.title,
+                    autoplay: true,
+                    muted: true,
+                    loop: false,
+                    controls: true,
+                    playsInline: true,
+                  } satisfies VideoConfig
+                }
+                aspectRatio="16:9"
+                forceLoad={true}
+              />
+            ) : imageSrc ? (
+              <div className="overflow-hidden rounded-lg border border-border">
+                <img
+                  src={imageSrc}
+                  alt={activeStudy.data.title}
+                  className="aspect-video h-full w-full object-cover"
+                  loading="lazy"
+                />
               </div>
-            )}
-            {activeStudy.data.experience && (
-              <div>
-                <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
-                  02 // THE EXPERIENCE
-                </h4>
-                <p className="text-sm leading-relaxed text-foreground/80">
-                  {activeStudy.data.experience}
-                </p>
-              </div>
-            )}
-            {activeStudy.data.technology && (
-              <div>
-                <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
-                  03 // THE TECHNOLOGY
-                </h4>
-                <p className="text-sm leading-relaxed text-foreground/80">
-                  {activeStudy.data.technology}
-                </p>
-              </div>
-            )}
-            {activeStudy.data.process && (
-              <div>
-                <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
-                  04 // THE PROCESS
-                </h4>
-                <p className="text-sm leading-relaxed text-foreground/80">
-                  {activeStudy.data.process}
-                </p>
-              </div>
-            )}
+            ) : null}
           </div>
-        ) : (
-          <div className="mt-6">
-            <p className="text-sm text-foreground/80">{activeStudy.data.description}</p>
-          </div>
-        )}
 
-        {activeStudy.data.techStack.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {activeStudy.data.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
+          {hasBlueprint ? (
+            <div className="mt-6 space-y-6">
+              {activeStudy.data.idea && (
+                <div>
+                  <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
+                    01 // THE IDEA
+                  </h4>
+                  <p className="text-sm leading-relaxed text-foreground/80">
+                    {activeStudy.data.idea}
+                  </p>
+                </div>
+              )}
+              {activeStudy.data.experience && (
+                <div>
+                  <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
+                    02 // THE EXPERIENCE
+                  </h4>
+                  <p className="text-sm leading-relaxed text-foreground/80">
+                    {activeStudy.data.experience}
+                  </p>
+                </div>
+              )}
+              {activeStudy.data.technology && (
+                <div>
+                  <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
+                    03 // THE TECHNOLOGY
+                  </h4>
+                  <p className="text-sm leading-relaxed text-foreground/80">
+                    {activeStudy.data.technology}
+                  </p>
+                </div>
+              )}
+              {activeStudy.data.process && (
+                <div>
+                  <h4 className="mb-2 font-mono text-xs tracking-wider text-accent-primary">
+                    04 // THE PROCESS
+                  </h4>
+                  <p className="text-sm leading-relaxed text-foreground/80">
+                    {activeStudy.data.process}
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="mt-6">
+              <p className="text-sm text-foreground/80">{activeStudy.data.description}</p>
+            </div>
+          )}
+
+          {activeStudy.data.techStack.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {activeStudy.data.techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full bg-primary/10 px-3 py-1 text-xs text-primary"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </DialogBody>
       </DialogContent>
     </Dialog>
   );
