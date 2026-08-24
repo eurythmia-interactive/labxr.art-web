@@ -43,7 +43,7 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
       <div class="service-card-video absolute inset-0 overflow-hidden rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <video
           class="h-full w-full object-cover"
-          preload="none"
+          preload="metadata"
           muted
           loop
           playsinline
@@ -74,8 +74,15 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
       card.addEventListener('mouseenter', () => {
         if (!videoEl.src) {
           videoEl.src = videoUrl;
+          videoEl.load();
         }
-        videoEl.play().catch(() => {});
+        
+        const playPromise = videoEl.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn('Video playback failed:', error);
+          });
+        }
         trackEvent({ name: AnalyticsEvents.SERVICE_HOVER, properties: { service: title } });
       });
       
