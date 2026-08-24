@@ -2,18 +2,42 @@
 import Container from '@/components/shared/Container.astro';
 import { ShowcaseWebGL } from '@/components/islands/showcase-webgl';
 import { HeroHud } from '@/components/islands/hero-hud';
+import VideoPlayer from '@/components/shared/video-player.astro';
 import { cn } from '@/lib/utils';
+import type { VideoConfig } from '@/lib/video/types';
 
 interface Props {
   className?: string;
 }
 
 const { className = '' } = Astro.props;
+
+const heroVideo: VideoConfig = {
+  src: {
+    mp4: '/videos/test-video.mp4',
+    webm: '/videos/test-video.webm',
+  },
+  poster: '/videos/test-video-poster.webp',
+  thumbnail: '/videos/test-video-thumb.webp',
+  alt: 'Hero background video',
+  autoplay: true,
+  muted: true,
+  loop: true,
+};
 ---
 
 <section class={cn('relative flex min-h-screen flex-col items-center justify-center overflow-hidden', className)}>
-  <!-- WebGL Canvas (Desktop) / Video Fallback (Mobile) -->
-  <div class="absolute inset-0" data-cursor="drag">
+  <!-- Video Fallback (Mobile / No WebGL) -->
+  <div class="absolute inset-0 md:hidden">
+    <VideoPlayer
+      config={heroVideo}
+      aspectRatio="16:9"
+      className="h-full w-full [&>div]:h-full [&>div]:w-full [&>div]:rounded-none"
+    />
+  </div>
+  
+  <!-- WebGL Canvas (Desktop) -->
+  <div class="absolute inset-0 hidden md:block" data-cursor="drag">
     <ShowcaseWebGL client:visible />
   </div>
 

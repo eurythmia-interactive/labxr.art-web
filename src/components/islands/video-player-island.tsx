@@ -50,10 +50,21 @@ export function VideoPlayerIsland({
     const video = videoRef.current;
     if (!video || !shouldLoad || isLoaded) return;
 
+    // Set both mp4 and webm sources for better compatibility
     video.src = config.src.mp4;
     video.load();
     setIsLoaded(true);
-  }, [shouldLoad, isLoaded, config.src.mp4]);
+    
+    // Force video to be ready for playback
+    video.addEventListener('loadedmetadata', () => {
+      if (shouldAutoplay && !isMobile) {
+        video.play().catch((error) => {
+          console.warn('Autoplay after metadata load failed:', error);
+          setShowControls(true);
+        });
+      }
+    }, { once: true });
+  }, [shouldLoad, isLoaded, config.src.mp4, shouldAutoplay, isMobile]);
 
   // Autoplay on desktop when visible
   useEffect(() => {
@@ -165,7 +176,7 @@ export function VideoPlayerIsland({
 
   const handlePlayPause = async () => {
     const video = videoRef.current;
-    if (!video || isAttemptingPlay.current) return;
+    if (!video) return;
 
     if (isPlaying) {
       video.pause();
@@ -173,7 +184,7 @@ export function VideoPlayerIsland({
     }
 
     // Ensure video src is set
-    if (!video.src || video.src === '') {
+    if (!video.src || video.src === '' || video.src === window.location.href) {
       video.src = config.src.mp4;
       video.load();
       setIsLoaded(true);
@@ -187,19 +198,32 @@ export function VideoPlayerIsland({
       const playPromise = video.play();
       if (playPromise !== undefined) {
         await playPromise;
+        setIsPlaying(true);
+        setIsLoading(false);
+        isAttemptingPlay.current = false;
       }
     } catch (error) {
       console.error('Video playback failed:', error);
-      // Don't show error immediately - wait for canplay event
-      // If video isn't ready, the canplay handler will retry
-      setTimeout(() => {
-        if (isAttemptingPlay.current && !isPlaying) {
-          setHasError(true);
-          setErrorMessage('Tap to retry playback');
-          setIsLoading(false);
-          isAttemptingPlay.current = false;
-        }
-      }, 3000);
+      // If video isn't ready yet, wait for canplay event
+      if (video.readyState < 3) {
+        // Video not ready, will retry on canplay event
+        setTimeout(() => {
+          if (isAttemptingPlay.current && !isPlaying) {
+            video.play().catch((retryError) => {
+              console.error('Retry playback failed:', retryError);
+              setHasError(true);
+              setErrorMessage('Tap to retry playback');
+              setIsLoading(false);
+              isAttemptingPlay.current = false;
+            });
+          }
+        }, 500);
+      } else {
+        setHasError(true);
+        setErrorMessage('Tap to retry playback');
+        setIsLoading(false);
+        isAttemptingPlay.current = false;
+      }
     }
   };
 
@@ -252,7 +276,7 @@ export function VideoPlayerIsland({
       <video
         ref={videoRef}
         className={cn(
-          'absolute inset-0 h-full w-full object-cover',
+          'absolute inset-0 h-full w-full object-cover cursor-pointer',
           isLoaded ? 'opacity-100' : 'opacity-0'
         )}
         poster={config.poster}
@@ -265,6 +289,7 @@ export function VideoPlayerIsland({
         controls={config.controls && !isMobile}
         preload="metadata"
         aria-label={config.alt}
+        onClick={!isMobile && !isPlaying ? handlePlayPause : undefined}
       />
 
       {/* Loading indicator */}
@@ -289,24 +314,33 @@ export function VideoPlayerIsland({
       )}
 
       {/* Mobile play button overlay */}
-      {isMobile && !isPlaying && !isLoading && !hasError && (
+      {isMobile && !isPlaying && !hasError && (
         <button
           onClick={handlePlayPause}
           className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/30 transition-colors active:bg-black/50"
           aria-label="Play video"
         >
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm transition-transform active:scale-95">
-            <Play className="h-10 w-10 fill-black text-black" />
-          </div>
-          <p className="mt-3 text-center text-sm font-medium text-white/90">
-            Tap to play
-          </p>
+          {isLoading ? (
+            <Loader2 className="h-12 w-12 animate-spin text-white" />
+          ) : (
+            <>
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm transition-transform active:scale-95">
+                <Play className="h-10 w-10 fill-black text-black" />
+              </div>
+              <p className="mt-3 text-center text-sm font-medium text-white/90">
+                Tap to play
+              </p>
+            </>
+          )}
         </button>
       )}
 
       {/* Desktop controls overlay */}
-      {!isMobile && showControls && !isLoading && !hasError && (
-        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent p-4">
+      {!isMobile && !isLoading && !hasError && (
+        <div className={cn(
+          "absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between bg-gradient-to-t from-black/80 to-transparent p-4 transition-opacity",
+          showControls || !isPlaying ? "opacity-100" : "opacity-0"
+        )}>
           <button
             onClick={handlePlayPause}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
