@@ -160,11 +160,11 @@ function ModelPlaceholder() {
     <mesh ref={meshRef}>
       <torusKnotGeometry args={[1, 0.3, 128, 16]} />
       <meshStandardMaterial
-        color="#1a1a1a"
+        color="#00d4ff"
         metalness={0.95}
         roughness={0.1}
         emissive="#00d4ff"
-        emissiveIntensity={0.15}
+        emissiveIntensity={0.5}
       />
     </mesh>
   );

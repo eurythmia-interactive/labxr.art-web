@@ -33,7 +33,12 @@ const { caseStudies, className = '' } = Astro.props;
     <!-- Case Study Cards -->
     <div class="space-y-16 md:space-y-24">
       {caseStudies.slice(0, 3).map((study, index) => (
-        <article class="group" data-cursor="hover">
+        <button
+          type="button"
+          data-case-study-id={study.id}
+          class="group relative w-full text-left cursor-pointer"
+          data-cursor="hover"
+        >
           <!-- Project Metadata -->
           <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div>
@@ -104,8 +109,23 @@ const { caseStudies, className = '' } = Astro.props;
               </div>
             )}
           </div>
-        </article>
+        </button>
       ))}
     </div>
   </Container>
 </section>
+
+<script>
+  import { openCaseStudy } from '@/lib/stores/portfolio';
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest('[data-case-study-id]') as HTMLElement | null;
+    if (button) {
+      const id = button.dataset.caseStudyId;
+      if (id) {
+        openCaseStudy(id);
+      }
+    }
+  });
+</script>

@@ -41,8 +41,22 @@ const heroVideo: VideoConfig = {
     <ShowcaseWebGL client:visible />
   </div>
 
-  <!-- Gradient Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/20 via-bg-primary/40 to-bg-primary/80" />
+  <!-- Desktop Video Fallback (when WebGL fails) -->
+  <div class="absolute inset-0 hidden md:block" id="hero-video-fallback" style="display: none;">
+    <VideoPlayer
+      config={heroVideo}
+      aspectRatio="16:9"
+      className="h-full w-full [&>div]:h-full [&>div]:w-full [&>div]:rounded-none"
+    />
+  </div>
+
+  <!-- Static Image Fallback -->
+  <div class="absolute inset-0" id="hero-static-fallback" style="display: none;">
+    <img src="https://placehold.co/1920x1080/0a0a0a/00d4ff?text=LABXR.ART" alt="LabXR.art" class="h-full w-full object-cover" />
+  </div>
+
+  <!-- Gradient Overlay (reduced opacity) -->
+  <div class="absolute inset-0 bg-gradient-to-b from-bg-primary/10 via-bg-primary/20 to-bg-primary/60" />
 
   <!-- Content -->
   <Container className="relative z-10 flex flex-col items-center text-center">
@@ -126,3 +140,61 @@ const heroVideo: VideoConfig = {
     animation: ticker 30s linear infinite;
   }
 </style>
+
+<script>
+  // Check if WebGL canvas rendered successfully
+  function checkWebGLFallback() {
+    // Only run on desktop
+    if (window.innerWidth < 768) return;
+
+    const webglContainer = document.querySelector('.hidden.md:block [data-cursor="drag"]') as HTMLElement | null;
+    const videoFallback = document.getElementById('hero-video-fallback') as HTMLElement | null;
+    const staticFallback = document.getElementById('hero-static-fallback') as HTMLElement | null;
+
+    if (!webglContainer || !videoFallback || !staticFallback) return;
+
+    // Check if WebGL canvas exists and has content
+    const canvas = webglContainer.querySelector('canvas') as HTMLCanvasElement | null;
+    
+    if (!canvas) {
+      // No canvas found, show video fallback
+      videoFallback.style.display = 'block';
+      webglContainer.style.display = 'none';
+      return;
+    }
+
+    // Check if WebGL context exists
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) {
+      // WebGL context failed, show video fallback
+      videoFallback.style.display = 'block';
+      webglContainer.style.display = 'none';
+      return;
+    }
+
+    // WebGL seems to be working, canvas should be visible
+    // If after 2 seconds the canvas is still black, show static fallback
+    setTimeout(() => {
+      try {
+        const webglCtx = gl as WebGLRenderingContext;
+        const pixels = new Uint8Array(4);
+        webglCtx.readPixels(0, 0, 1, 1, webglCtx.RGBA, webglCtx.UNSIGNED_BYTE, pixels);
+        // If all pixels are black (0,0,0,255), show static fallback
+        if (pixels[0] === 0 && pixels[1] === 0 && pixels[2] === 0) {
+          staticFallback.style.display = 'block';
+          webglContainer.style.display = 'none';
+        }
+      } catch (e) {
+        // If we can't read pixels, assume WebGL is working
+        console.warn('Could not verify WebGL rendering:', e);
+      }
+    }, 2000);
+  }
+
+  // Run check after page loads
+  if (document.readyState === 'complete') {
+    checkWebGLFallback();
+  } else {
+    window.addEventListener('load', checkWebGLFallback);
+  }
+</script>
