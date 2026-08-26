@@ -1,0 +1,82 @@
+/* Theme: Caribbean
+ * Turquoise waters, coral pink, tropical yellow
+ * Vibrant, energetic, beach-inspired
+ * Light theme inspired by tropical coastlines
+ */
+
+html.theme-caribbean {
+  /* Colors - Caribbean Palette */
+  --color-bg-primary: #fff8f0;
+  --color-bg-secondary: rgba(255, 255, 255, 0.9);
+  --color-bg-tertiary: rgba(255, 240, 230, 0.8);
+  --color-bg-gradient: linear-gradient(180deg, #fff5eb 0%, #ffe8d6 50%, #ffd4b8 100%);
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: rgba(26, 26, 46, 0.75);
+  --color-text-tertiary: rgba(26, 26, 46, 0.5);
+  --color-accent-primary: #00b4d8;
+  --color-accent-secondary: #48cae4;
+  --color-accent-tertiary: #90e0ef;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Typography - Font Families */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  /* Typography - Font Sizes */
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+
+  /* Typography - Line Heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.35;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.65;
+
+  /* Typography - Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border Radius */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 0.875rem;
+  --border-radius-lg: 1.25rem;
+  --border-radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.14);
+  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.18);
+
+  /* Transitions */
+  --transition-fast: 180ms;
+  --transition-base: 320ms;
+  --transition-slow: 480ms;
+
+  /* Z-Index Scale */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}

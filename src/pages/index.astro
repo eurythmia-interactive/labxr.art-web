@@ -10,6 +10,7 @@ import Team from '@/components/sections/team.astro';
 import Contact from '@/components/sections/contact.astro';
 import WhatsAppButton from '@/components/shared/whatsapp-button.astro';
 import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
+import { ServiceViewer } from '@/components/islands/service-viewer';
 
 const allCaseStudies: CollectionEntry<'caseStudies'>[] = await getCollection('caseStudies');
 const allServices: CollectionEntry<'services'>[] = await getCollection('services');
@@ -35,6 +36,20 @@ const serializedCaseStudies = allCaseStudies.map((study) => ({
     scope: study.data.scope,
   },
 }));
+
+const serializedServices = allServices.map((service) => ({
+  id: service.id,
+  data: {
+    title: service.data.title,
+    slug: service.data.slug,
+    description: service.data.description,
+    icon: service.data.icon,
+    previewVideoUrl: service.data.previewVideoUrl,
+    previewPosterUrl: service.data.previewPosterUrl,
+    disciplines: service.data.disciplines,
+    capabilities: service.data.capabilities,
+  },
+}));
 ---
 
 <BaseLayout
@@ -53,4 +68,5 @@ const serializedCaseStudies = allCaseStudies.map((study) => ({
 
   <WhatsAppButton />
   <CaseStudyViewer client:idle caseStudies={serializedCaseStudies} />
+  <ServiceViewer client:idle services={serializedServices} />
 </BaseLayout>

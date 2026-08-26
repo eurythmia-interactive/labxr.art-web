@@ -42,6 +42,7 @@ const services = defineCollection({
     previewVideoUrl: z.string().optional(),
     previewPosterUrl: z.string().optional(),
     disciplines: z.array(z.enum(DISCIPLINES)).default([]),
+    capabilities: z.array(z.string()).default([]),
   }),
 });
 

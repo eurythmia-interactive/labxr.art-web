@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { openCaseStudy } from '@/lib/stores/portfolio';
 
 interface CaseStudy {
   id: string;
@@ -115,9 +116,11 @@ export function ProjectFilter({ caseStudies }: ProjectFilterProps) {
       ) : (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredStudies.map((study) => (
-            <article
+            <button
               key={study.id}
-              className="group cursor-none border border-white/8 bg-bg-secondary transition-all hover:border-accent-primary/30"
+              type="button"
+              onClick={() => openCaseStudy(study.id)}
+              className="group cursor-none border border-white/8 bg-bg-secondary text-left transition-all hover:border-accent-primary/30"
               data-cursor="hover"
             >
               {/* Cover Image */}
@@ -184,7 +187,7 @@ export function ProjectFilter({ caseStudies }: ProjectFilterProps) {
                   </div>
                 )}
               </div>
-            </article>
+            </button>
           ))}
         </div>
       )}

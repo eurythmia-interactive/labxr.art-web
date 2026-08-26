@@ -7,6 +7,7 @@ import Portfolio from '@/components/sections/portfolio.astro';
 import Contact from '@/components/sections/contact.astro';
 import WhatsAppButton from '@/components/shared/whatsapp-button.astro';
 import { CaseStudyViewer } from '@/components/islands/case-study-viewer';
+import { ServiceViewer } from '@/components/islands/service-viewer';
 import {
   DISCIPLINES,
   DISCIPLINE_LABELS,
@@ -46,6 +47,20 @@ const serializedCaseStudies = filteredCaseStudies.map((study) => ({
     techStack: study.data.techStack,
   },
 }));
+
+const serializedServices = filteredServices.map((service) => ({
+  id: service.id,
+  data: {
+    title: service.data.title,
+    slug: service.data.slug,
+    description: service.data.description,
+    icon: service.data.icon,
+    previewVideoUrl: service.data.previewVideoUrl,
+    previewPosterUrl: service.data.previewPosterUrl,
+    disciplines: service.data.disciplines,
+    capabilities: service.data.capabilities,
+  },
+}));
 ---
 
 <BaseLayout title={title} description={description}>
@@ -66,4 +81,5 @@ const serializedCaseStudies = filteredCaseStudies.map((study) => ({
 
   <WhatsAppButton />
   <CaseStudyViewer client:idle caseStudies={serializedCaseStudies} />
+  <ServiceViewer client:idle services={serializedServices} />
 </BaseLayout>

@@ -8,14 +8,19 @@ LabXR.art uses a CSS Variable-based theme system. Changing **one import line** i
 
 | Theme | File | Style | Inspiration |
 |-------|------|-------|-------------|
-| Cinematic Dark | `cinematic-dark.css` | Dark, cyan accent, cinematic | Default LabXR theme |
+| Frosted Glass | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
+| Lab Terminal | `lab-terminal.css` | Dark, HUD aesthetic, instrument-like | Technical labs, control rooms |
+| Cinematic Dark | `cinematic-dark.css` | Dark, cyan accent, cinematic | Film noir, movie theaters |
 | Minimalist Monochrome | `minimal-mono.css` | Light, clean, professional | Linear, Vercel, Stripe |
 | Neo-Brutalist | `neo-brutalist.css` | Bold, high-contrast, playful | Gumroad, Framer, Web3 |
 | Glassmorphism | `glassmorphism.css` | Translucent, layered, glowing | Apple, modern SaaS |
-| Frosted Glass | `gradient-frosted-glass.css` | Light, neutral, Apple-like | Apple.com, modern web |
 | Sunset Glass | `gradient-sunset-glass.css` | Warm dark, golden hour | Tropical sunsets, creative energy |
 | Aurora Glass | `gradient-aurora-glass.css` | Cool dark, ethereal | Northern lights, deep space |
 | Neon Glass | `gradient-neon-glass.css` | Cyberpunk, neon glow | Cyberpunk aesthetics, futuristic |
+| Rainforest | `nature-rainforest.css` | Dark, emerald greens, organic | Tropical rainforests, dense foliage |
+| Desert | `nature-desert.css` | Dark, warm terracotta, earthy | Arid landscapes, sun-baked earth |
+| Mountain | `nature-mountain.css` | Light, cool slate blues, crisp | Alpine landscapes, high altitude |
+| Caribbean | `nature-caribbean.css` | Light, turquoise, vibrant | Tropical coastlines, beach vibes |
 
 ## How to Switch Themes
 
@@ -56,14 +61,19 @@ All 8 theme files are loaded eagerly in `BaseLayout.astro` via `@import`. The ac
 
 | File | Class | Label |
 |------|-------|-------|
+| `gradient-frosted-glass.css` | `theme-frosted` | Frosted |
+| `lab-terminal.css` | `theme-lab` | Terminal |
 | `cinematic-dark.css` | `theme-cinematic` | Cinematic |
 | `minimal-mono.css` | `theme-minimal` | Minimal |
 | `neo-brutalist.css` | `theme-brutalist` | Brutalist |
 | `glassmorphism.css` | `theme-glass` | Glass |
-| `gradient-frosted-glass.css` | `theme-frosted` | Frosted |
 | `gradient-sunset-glass.css` | `theme-sunset` | Sunset |
 | `gradient-aurora-glass.css` | `theme-aurora` | Aurora |
 | `gradient-neon-glass.css` | `theme-neon` | Neon |
+| `nature-rainforest.css` | `theme-rainforest` | Rainforest |
+| `nature-desert.css` | `theme-desert` | Desert |
+| `nature-mountain.css` | `theme-mountain` | Mountain |
+| `nature-caribbean.css` | `theme-caribbean` | Caribbean |
 
 ## How to Create a New Theme
 
@@ -115,15 +125,20 @@ Every theme **must** define these variables:
 ```
 src/styles/
  ├── themes/
- │   ├── cinematic-dark.css            # Current active theme
+ │   ├── gradient-frosted-glass.css    # Default theme (Frosted)
+ │   ├── lab-terminal.css              # Lab Terminal theme
+ │   ├── cinematic-dark.css            # Alternative theme
  │   ├── minimal-mono.css              # Alternative theme
  │   ├── neo-brutalist.css             # Alternative theme
  │   ├── glassmorphism.css             # Alternative theme
- │   ├── gradient-frosted-glass.css    # Gradient theme
  │   ├── gradient-sunset-glass.css     # Gradient theme
  │   ├── gradient-aurora-glass.css     # Gradient theme
- │   └── gradient-neon-glass.css       # Gradient theme
- └── global.css                        # Imports active theme + shadcn bridge
+ │   ├── gradient-neon-glass.css       # Gradient theme
+ │   ├── nature-rainforest.css         # Nature theme (Rainforest)
+ │   ├── nature-desert.css             # Nature theme (Desert)
+ │   ├── nature-mountain.css           # Nature theme (Mountain)
+ │   └── nature-caribbean.css          # Nature theme (Caribbean)
+ └── global.css                        # Imports all themes + shadcn bridge
 ```
 
 ## Backgrounds

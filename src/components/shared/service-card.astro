@@ -20,9 +20,10 @@ interface Props {
 const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } = Astro.props;
 ---
 
-<a
-  href={`/services/${slug}`}
-  class="service-card group block transition-all duration-300 hover:scale-[1.02]"
+<button
+  type="button"
+  class="service-card group block w-full text-left transition-all duration-300 hover:scale-[1.02]"
+  data-service-id={slug}
   data-preview-video={previewVideoUrl}
   data-preview-poster={previewPosterUrl}
   data-title={title}
@@ -55,29 +56,29 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
       </div>
     )}
   </Card>
-</a>
+</button>
 
 <script>
   import { $isMobile } from '@/lib/stores/device';
   import { trackEvent, AnalyticsEvents } from '@/lib/analytics';
+  import { openService } from '@/lib/stores/service';
 
   const cards = document.querySelectorAll('.service-card[data-preview-video]');
-  
+
   if (!$isMobile.get()) {
     cards.forEach((card) => {
       const videoUrl = card.getAttribute('data-preview-video');
       const videoEl = card.querySelector('video') as HTMLVideoElement | null;
       const title = card.getAttribute('data-title') || '';
-      
+
       if (!videoEl || !videoUrl) return;
-      
+
       card.addEventListener('mouseenter', () => {
         if (!videoEl.src) {
           videoEl.src = videoUrl;
           videoEl.load();
         }
-        
-        // Wait for video to be ready before playing
+
         const playVideo = () => {
           const playPromise = videoEl.play();
           if (playPromise !== undefined) {
@@ -86,16 +87,16 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
             });
           }
         };
-        
+
         if (videoEl.readyState >= 3) {
           playVideo();
         } else {
           videoEl.addEventListener('canplay', playVideo, { once: true });
         }
-        
+
         trackEvent({ name: AnalyticsEvents.SERVICE_HOVER, properties: { service: title } });
       });
-      
+
       card.addEventListener('mouseleave', () => {
         videoEl.pause();
         videoEl.removeAttribute('src');
@@ -103,4 +104,15 @@ const { title, description, iconName, slug, previewVideoUrl, previewPosterUrl } 
       });
     });
   }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest('[data-service-id]') as HTMLElement | null;
+    if (button) {
+      const id = button.dataset.serviceId;
+      if (id) {
+        openService(id);
+      }
+    }
+  });
 </script>

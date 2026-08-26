@@ -6,21 +6,25 @@ const PaletteIcon = iconRegistry.Palette;
 const CheckIcon = iconRegistry.Check;
 
 export const THEMES = [
+  { id: 'theme-frosted', label: 'Frosted' },
   { id: 'theme-lab', label: 'Terminal' },
   { id: 'theme-cinematic', label: 'Cinematic' },
   { id: 'theme-minimal', label: 'Minimal' },
   { id: 'theme-brutalist', label: 'Brutalist' },
   { id: 'theme-glass', label: 'Glass' },
-  { id: 'theme-frosted', label: 'Frosted' },
   { id: 'theme-sunset', label: 'Sunset' },
   { id: 'theme-aurora', label: 'Aurora' },
   { id: 'theme-neon', label: 'Neon' },
+  { id: 'theme-rainforest', label: 'Rainforest' },
+  { id: 'theme-desert', label: 'Desert' },
+  { id: 'theme-mountain', label: 'Mountain' },
+  { id: 'theme-caribbean', label: 'Caribbean' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];
 
 const STORAGE_KEY = 'labxr-theme';
-const DEFAULT_THEME: ThemeId = 'theme-lab';
+const DEFAULT_THEME: ThemeId = 'theme-frosted';
 
 function applyTheme(themeId: ThemeId): void {
   document.documentElement.className = themeId;
