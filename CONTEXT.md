@@ -367,25 +367,26 @@ functions/
 
 ## Next Steps
 
-### Current Status: WAITING FOR USER INSTRUCTIONS
+### Current Status: LAB TERMINAL REDESIGN COMPLETE
 
-**Operational Rule:** Do not proceed with any tasks unless explicitly instructed by the user.
+**All phases 6.1-6.9 complete.** Site is production-ready with new Lab Terminal aesthetic.
 
-Phase 5.5 is complete. Awaiting Phase 6 specification and task instructions from user.
+**Recent Bug Fixes (2026-08-19):**
+- ✅ Hero section: Replaced WebGL with video background for better performance
+- ✅ Modal sizing: Fixed modal overflow and close button visibility issues
+- ✅ Service card videos: Fixed hover autoplay functionality
+- ✅ Case study cards: Fixed click-to-open modal functionality
 
-### Phase 6 Preview (from Phase 5 report)
+### Future Enhancements (Awaiting User Instructions)
 
-Phase 6 will focus on **Content Production & SEO**:
+Potential next steps when ready:
 - Replace placeholder videos with real project showreels
 - Add real team member photos and company logo
-- Write real case study content
 - Replace TorusKnot placeholder with real GLTF 3D model
-- Add JSON-LD structured data
+- Add JSON-LD structured data for SEO
 - Generate sitemap.xml
 - Create Open Graph images
 - Set up Lighthouse CI for performance monitoring
-- A/B testing for CTAs and form fields
-- Client Portal (V2) with Cloudflare Access
 - Blog/Insights section for organic SEO
 - English translation for global agency outreach
 
@@ -458,6 +459,17 @@ ffmpeg -version      # Check FFmpeg version
 ---
 
 ## Session Log
+
+**2026-08-19 (Session 12):**
+- Bug fixes and UX improvements after Lab Terminal redesign
+- Hero section: Replaced WebGL canvas with video background (autoplay, muted, loop) for better performance
+- Hero HUD: Removed FPS counter and drag label, wired sound toggle to control video audio
+- Modal sizing: Fixed overflow issues with max-h-[85vh], added sticky header pattern with scrollable content
+- Modal UX: Created DialogBody component for scrollable content, close button always visible
+- Service card videos: Fixed hover autoplay by changing preload to "auto" and adding canplay event listener
+- Case study cards: Made curated showcase cards clickable, wired to open case study modal
+- All fixes validated with build + TypeScript checks passing
+- Committed and pushed to GitHub (commits: 4943dca, 76cd5f2, 876edc7, eb3840d, b541698)
 
 **2026-08-19 (Session 11):**
 - Completed Lab Terminal Redesign (Phases 6.1-6.9)

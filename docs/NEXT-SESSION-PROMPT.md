@@ -34,47 +34,32 @@ If you're starting a session in a different directory or need to manually provid
 
 ## Current Project State
 
-**Phase 5.6 Complete** - Theme System delivered:
-- ✅ CSS Variable-based theme system architecture
-- ✅ 8 themes available: cinematic-dark (default), minimal-mono, neo-brutalist, glassmorphism, gradient-frosted-glass, gradient-sunset-glass, gradient-aurora-glass, gradient-neon-glass
-- ✅ Real CSS gradients (linear-gradient, radial-gradient) via `--color-bg-gradient` variable
-- ✅ Single-file theme switching (change one import line in global.css)
-- ✅ Complete theme system documentation
-- ✅ Zero breaking changes to existing components
+**Lab Terminal Redesign Complete (Phases 6.1-6.9):**
+- ✅ Lab Terminal theme with HUD aesthetic (obsidian base, laser cyan/phosphor green accents)
+- ✅ HUD navigation with live clock, coordinates, 4-pillar nav, mobile tactical overlay
+- ✅ Video background hero with autoplay, muted, loop
+- ✅ 4 new pages: /projects, /what-we-do, /about, /contact
+- ✅ Enhanced case study viewer with 4-section blueprint (idea, experience, technology, process)
+- ✅ Custom cursor system with 5 states (default, hover, text, drag, crosshair)
+- ✅ View Transitions API for smooth page transitions
+- ✅ Smart sticky header with scroll detection
+- ✅ Glitch text effect and registration crosshairs
+- ✅ Total pages: 16 (5 base + 7 discipline + 4 new routes)
 
-**Phase 5.61 Complete** - Multi-Page Routing & Runtime Theme Switcher:
-- ✅ All 8 themes refactored to `html.theme-[name]` class scoping (D014)
-- ✅ BaseLayout loads all 8 themes + FOUC prevention via `<script is:inline>`
-- ✅ New `ThemeSwitcher` React island with localStorage persistence
-- ✅ New `disciplines` Zod field on content collections
-- ✅ 7 new discipline pages: `/discipline/{xr,ux-design,dev,videomapping,interactivity,museography,products}`
-- ✅ "Work" dropdown in navigation (Astro-native `<details>` + React state accordion)
-- ✅ All decisions documented (D014, D015)
-- Total pages: 5 → 12
+**Post-Redesign Bug Fixes (2026-08-19):**
+- ✅ Hero: Replaced WebGL with video background for better performance
+- ✅ Modal sizing: Fixed overflow with max-h-[85vh], sticky header pattern
+- ✅ Modal UX: Close button always visible, scrollable content area
+- ✅ Service cards: Fixed hover video autoplay
+- ✅ Case study cards: Fixed click-to-open modal functionality
 
-**Phase 6.0 Complete** - Fictional Content Population:
-- ✅ 8 new case studies covering all 7 disciplines (Neon Nexus, Echoes of the Maya, AeroFlow, Lumina Retail AR, Sonic Bloom, Terra Verde, Pulse CDMX, Velvet & Steel)
-- ✅ 7 services (2 updated + 5 new: Projection Mapping, Extended Reality, Digital Museography, Real-Time Video, Creative Tech Consulting)
-- ✅ 6 team members (Mateo, Elena, Diego, Sofia, Javier, Camila)
-- ✅ CaseStudyViewer modal: graceful image+text fallback for missing video
-- ✅ Team grid: 3 cols desktop / 2 tablet / 1 mobile
-- ✅ Homepage: featured 6 case studies + 3 services
-- ✅ D016: schema fields made optional (videoUrl, posterUrl, metrics), added year + coverImage
-- All 12 pages build; all 7 disciplines have content
+**Previous Phases:**
+- Phase 6.0: Fictional Content Population (10 case studies, 7 services, 6 team members)
+- Phase 5.5: Cinematic Hero & WebGL Showcase
+- Phase 5.6: CSS Variable Theme System (8 themes)
+- Phase 5.61: Multi-Page Routing & Runtime Theme Switcher
 
-**Active Phase:** Phase 6.0 (Complete — Awaiting Phase 6.1 real assets)
-- From Phase 5.5: Lucide icon bundle optimized (928KB → 6.82KB)
-- From Phase 5.5: GSAP ScrollTrigger animations
-- From Phase 5.5: Three.js showcase with model placeholder and orbiting particles
-- From Phase 5.5: Contact form with Cloudflare Worker + Turnstile
-- From Phase 5.5: Service card video hover previews
-- From Phase 5.5: Plausible analytics integration
-- From Phase 5.5: Performance optimized (Lighthouse 90+)
-- From Phase 5.5: Custom domain documentation
-- From Phase 5.5: Cinematic hero (pure video, no WebGL overlay)
-- From Phase 5.5: Dedicated WebGL showcase section
-
-**Next:** Phase 6 specification needed (content production, SEO, i18n)
+**Next:** Awaiting user instructions for future enhancements (real assets, SEO, i18n, etc.)
 
 ---
 
@@ -98,4 +83,4 @@ When completing work in a session:
 
 ---
 
-**Last Updated:** 2026-08-17 (Phase 5.61 complete)
+**Last Updated:** 2026-08-19 (Lab Terminal Redesign complete, bug fixes applied)

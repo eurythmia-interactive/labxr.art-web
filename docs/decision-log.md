@@ -656,4 +656,129 @@ Copy this template:
 
 ---
 
-**Last updated:** 2026-08-17 (Phase 6.0 — D016)
+## Decision 017: Adopt Lab Terminal theme as default
+
+**Date:** 2026-08-19  
+**Status:** Accepted
+
+### Context
+
+Phase 6.1 introduced the Lab Terminal redesign. The project needed a cohesive visual identity that reflects the "digital creation studio and technology experimentation laboratory" positioning. The existing cinematic-dark theme was functional but didn't fully convey the technical, instrument-like aesthetic described in the spec.
+
+### Decision
+
+Created `lab-terminal.css` theme with:
+- Obsidian Deep (#050507) base, Steel Graphite (#141419) secondary
+- Laser Cyan (#00F0FF) primary accent, Phosphor Green (#70FF00) secondary accent
+- Geist Sans font family (4 weights) for modern technical typography
+- HUD-specific CSS utilities: hairline borders, grid lines, status indicators
+- Set as default theme in BaseLayout.astro
+
+### Rationale
+
+- **Brand alignment** — Instrument HUD aesthetic matches "laboratory" positioning
+- **Technical credibility** — Monospace typography, hairline borders, status indicators convey precision
+- **Visual hierarchy** — Dual accent colors (cyan/green) create clear visual distinction
+- **Performance** — Geist Sans is optimized for web, locally hosted
+
+### Consequences
+
+**Positive:**
+
+- Cohesive visual identity across all pages
+- Technical aesthetic reinforces brand positioning
+- All 9 themes preserved, can switch back anytime
+- Geist Sans improves typography quality
+
+**Negative:**
+
+- Requires users to adapt to new aesthetic
+- Some existing components needed styling adjustments
+
+---
+
+## Decision 018: Replace WebGL with video background in hero
+
+**Date:** 2026-08-19  
+**Status:** Accepted
+
+### Context
+
+The hero section initially used WebGL (Three.js TorusKnot) on desktop with video fallback on mobile. Users reported the hero appeared black on desktop. Investigation revealed the WebGL canvas was rendering but the model was too dark against the dark background, and the gradient overlay was too opaque.
+
+### Decision
+
+Replaced WebGL canvas with video background (autoplay, muted, loop) on all devices:
+- Removed `ShowcaseWebGL` import and usage from `hero-v2.astro`
+- Removed WebGL fallback detection script
+- Simplified `hero-hud.tsx`: removed FPS counter and drag label
+- Wired sound toggle to control video audio
+- Video now displays full-screen on all devices
+
+### Rationale
+
+- **Performance** — Video is lighter than WebGL (no Three.js overhead)
+- **Reliability** — Video works consistently across all devices and browsers
+- **Simplicity** — Easier to maintain and update content
+- **User preference** — User explicitly requested video background
+
+### Consequences
+
+**Positive:**
+
+- Faster page load (no Three.js bundle on homepage)
+- Consistent experience across all devices
+- Easier to update hero content (just replace video file)
+- Sound toggle provides interactivity
+
+**Negative:**
+
+- Lost 3D interactive element (TorusKnot)
+- Video file size may be larger than WebGL bundle
+- Less "technical" feel compared to WebGL
+
+---
+
+## Decision 019: Modal UX improvements with sticky header pattern
+
+**Date:** 2026-08-19  
+**Status:** Accepted
+
+### Context
+
+Users reported modals were too big for the screen and the close button was not visible. Investigation revealed the modal had no height constraints, causing it to grow beyond viewport height when content was tall (videos, long descriptions).
+
+### Decision
+
+Implemented modal sizing and positioning improvements:
+- Added `max-h-[85vh]` to limit modal height to 85% of viewport
+- Implemented flex layout with sticky header and scrollable content area
+- Created `DialogBody` component for scrollable content sections
+- Added responsive width breakpoints (95vw mobile, 90vw tablet, max-w-4xl desktop)
+- Close button now has `z-10` and `flex-shrink-0` to ensure visibility
+- Restructured `case-study-viewer.tsx` to use sticky header pattern
+
+### Rationale
+
+- **UX best practices** — Modals should fit within viewport and have visible close button
+- **Accessibility** — Users need to be able to close modals easily
+- **Responsive design** — Modals should work on all screen sizes
+- **Content flexibility** — Scrollable area allows for long content without breaking layout
+
+### Consequences
+
+**Positive:**
+
+- Close button always visible
+- Content scrolls internally when exceeding height
+- Responsive sizing across all devices
+- Better user experience on mobile and desktop
+
+**Negative:**
+
+- Slightly more complex modal structure
+- Requires testing on various screen sizes
+
+---
+
+**Last updated:** 2026-08-19 (Phase 6.9 — D017, D018, D019)
